@@ -1,15 +1,37 @@
-import { StyleSheet, TextInput, View, Image, TouchableOpacity, Text, Pressable,ScrollView } from "react-native";
+import { StyleSheet, TextInput, View, Image, TouchableOpacity, Text, Pressable, ScrollView } from "react-native";
 import React, { useState } from "react";
-import { useTogglePasswordVisibility } from "../../../hooks/TogglePassword";
+import { useTogglePasswordVisibility } from "./TogglePassword";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import axios from "axios";
 
+import { AuthHook } from "../Stores/AuthentificationHook";
 
 
 export default function LoginPageForUser({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { passwordVisibility, rightIcon, handlePasswordVisibility } =
-    useTogglePasswordVisibility();
+  const { passwordVisibility, rightIcon, handlePasswordVisibility } = useTogglePasswordVisibility();
+  const [message, setMessage] = useState("");
+  const { changing, isLoggedin } = AuthHook();
+
+
+  const getData = async () => {
+    const res = await axios.get('https://geolocation-db.com/json/')
+  }
+  const login = () => {
+    const user = {
+      email: email,
+      password: password
+    }
+    getData();
+
+    axios.post("http://192.168.11.145:3000/user/signin", user).then((ok) => {
+      setMessage("Welcome");
+      changing("Patient");
+      console.log(isLoggedin);
+      navigation.navigate("EmergencyHome", { email: email })
+    }).catch((err) => { setMessage("wrong entries") })
+  }
 
   return (
     <ScrollView style={styles.out}>
@@ -30,16 +52,16 @@ export default function LoginPageForUser({ navigation }) {
         </View>
         <View style={styles.inputView}>
           <View style={styles.inputViewPassword}>
-          <TextInput
-            styles={styles.TextInput}
-            placeholder="Password"
-            secureTextEntry={passwordVisibility}
-            placeholderTextColor="black"
-            onChangeText={(password) => setPassword(password)}
-          ></TextInput>
-          <Pressable onPress={handlePasswordVisibility}>
-            <MaterialCommunityIcons name={rightIcon} size={22} color="#232323" />
-          </Pressable>
+            <TextInput
+              styles={styles.TextInput}
+              placeholder="Password"
+              secureTextEntry={passwordVisibility}
+              placeholderTextColor="black"
+              onChangeText={(password) => setPassword(password)}
+            ></TextInput>
+            <Pressable onPress={handlePasswordVisibility}>
+              <MaterialCommunityIcons name={rightIcon} size={22} color="#232323" />
+            </Pressable>
           </View>
         </View>
         <TouchableOpacity>
@@ -47,7 +69,7 @@ export default function LoginPageForUser({ navigation }) {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.loginBtn}
-          onPress={() => navigation.navigate('EmergencyHome')}
+          onPress={() => login()}
         >
           <Text style={styles.loginText}>Login</Text>
         </TouchableOpacity>
@@ -75,7 +97,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderColor: "#077871",
     borderWidth: 2,
- 
+
 
   },
 
@@ -85,7 +107,7 @@ const styles = StyleSheet.create({
     padding: 10,
     marginLeft: 20,
     marginTop: 100,
-    
+
 
   },
   forgot_button: {
@@ -110,12 +132,12 @@ const styles = StyleSheet.create({
     borderRadius: 0,
     left: 120
   },
-  inputViewPassword:{
-    display:'flex',
-    flexDirection:'row',
+  inputViewPassword: {
+    display: 'flex',
+    flexDirection: 'row',
 
   },
-  loginText:{
-color:"#ffffff"
+  loginText: {
+    color: "#ffffff"
   }
 });
