@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Text,
   Pressable,
+  ScrollView
 } from "react-native";
 import React, { useState } from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -35,7 +36,7 @@ export default function SignUpForm({ navigation }) {
         adress: address,
       };
       await axios.post(
-        `http://192.168.1.16:3000/doctor/addDoctor`,
+        `http://192.168.11.205:3000/doctor/addDoctor`,
         NewDoctor,
         {
           withCredentials: true,
@@ -48,7 +49,7 @@ export default function SignUpForm({ navigation }) {
   };
 
   return (
-    <View style={styles.out}>
+    <ScrollView style={styles.container1}>
       <View style={styles.container}>
         {/* <Image style={styles.img} source={require("../assets/logo.png")} /> */}
         <View style={styles.inputView}>
@@ -123,7 +124,7 @@ export default function SignUpForm({ navigation }) {
           <Text>Register</Text>
         </TouchableOpacity>
       </View>
-    </View>
+      </ScrollView>
   );
 }
 const styles = StyleSheet.create({
@@ -135,7 +136,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 400,
   },
   img: {
     justifyContent: "center",
@@ -147,6 +147,7 @@ const styles = StyleSheet.create({
     height: 45,
     marginBottom: 20,
     alignItems: "center",
+    paddingTop: 10,
   },
 
   TextInput: {
@@ -171,4 +172,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#44b3cc",
     marginTop: 100,
   },
+  container1: {
+    flex: 1,
+  }
 });

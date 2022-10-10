@@ -20,7 +20,7 @@ export default function LoginForm({ navigation }) {
         password: password,
       };
       const res = await axios.post(
-        `http://192.168.1.16:3000/doctor/loginDoc`,
+        `http://192.168.11.205:3000/doctor/loginDoc`,
         doctor,
         { withCredentials: true }
       );
@@ -39,7 +39,7 @@ export default function LoginForm({ navigation }) {
     }
   };
   return (
-    <ScrollView>
+    <ScrollView style={styles.container1}>
       <View style={styles.container}>
         {/* <Image style={styles.img} source={require("../assets/logo.png")} /> */}
         <View style={styles.inputView}>
@@ -120,4 +120,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#44b3cc",
     marginTop: 80,
   },
+  container1: {
+    flex: 1,
+  }
 });
