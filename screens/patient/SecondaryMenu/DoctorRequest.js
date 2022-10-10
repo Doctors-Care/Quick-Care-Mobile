@@ -2,7 +2,16 @@ import { StyleSheet, Text, View, TextInput, Image, Button, Alert, Pressable, Tou
 
 
 
-function DoctorRequest({navigation}) {
+function DoctorRequest({navigation,route}) {
+    const [idrequest, setidrequest] = useState("");
+    const createEmergency = ()=>{
+        const Request ={
+            email:route.params.email,
+            state:'HCE'
+        }
+        console.log(Request)
+          axios.post("http://192.168.11.207:3000/request/addingRequest",Request).then((result)=>{setidrequest(result.data.id);navigation.navigate('LoadingScreen',{requestid:idrequest})}).catch((error)=>console.log(error))
+    }
     return (
         <ScrollView>
             <View style={styles.container}>

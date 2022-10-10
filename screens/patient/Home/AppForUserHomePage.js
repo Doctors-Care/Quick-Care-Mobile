@@ -12,7 +12,8 @@ function Emergency({navigation,route}) {
     const [idrequest, setidrequest] = useState("");
     const createEmergency = ()=>{
         const Request ={
-            email:route.params.email
+            email:route.params.email,
+            state:'HCE'
         }
         console.log(Request)
           axios.post("http://192.168.11.207:3000/request/addingRequest",Request).then((result)=>{setidrequest(result.data.id);navigation.navigate('LoadingScreen',{requestid:idrequest})}).catch((error)=>console.log(error))
