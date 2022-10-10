@@ -1,10 +1,9 @@
 import { StyleSheet, TextInput, View, Image, TouchableOpacity, Text, Pressable, ScrollView } from "react-native";
 import React, { useState } from "react";
-import { useTogglePasswordVisibility } from "./TogglePassword";
+import { useTogglePasswordVisibility } from "../../../hooks/TogglePassword";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import axios from "axios";
 
-import { AuthHook } from "../Stores/AuthentificationHook";
 
 
 export default function LoginPageForUser({ navigation }) {
@@ -12,7 +11,7 @@ export default function LoginPageForUser({ navigation }) {
   const [password, setPassword] = useState("");
   const { passwordVisibility, rightIcon, handlePasswordVisibility } = useTogglePasswordVisibility();
   const [message, setMessage] = useState("");
-  const { changing, isLoggedin } = AuthHook();
+
 
 
   const getData = async () => {
@@ -25,12 +24,10 @@ export default function LoginPageForUser({ navigation }) {
     }
     getData();
 
-    axios.post("http://192.168.11.145:3000/user/signin", user).then((ok) => {
+    axios.post("http://192.168.11.207:3000/user/signin", user).then((ok) => {
       setMessage("Welcome");
-      changing("Patient");
-      console.log(isLoggedin);
       navigation.navigate("EmergencyHome", { email: email })
-    }).catch((err) => { setMessage("wrong entries") })
+    }).catch((err) => {console.log(err); setMessage("wrong entries") })
   }
 
   return (
