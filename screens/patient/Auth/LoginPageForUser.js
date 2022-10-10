@@ -24,12 +24,10 @@ export default function LoginPageForUser({ navigation }) {
     }
     getData();
 
-    axios.post("http://192.168.11.145:3000/user/signin", user).then((ok) => {
+    axios.post("http://192.168.11.207:3000/user/signin", user).then((ok) => {
       setMessage("Welcome");
-      changing("Patient");
-      console.log(isLoggedin);
       navigation.navigate("EmergencyHome", { email: email })
-    }).catch((err) => { setMessage("wrong entries") })
+    }).catch((err) => {console.log(err); setMessage("wrong entries") })
   }
 
   return (
