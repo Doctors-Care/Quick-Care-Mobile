@@ -37,7 +37,7 @@ function Welcome({ navigation }) {
       </View>
       <TouchableOpacity>
           <Text style={styles.forgot_button}
-          onPress={() => console.log("doctor")}>Are you a doctor ?</Text>
+          onPress={() =>  navigation.navigate('LoginFormDoctor')}>Are you a doctor ?</Text>
         </TouchableOpacity>
     </View>
   );
