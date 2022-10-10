@@ -10,7 +10,7 @@ function SecondaryMenu({ navigation }) {
                     onPress={() => navigation.navigate('DoctorRequest')}>
                     <Image
                         style={styles.imageForMenu}
-                        source={require('../../assets/Capture12-removebg-preview.png')
+                        source={require('../../../assets/Capture12-removebg-preview.png')
                         } />
                         <Text style={styles.TextForMenu}>Doctor at home</Text>
                 </TouchableOpacity>
@@ -19,7 +19,7 @@ function SecondaryMenu({ navigation }) {
                     onPress={() => navigation.navigate('DoctorRequest')}>
                     <Image
                         style={styles.imageForMenu}
-                        source={require('../../assets/Pharmacie-logo.jpg')
+                        source={require('../../../assets/Pharmacie-logo.jpg')
                         } />
                         <Text style={styles.TextForMenu}>Pharmacies</Text>
                 </TouchableOpacity>
@@ -30,7 +30,7 @@ function SecondaryMenu({ navigation }) {
                     onPress={() => navigation.navigate('DoctorRequest')}>
                     <Image
                         style={styles.imageForMenu}
-                        source={require('../../assets/Capture12-removebg-preview.png')
+                        source={require('../../../assets/Capture12-removebg-preview.png')
                         } />
                         <Text style={styles.TextForMenu}>Appointtement</Text>
                 </TouchableOpacity>
@@ -39,7 +39,7 @@ function SecondaryMenu({ navigation }) {
                     onPress={() => navigation.navigate('DoctorRequest')}>
                     <Image
                         style={styles.imageForMenu}
-                        source={require('../../assets/download.png')
+                        source={require('../../../assets/download.png')
                         } />
                         <Text style={styles.TextForMenu}>Forum</Text>
                 </TouchableOpacity>

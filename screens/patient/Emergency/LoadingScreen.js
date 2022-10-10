@@ -16,7 +16,7 @@ axios.post("http://192.168.11.207/request/checkRequest",ActifRequest)
       <Text>Loading</Text>
       <LottieView
         style={styles.lottie}
-        source={require("../assets/4096-heal.json")}
+        source={require("../../../assets/4096-heal.json")}
         autoPlay
       />
       <Text>Your emergency will be treated as soon as possible</Text>

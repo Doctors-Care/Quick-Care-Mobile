@@ -2,8 +2,8 @@ import * as React from 'react';
 import { Text, View, StyleSheet, Pressable, TouchableOpacity ,Image} from 'react-native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import ProfilePatient from './Profile/ProfilePatient'
-import SecondaryMenu from './MenuSecondary/SecondaryMenu';
+import ProfilePatient from '../Profile/ProfilePatient'
+import SecondaryMenu from '../SecondaryMenu/SecondaryMenu';
 import axios from 'axios';
 import { useState } from "react";
 
@@ -25,7 +25,7 @@ function Emergency({navigation,route}) {
                     onPress={() => createEmergency()}>
                   <Image
         style={styles.emergencyButton}
-        source={require('../../First/assets/urgence.png')
+        source={require('../../../assets/urgence.png')
         } />
             </TouchableOpacity>
         </View>

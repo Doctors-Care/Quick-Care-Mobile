@@ -9,7 +9,7 @@ function EmergencyAccepted({navigation}){
         <Text>Loading</Text>
         <Image
         style={styles.emergencyButton}
-        source={require('../../First/assets/urgence.png')
+        source={require('../../../assets/urgence.png')
         } />
         <TouchableOpacity
           style={styles.CancelButton}

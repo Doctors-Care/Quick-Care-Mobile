@@ -7,7 +7,7 @@ function AcceptedDoctor() {
         <Text>Doctor Accepted</Text>
         <Image
     style={styles.emergencyButton}
-    source={require('../../assets/Capture12.png')
+    source={require('../../../assets/Capture12.png')
     } />
     <Text>doctor name</Text>
     <Text>time needed</Text>

@@ -12,7 +12,7 @@ function ProfilePatient({navigation,route}){
       email:route.params.email
   }
   
-    axios.post("http://192.168.1.12:3000/user/One",Request).then((result)=>setPatient(result.data)).catch((err)=>console.log(err))
+    axios.post("http://192.168.11.207:3000/user/One",Request).then((result)=>setPatient(result.data)).catch((err)=>console.log(err))
    
   },[])
  
