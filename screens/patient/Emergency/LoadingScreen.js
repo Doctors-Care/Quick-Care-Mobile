@@ -9,7 +9,11 @@ function LoadingScreenEmergency({ navigation,route }) {
 
 const requestAccepted=()=>{
 const ActifRequest=route.params.requestid;
-axios.post("http://192.168.11.207/request/checkRequest",ActifRequest)
+axios.post("https://quick-care-server.herokuapp.com/request/checkRequest",ActifRequest).then((result)=>{
+  if(result.data==='message'){ requestAccepted()}
+  else navigation.navigate("EmergencyAccepted",{Hce:result.data}).catch((err)=>
+  console.log(err))
+})
 }
   return (
     <View style={styles.container}>

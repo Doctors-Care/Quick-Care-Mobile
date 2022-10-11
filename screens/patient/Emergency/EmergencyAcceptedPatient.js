@@ -2,7 +2,7 @@ import axios from 'axios';
 import { StyleSheet, Text, View, TextInput, Image, Button, Alert ,Pressable ,TouchableOpacity} from 'react-native';
 
 
-function EmergencyAccepted({navigation}){
+function EmergencyAccepted({navigation,route}){
 
     return (
       <View style={styles.container}>
