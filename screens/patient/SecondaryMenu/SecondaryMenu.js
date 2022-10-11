@@ -1,47 +1,48 @@
 import { StyleSheet, Text, View, TextInput, Image, Button, Alert, Pressable, TouchableOpacity } from 'react-native';
 
+import LottieView from 'lottie-react-native';
 
-function SecondaryMenu({ navigation }) {
+function SecondaryMenu({ navigation, route }) {
     return (
         <View style={styles.container}>
             <View style={styles.container2}>
                 <TouchableOpacity
                     style={styles.emergencyButton}
-                    onPress={() => navigation.navigate('DoctorRequest')}>
-                    <Image
-                        style={styles.imageForMenu}
-                        source={require('../../../assets/Capture12-removebg-preview.png')
-                        } />
-                        <Text style={styles.TextForMenu}>Doctor at home</Text>
+                    onPress={() => navigation.navigate('DoctorRequest', { email: route.params.email })}>
+                    <LottieView
+                       style={styles.imageForMenu }
+                       source={require("../../../assets/64216-super-nurse-animation.json")}
+                       autoPlay />
+                    <Text style={styles.TextForMenu}>Doctor at home</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.emergencyButton}
                     onPress={() => navigation.navigate('DoctorRequest')}>
-                    <Image
-                        style={styles.imageForMenu}
-                        source={require('../../../assets/Pharmacie-logo.jpg')
-                        } />
-                        <Text style={styles.TextForMenu}>Pharmacies</Text>
+                  <LottieView
+                       style={styles.imageForMenu}
+                       source={require("../../../assets/22477-pharmacy-store-drug-home-building-maison-mocca-animation.json")}
+                       autoPlay />
+                    <Text style={styles.TextForMenu}>Pharmacies</Text>
                 </TouchableOpacity>
             </View>
             <View style={styles.container2}>
-            <TouchableOpacity
+                <TouchableOpacity
                     style={styles.emergencyButton}
                     onPress={() => navigation.navigate('DoctorRequest')}>
-                    <Image
-                        style={styles.imageForMenu}
-                        source={require('../../../assets/Capture12-removebg-preview.png')
-                        } />
-                        <Text style={styles.TextForMenu}>Appointtement</Text>
+                    <LottieView
+                       style={styles.imageForMenu}
+                       source={require("../../../assets/94815-calendar-booking-by-josh-wood.json")}
+                       autoPlay />
+                    <Text style={styles.TextForMenu}>Appointtement</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.emergencyButton}
                     onPress={() => navigation.navigate('DoctorRequest')}>
-                    <Image
+                    <LottieView
                         style={styles.imageForMenu}
-                        source={require('../../../assets/download.png')
+                        source={require('../../../assets/107925-doctor.json')
                         } />
-                        <Text style={styles.TextForMenu}>Forum</Text>
+                    <Text style={styles.TextForMenu}>Forum</Text>
                 </TouchableOpacity>
             </View>
 
@@ -52,20 +53,20 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#ffffff',
-        flexDirection:"column",
+        flexDirection: "column",
         alignItems: 'center',
         justifyContent: 'center',
-        width:"100%",
-        height:"100%"
+        width: "100%",
+        height: "100%"
     },
-    container2:{
+    container2: {
         flex: 1,
         flexDirection: "row",
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: '#ffffff',
-        width:"100%",
-        height:"50%"
+        width: "100%",
+        height: "50%"
     },
     emergencyButton: {
         height: "75%",
@@ -74,13 +75,14 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: "#ffffff",
     },
-    imageForMenu:{
-        width:"90%",
-        height:"90%",
-        backgroundColor:"#44B3CC"
+    imageForMenu: {
+        width: 200,
+        height:140
+
     },
-    TextForMenu:{
-        fontSize:20,
+    TextForMenu: {
+        fontSize: 20,
+        paddingTop:10
     }
 
 });

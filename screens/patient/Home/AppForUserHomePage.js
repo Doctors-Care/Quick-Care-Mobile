@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text, View, StyleSheet, Pressable, TouchableOpacity ,Image} from 'react-native';
+import { Text, View, StyleSheet, Pressable, TouchableOpacity, Image } from 'react-native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import ProfilePatient from '../Profile/ProfilePatient'
@@ -8,26 +8,31 @@ import axios from 'axios';
 import { useState } from "react";
 
 
-function Emergency({navigation,route}) {
+function Emergency({ navigation, route }) {
     const [idrequest, setidrequest] = useState("");
-    const createEmergency = ()=>{
-        const Request ={
-            email:route.params.email,
-            state:'HCE'
+    const createEmergency = () => {
+        const Request = {
+            email: route.params.email,
+            status: 'HCE'
         }
         console.log(Request)
-          axios.post("http://192.168.11.207:3000/request/addingRequest",Request).then((result)=>{setidrequest(result.data.id);navigation.navigate('LoadingScreen',{requestid:idrequest})}).catch((error)=>console.log(error))
+        console.log("test----", route)
+        axios.post("https://quick-care-server.herokuapp.com/request/addingRequest", Request).then((result) => {
+            setidrequest(result.data.id);
+            navigation.navigate('LoadingScreen', { requestid: idrequest })
+        }).catch((error) =>
+            console.log(error))
     }
     return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
             <Text style={styles.Title1}>Emergency</Text>
             <TouchableOpacity
                 style={styles.emergencyButton}
-                    onPress={() => createEmergency()}>
-                  <Image
-        style={styles.emergencyButton}
-        source={require('../../../assets/urgence.png')
-        } />
+                onPress={() => createEmergency()}>
+                <Image
+                    style={styles.emergencyButton}
+                    source={require('../../../assets/urgence.png')
+                    } />
             </TouchableOpacity>
         </View>
     );
@@ -43,7 +48,7 @@ function Notifications() {
 
 const Tab = createMaterialBottomTabNavigator();
 
-export default function MyTabs({navigation,route}) {
+export default function MyTabs({ navigation, route }) {
     return (
         <Tab.Navigator
             style={styles.navigationBar}
@@ -55,7 +60,7 @@ export default function MyTabs({navigation,route}) {
             <Tab.Screen
                 name="Emergency"
                 component={Emergency}
-                initialParams={{email: route.params.email}}
+                initialParams={{ email: route.params.email }}
                 options={{
                     tabBarLabel: 'Emergency',
                     tabBarIcon: ({ color }) => (
@@ -73,9 +78,10 @@ export default function MyTabs({navigation,route}) {
                     ),
                 }}
             />
-             <Tab.Screen
+            <Tab.Screen
                 name="Menu"
                 component={SecondaryMenu}
+                initialParams={{ email: route.params.email }}
                 options={{
                     tabBarLabel: 'Menu',
                     tabBarIcon: () => (
@@ -86,7 +92,7 @@ export default function MyTabs({navigation,route}) {
             <Tab.Screen
                 name="ProfilePatient"
                 component={ProfilePatient}
-                initialParams={{email: route.params.email}}
+                initialParams={{ email: route.params.email }}
                 options={{
                     tabBarLabel: 'Profile',
                     tabBarIcon: ({ color }) => (
@@ -107,9 +113,9 @@ const styles = StyleSheet.create({
         borderRadius: 300,
         backgroundColor: "red",
     },
-    Title1:{
-       fontSize:50,
-       padding:'10%',
-       color:"#077871"
+    Title1: {
+        fontSize: 50,
+        padding: '10%',
+        color: "#077871"
     }
 })
