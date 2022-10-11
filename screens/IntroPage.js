@@ -1,15 +1,15 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, Alert, Pressable ,TouchableOpacity} from 'react-native';
+import LottieView from 'lottie-react-native';
 
 function Welcome({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Image
-        style={styles.logo}
-        source={{
-          uri: 'https://media.discordapp.net/attachments/1024223915582689342/1026412844360679515/Capture.png',
-        }} />
+ <LottieView
+                       style={styles.logo }
+                       source={require("../assets/64216-super-nurse-animation.json")}
+                       autoPlay />
       <Image
         style={styles.tuto}
         source={require('../assets/splash.png')
@@ -53,10 +53,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   logo: {
-    width: 130,
-    height: 150,
+    width: 150,
+    height: 200,
     top: 10,
     borderRadius: 0,
+   
   },
   tuto: {
     width: 330,

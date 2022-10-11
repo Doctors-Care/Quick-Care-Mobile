@@ -8,15 +8,18 @@ import axios from 'axios';
 function LoadingScreenEmergency({ navigation,route }) {
 
 const requestAccepted=()=>{
-const ActifRequest=route.params.requestid;
-axios.post("https://quick-care-server.herokuapp.com/request/checkRequest",ActifRequest).then((result)=>{
-  if(result.data==='message'){ requestAccepted()}
+  const ActifRequest={id:route.params.requestid};
+  console.log(route.params)
+axios.post("http://192.168.11.229:3000/request/checkRequest",ActifRequest).then((result)=>{
+  console.log(result);
+  if(result.data==='waiting'){ requestAccepted()}
   else navigation.navigate("EmergencyAccepted",{Hce:result.data}).catch((err)=>
   console.log(err))
 })
 }
   return (
     <View style={styles.container}>
+      {requestAccepted()}
       <Text>Loading</Text>
       <LottieView
         style={styles.lottie}

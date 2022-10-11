@@ -6,7 +6,9 @@ function EmergencyAccepted({navigation,route}){
 
     return (
       <View style={styles.container}>
-        <Text>Loading</Text>
+        <Text style={styles.textInput1}>avicenne</Text>
+        <Text style={styles.textInput1}>manar</Text>
+        <Text style={styles.textInput1}>25412236</Text>
         <Image
         style={styles.emergencyButton}
         source={require('../../../assets/urgence.png')
@@ -39,7 +41,9 @@ function EmergencyAccepted({navigation,route}){
     },
     buttonText:{
         color:"#ffffff"
+    },
+    textInput1:{
+      fontSize:40,
     }
-  
   });
   export default EmergencyAccepted

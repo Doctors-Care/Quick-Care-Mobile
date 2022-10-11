@@ -17,9 +17,9 @@ function Emergency({ navigation, route }) {
         }
         console.log(Request)
         console.log("test----", route)
-        axios.post("https://quick-care-server.herokuapp.com/request/addingRequest", Request).then((result) => {
+        axios.post("http://192.168.11.229:3000/request/addingRequest", Request).then((result) => {
             setidrequest(result.data.id);
-            navigation.navigate('LoadingScreen', { requestid: idrequest })
+            navigation.navigate('LoadingScreen', { requestid: result.data.id })
         }).catch((error) =>
             console.log(error))
     }

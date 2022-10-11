@@ -21,7 +21,7 @@ function RegistrationForUser({navigation}) {
                 phoneNumber:phoneNumber ,
                 adress:adress,
             }
-          axios.post("https://quick-care-server.herokuapp.com/user/signup",NewUser,{withCredentials:true}).then((ok)=>{console.log(ok);return "valid"}).catch((err)=>console.log(err))
+          axios.post("http://192.168.11.229:3000/user/signup",NewUser,{withCredentials:true}).then((ok)=>{console.log(ok);return "valid"}).catch((err)=>console.log(err))
         }
     
         return (
