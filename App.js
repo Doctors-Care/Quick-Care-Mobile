@@ -41,6 +41,7 @@ export default function App() {
         <Stack.Screen name="DoctorRequest" component={DoctorRequest} />
         <Stack.Screen name="DoctorLoadingScreen" component={DoctorLoadingScreen} />
         <Stack.Screen name="AcceptedDoctor" component={AcceptedDoctor} />
+        
       </Stack.Navigator>
     </NavigationContainer>
   );

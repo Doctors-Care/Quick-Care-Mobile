@@ -20,7 +20,7 @@ export default function LoginForm({ navigation }) {
         password: password,
       };
       const res = await axios.post(
-        `http://192.168.11.205:3000/doctor/loginDoc`,
+        `http://192.168.11.247:3000/doctor/loginDoc`,
         doctor,
         { withCredentials: true }
       );
