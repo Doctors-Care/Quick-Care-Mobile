@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image, Pressable, TextInput, KeyboardAvoidingView,  ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Image, Pressable, TextInput, KeyboardAvoidingView,  ScrollView ,} from 'react-native';
+import {Dropdown} from 'react-native-element-dropdown';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useState } from "react";
 
@@ -62,12 +63,12 @@ function EditProfilePatient({ navigation }) {
                             <MaterialCommunityIcons name="book-edit-outline" size={20} />
                         </Pressable>
                     </View>
-                    <View style={styles.containerForEdit}>
+                    <Dropdown style={styles.containerForEdit}>
                         <TextInput style={styles.description}>Gender</TextInput>
                         <Pressable style={styles.editIcon}>
                             <MaterialCommunityIcons name="book-edit-outline" size={20} />
                         </Pressable>
-                    </View>
+                    </Dropdown>
 
                 </View>
             </View>

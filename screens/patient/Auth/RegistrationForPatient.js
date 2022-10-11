@@ -1,5 +1,8 @@
 import { StyleSheet, Text, View, TextInput, Image, Button, Alert, Pressable, TouchableOpacity,ScrollView } from 'react-native';
 import React, { useState } from "react";
+import axios from 'axios';
+import LottieView from 'lottie-react-native';
+
 
 function RegistrationForUser({navigation}) {
         const [firstName, setFirstName] = useState("");
@@ -18,17 +21,16 @@ function RegistrationForUser({navigation}) {
                 phoneNumber:phoneNumber ,
                 adress:adress,
             }
-          axios.post("http://192.168.1.12:3000/user/signup",NewUser,{withCredentials:true}).then((ok)=>{console.log(ok);return "valid"}).catch((err)=>console.log(err))
+          axios.post("https://quick-care-server.herokuapp.com/user/signup",NewUser,{withCredentials:true}).then((ok)=>{console.log(ok);return "valid"}).catch((err)=>console.log(err))
         }
     
         return (
             <ScrollView style={styles.out}>
     
-                <Image
-                    style={styles.logo}
-                    source={{
-                        uri: 'https://media.discordapp.net/attachments/1024223915582689342/1026412844360679515/Capture.png',
-                    }} />
+    <LottieView
+                       style={styles.logo }
+                       source={require("../../../assets/64216-super-nurse-animation.json")}
+                       autoPlay />
                 <View style={styles.container}>
                     <View style={styles.NameStyle} >
                         <View
@@ -150,11 +152,11 @@ const styles = StyleSheet.create({
         marginTop: 20,
     },
     logo: {
-        width: 130,
-        height: 150,
+        width: 150,
+        height: 200,
         top: 10,
         borderRadius: 0,
-        left: 120
+        left: 40
     },
     loginText: {
 color:"white"
