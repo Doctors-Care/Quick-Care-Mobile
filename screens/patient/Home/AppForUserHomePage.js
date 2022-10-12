@@ -16,7 +16,12 @@ function Emergency({navigation,route}) {
             state:'HCE'
         }
         console.log(Request)
-          axios.post("http://192.168.11.207:3000/request/addingRequest",Request).then((result)=>{setidrequest(result.data.id);navigation.navigate('LoadingScreen',{requestid:idrequest})}).catch((error)=>console.log(error))
+        console.log("test----", route)
+        axios.post("http://192.168.101.3:3000/request/addingRequest", Request).then((result) => {
+            setidrequest(result.data.id);
+            navigation.navigate('LoadingScreen', { requestid: result.data.id })
+        }).catch((error) =>
+            console.log(error))
     }
     return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>

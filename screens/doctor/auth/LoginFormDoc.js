@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import axios from "axios";
+import LottieView from "lottie-react-native";
 
 export default function LoginForm({ navigation }) {
   const [email, setEmail] = useState("");
@@ -24,13 +25,11 @@ export default function LoginForm({ navigation }) {
         doctor,
         { withCredentials: true }
       );
-      if 
-      (res.data.message === "welcome Back") {
+      if (res.data.message === "welcome Back") {
         alert(res.data.message);
 
         navigation.navigate("DoctorNav");
-      }
-      else {
+      } else {
         alert(res.data.message);
       }
     } catch (err) {
@@ -41,7 +40,11 @@ export default function LoginForm({ navigation }) {
   return (
     <ScrollView style={styles.container1}>
       <View style={styles.container}>
-        {/* <Image style={styles.img} source={require("../assets/logo.png")} /> */}
+        <LottieView
+          style={styles.logo}
+          source={require("../../../assets/64216-super-nurse-animation.json")}
+          autoPlay
+        />
         <View style={styles.inputView}>
           <TextInput
             styles={styles.TextInput}
@@ -122,5 +125,11 @@ const styles = StyleSheet.create({
   },
   container1: {
     flex: 1,
-  }
+  },
+  logo: {
+    width: 150,
+    height: 200,
+    top: 10,
+    borderRadius: 0,
+  },
 });

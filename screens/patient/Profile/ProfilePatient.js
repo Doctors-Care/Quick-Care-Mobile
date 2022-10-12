@@ -12,7 +12,7 @@ function ProfilePatient({navigation,route}){
       email:route.params.email
   }
   
-    axios.post("https://quick-care-server.herokuapp.com/user/One",Request).then((result)=>setPatient(result.data)).catch((err)=>console.log(err))
+    axios.post("http://192.168.101.3:3000/user/One",Request).then((result)=>setPatient(result.data)).catch((err)=>console.log(err))
    
   },[])
  
