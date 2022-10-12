@@ -24,9 +24,32 @@ function EditProfilePatient({ navigation,route }) {
     ];
 
 const changerFirstName=()=>{
-    axios.put()
+    axios.put("http://192.168.101.10:3000/",{id:route.params.patient.id,firstName:firstname}).then((a)=>setFirstName(a.data)).catch((err)=>console.log(err))
 }
 
+const changeLastName=()=>{
+    axios.put("http://192.168.101.10:3000/",{id:route.params.patient.id,lastName:lastName}).then((a)=>setLastName(a.data)).catch((err)=>console.log(err))
+}
+
+const changeEmail=()=>{
+    axios.put("http://192.168.101.10:3000/",{id:route.params.patient.id,email:email}).then((a)=>setEmail(a.data)).catch((err)=>console.log(err))
+}
+
+const changePhonenumber=()=>{
+    axios.put("http://192.168.101.10:3000/",{id:route.params.patient.id,phoneNumber:phoneNumber}).then((a)=>setPhoneNumber(a.data)).catch((err)=>console.log(err))
+}
+
+const changeAge=()=>{
+    axios.put("http://192.168.101.10:3000/",{id:route.params.patient.id,age:age}).then((a)=>setAge(a.data)).catch((err)=>console.log(err))
+}
+
+const changegender=()=>{
+    axios.put("http://192.168.101.10:3000/",{id:route.params.patient.id,gender:gender}).then((a)=>setGender(a.data)).catch((err)=>console.log(err))
+}
+
+const changechronicals=()=>{
+    axios.put("http://192.168.101.10:3000/",{id:route.params.patient.id,chronicDiseases:Chronical}).then((a)=>setChronical(a.data)).catch((err)=>console.log(err))
+}
 
     return (
         <ScrollView>
@@ -38,7 +61,7 @@ const changerFirstName=()=>{
 
                     <TextInput style={styles.name}>{firstname}</TextInput>
                     <TextInput style={styles.name}>{lastName}</TextInput>
-                    <TouchableOpacity style={styles.editbigIcon}>
+                    <TouchableOpacity style={styles.editbigIcon} onPress={()=>{changerFirstName();changeLastName();}}>
                             <MaterialCommunityIcons name="check" size={40} color={"#077871"} />
                         </TouchableOpacity>
                     <TextInput style={styles.info}>{email}</TextInput>
@@ -48,7 +71,7 @@ const changerFirstName=()=>{
                             defaultValue={email}
                             >
                             </TextInput>
-                        <TouchableOpacity style={styles.editIcon}>
+                        <TouchableOpacity style={styles.editIcon} onPress={()=>{changeEmail()}}>
                             <MaterialCommunityIcons name="check" size={20} color={"#077871"} />
                         </TouchableOpacity>
                     </View>
@@ -58,7 +81,7 @@ const changerFirstName=()=>{
                             defaultValue={phoneNumber}
                         >
                             </TextInput>
-                        <TouchableOpacity style={styles.editIcon}>
+                        <TouchableOpacity style={styles.editIcon} onPress={()=>{}}>
                             <MaterialCommunityIcons name="check" size={20} color={"#077871"} />
                         </TouchableOpacity>
                     </View>
@@ -70,7 +93,7 @@ const changerFirstName=()=>{
                             defaultValue={phoneNumber}
                         >
                            </TextInput>
-                        <TouchableOpacity style={styles.editIcon}>
+                        <TouchableOpacity style={styles.editIcon} onPress={()=>{changePhonenumber()}}>
                             <MaterialCommunityIcons name="check" size={20} color={"#077871"} />
                         </TouchableOpacity>
                     </View>
@@ -79,7 +102,7 @@ const changerFirstName=()=>{
                         onChangeText={(age)=>setAge(age)}
                         defaultValue={age}
                         >a</TextInput>
-                        <TouchableOpacity style={styles.editIcon}>
+                        <TouchableOpacity style={styles.editIcon} onPress={()=>{changeAge()}}>
                             <MaterialCommunityIcons name="check" size={20} color={"#077871"} />
                         </TouchableOpacity>
                     </View>
@@ -88,10 +111,11 @@ const changerFirstName=()=>{
                          onChange={(Chronical)=>setChronical(Chronical)}
                          
                          ></TextInput>
-                        <TouchableOpacity style={styles.editIcon} onPress={()=>{functiontoConsole()}} >
+                        <TouchableOpacity style={styles.editIcon} onPress={()=>{changechronicals()}} >
                             <MaterialCommunityIcons name="check" size={20} color={"#077871"} />
                         </TouchableOpacity>
                     </View>
+                    <View style={styles.containerForEdit}>
                     <Dropdown
                         style={styles.dropdown}
                         data={data}
@@ -103,9 +127,10 @@ const changerFirstName=()=>{
                             console.log('selected', item);
                         }}
                     />
-                    <TouchableOpacity style={styles.editIcon}>
+                    <TouchableOpacity style={styles.editIcon} onPress={()=>{changegender()}}>
+                    <MaterialCommunityIcons name="check" size={20} color={"#077871"} />
                     </TouchableOpacity>
-
+                    </View>
 
                 </View>
             </View>
@@ -215,7 +240,7 @@ const styles = StyleSheet.create({
     editbigIcon:{
         position: "absolute",
         left: 300,
-        top: "14%"
+        top: "8%"
     }
 
 
