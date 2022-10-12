@@ -1,27 +1,30 @@
-import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image, Pressable, TextInput, KeyboardAvoidingView, ScrollView, } from 'react-native';
+import React from 'react';
+import { StyleSheet, Text, View, Image, Pressable, TextInput, ScrollView ,TouchableOpacity } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useState } from "react";
+import axios from 'axios';
 
 
 
 function EditProfilePatient({ navigation,route }) {
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [phoneNumber, setPhoneNumber] = useState("");
-    const [age, setAge] = useState("");
-    const [gender, setGender] = useState("");
+    const [firstname, setFirstName] = useState(route.params.patient.firstName);
+    const [lastName,setLastName]=useState(route.params.patient.lastName);
+    const [email, setEmail] = useState(route.params.patient.email);
+    const [password, setPassword] = useState(route.params.patient.password);
+    const [phoneNumber, setPhoneNumber] = useState(route.params.patient.phoneNumber);
+    const [age, setAge] = useState(route.params.patient.age);
+    const [gender, setGender] = useState(route.params.patient.gender);
+    const [Chronical,setChronical]=useState(route.params.patient.chronicDiseases)
     const data = [
         { label: 'male', value: 'male' },
         { label: 'female', value: 'female' },
-        { label: "none", value: "don't want to tell" },
+        { label: "Other", value: "don't want to tell" },
 
     ];
 
-const functiontoConsole=()=>{
-    console.log(route.params)
+const changerFirstName=()=>{
+    axios.put()
 }
 
 
@@ -33,47 +36,61 @@ const functiontoConsole=()=>{
                 <View style={styles.bodyContent}
                     behavior={Platform.OS === "ios" ? "padding" : "height"}>
 
-                    <Text style={styles.name}>{route.params.patient.firstName}    {route.params.patient.lastName}</Text>
-                    <Text style={styles.info}>{route.params.patient.email}</Text>
+                    <TextInput style={styles.name}>{firstname}</TextInput>
+                    <TextInput style={styles.name}>{lastName}</TextInput>
+                    <TouchableOpacity style={styles.editbigIcon}>
+                            <MaterialCommunityIcons name="check" size={40} color={"#077871"} />
+                        </TouchableOpacity>
+                    <TextInput style={styles.info}>{email}</TextInput>
                     <View style={styles.containerForEdit}>
                         <TextInput style={styles.description}
-                            onChangeText={(email) => setEmail(email)}>
-                            email</TextInput>
-                        <Pressable style={styles.editIcon}>
-                            <MaterialCommunityIcons name="book-edit-outline" size={20} />
-                        </Pressable>
+                            onChangeText={(email) => setEmail(email)}
+                            defaultValue={email}
+                            >
+                            </TextInput>
+                        <TouchableOpacity style={styles.editIcon}>
+                            <MaterialCommunityIcons name="check" size={20} color={"#077871"} />
+                        </TouchableOpacity>
                     </View>
                     <View style={styles.containerForEdit}>
                         <TextInput style={styles.description}
                             onChangeText={(password) => setPassword(password)}
+                            defaultValue={phoneNumber}
                         >
-                            password</TextInput>
-                        <Pressable style={styles.editIcon}>
-                            <MaterialCommunityIcons name="book-edit-outline" size={20} />
-                        </Pressable>
+                            </TextInput>
+                        <TouchableOpacity style={styles.editIcon}>
+                            <MaterialCommunityIcons name="check" size={20} color={"#077871"} />
+                        </TouchableOpacity>
                     </View>
                     <View style={styles.containerForEdit}>
                         <TextInput style={styles.description}
                             onChangeText={(PhoneNumber) => setPhoneNumber(PhoneNumber)}
                             keyboardType='numeric'
+                            placeholder={phoneNumber}
+                            defaultValue={phoneNumber}
                         >
-                            phone Number</TextInput>
-                        <Pressable style={styles.editIcon}>
-                            <MaterialCommunityIcons name="book-edit-outline" size={20} />
-                        </Pressable>
+                           </TextInput>
+                        <TouchableOpacity style={styles.editIcon}>
+                            <MaterialCommunityIcons name="check" size={20} color={"#077871"} />
+                        </TouchableOpacity>
                     </View>
                     <View style={styles.containerForEdit}>
                         <TextInput style={styles.description}
-                        >Age</TextInput>
-                        <Pressable style={styles.editIcon}>
-                            <MaterialCommunityIcons name="book-edit-outline" size={20} />
-                        </Pressable>
+                        onChangeText={(age)=>setAge(age)}
+                        defaultValue={age}
+                        >a</TextInput>
+                        <TouchableOpacity style={styles.editIcon}>
+                            <MaterialCommunityIcons name="check" size={20} color={"#077871"} />
+                        </TouchableOpacity>
                     </View>
                     <View style={styles.containerForEdit}>
-                        <TextInput style={styles.description} onChange={()=>functiontoConsole()}>Chronical Diseases</TextInput>
-                        <Pressable style={styles.editIcon}>
-                            <MaterialCommunityIcons name="check-circle" size={20} />
-                        </Pressable>
+                        <TextInput style={styles.description}
+                         onChange={(Chronical)=>setChronical(Chronical)}
+                         
+                         ></TextInput>
+                        <TouchableOpacity style={styles.editIcon} onPress={()=>{functiontoConsole()}} >
+                            <MaterialCommunityIcons name="check" size={20} color={"#077871"} />
+                        </TouchableOpacity>
                     </View>
                     <Dropdown
                         style={styles.dropdown}
@@ -86,8 +103,8 @@ const functiontoConsole=()=>{
                             console.log('selected', item);
                         }}
                     />
-                    <Pressable style={styles.editIcon}>
-                    </Pressable>
+                    <TouchableOpacity style={styles.editIcon}>
+                    </TouchableOpacity>
 
 
                 </View>
@@ -190,9 +207,16 @@ const styles = StyleSheet.create({
         borderRadius:12,
         borderColor:"#077871",
         borderWidth: 2,
-        marginTop:20
+        marginTop:20,
+        alignContent:"center",
+        textAlign:"center"
 
     },
+    editbigIcon:{
+        position: "absolute",
+        left: 300,
+        top: "14%"
+    }
 
 
 });
