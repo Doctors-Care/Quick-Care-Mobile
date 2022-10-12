@@ -12,9 +12,6 @@ import React, { useState } from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useTogglePasswordVisibility } from "../../../hooks/TogglePassword";
 import axios from "axios";
-import LottieView from 'lottie-react-native';
-
-
 
 export default function SignUpForm({ navigation }) {
   const [FirstName, setFirstName] = useState("");
@@ -54,10 +51,7 @@ export default function SignUpForm({ navigation }) {
   return (
     <ScrollView style={styles.container1}>
       <View style={styles.container}>
-      <LottieView
-                       style={styles.logo }
-                       source={require("../../../assets/64216-super-nurse-animation.json")}
-                       autoPlay />
+        {/* <Image style={styles.img} source={require("../assets/logo.png")} /> */}
         <View style={styles.inputView}>
           <TextInput
             styles={styles.TextInput}
