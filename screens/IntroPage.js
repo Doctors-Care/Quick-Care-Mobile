@@ -1,15 +1,15 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image, Alert, Pressable ,TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, View, Image, Alert, Pressable, TouchableOpacity } from 'react-native';
 import LottieView from 'lottie-react-native';
 
 function Welcome({ navigation }) {
 
   return (
     <View style={styles.container}>
- <LottieView
-                       style={styles.logo }
-                       source={require("../assets/64216-super-nurse-animation.json")}
-                       autoPlay />
+      <LottieView
+        style={styles.logo}
+        source={require("../assets/64216-super-nurse-animation.json")}
+        autoPlay />
       <Image
         style={styles.tuto}
         source={require('../assets/splash.png')
@@ -33,12 +33,12 @@ function Welcome({ navigation }) {
           <Text
             style={styles.ButtonText}
           >Register</Text>
-        </Pressable>       
+        </Pressable>
       </View>
       <TouchableOpacity>
-          <Text style={styles.forgot_button}
-          onPress={() =>  navigation.navigate('LoginFormDoctor')}>Are you a doctor ?</Text>
-        </TouchableOpacity>
+        <Text style={styles.forgot_button}
+          onPress={() => navigation.navigate('LoginFormDoctor')}>Are you a doctor ?</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     height: 200,
     top: 10,
     borderRadius: 0,
-   
+
   },
   tuto: {
     width: 330,

@@ -1,113 +1,113 @@
-import { StyleSheet, Text, View, TextInput, Image, Button, Alert, Pressable, TouchableOpacity,ScrollView } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Image, Button, Alert, Pressable, TouchableOpacity, ScrollView } from 'react-native';
 import React, { useState } from "react";
 import axios from 'axios';
 import LottieView from 'lottie-react-native';
 
 
-function RegistrationForUser({navigation}) {
-        const [firstName, setFirstName] = useState("");
-        const [lastName, setLastName] = useState("");
-        const [email, setEmail] = useState("");
-        const [password, setPassword] = useState("");
-        const [phoneNumber, setPhoneNumber] = useState("");
-        const [adress, setAdress] = useState("");
-    
-        const adduser =  ()=>{
-            const NewUser = {
-                firstName:firstName, 
-                lastName:lastName,
-                email: email,
-                password: password,
-                phoneNumber:phoneNumber ,
-                adress:adress,
-            }
-          axios.post("http://192.168.11.229:3000/user/signup",NewUser,{withCredentials:true}).then((ok)=>{console.log(ok);return "valid"}).catch((err)=>console.log(err))
+function RegistrationForUser({ navigation }) {
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [phoneNumber, setPhoneNumber] = useState("");
+    const [adress, setAdress] = useState("");
+
+    const adduser = () => {
+        const NewUser = {
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            password: password,
+            phoneNumber: phoneNumber,
+            adress: adress,
         }
-    
-        return (
-            <ScrollView style={styles.out}>
-    
-    <LottieView
-                       style={styles.logo }
-                       source={require("../../../assets/64216-super-nurse-animation.json")}
-                       autoPlay />
-                <View style={styles.container}>
-                    <View style={styles.NameStyle} >
-                        <View
-                            style={styles.viewforInputName}
-                        >
-                            <TextInput
-                                styles={styles.TextInput}
-                                placeholder="First Name"
-                                placeholderTextColor="black"
-                                onChangeText={(name) => setFirstName(name)}
-                            ></TextInput>
-                        </View>
-                        <View
-                            style={styles.viewforInputName}
-                        >
-                            <TextInput
-                                styles={styles.TextInput}
-                                placeholder="Last Name"
-                                placeholderTextColor="black"
-                                onChangeText={(name) => setLastName(name)}
-                            ></TextInput>
-    
-                        </View>
-                    </View>
-                    <View style={styles.inputView}>
+        axios.post("http://192.168.101.3:3000/user/signup", NewUser, { withCredentials: true }).then((ok) => { console.log(ok); return "valid" }).catch((err) => console.log(err))
+    }
+
+    return (
+        <ScrollView style={styles.out}>
+
+            <LottieView
+                style={styles.logo}
+                source={require("../../../assets/64216-super-nurse-animation.json")}
+                autoPlay />
+            <View style={styles.container}>
+                <View style={styles.NameStyle} >
+                    <View
+                        style={styles.viewforInputName}
+                    >
                         <TextInput
                             styles={styles.TextInput}
-                            placeholder="Email"
-                            dataDetectorTypes='address'
+                            placeholder="First Name"
                             placeholderTextColor="black"
-                            keyboardType='email-address'
-                            onChangeText={(email) => setEmail(email)}
+                            onChangeText={(name) => setFirstName(name)}
                         ></TextInput>
                     </View>
-                    <View style={styles.inputView}>
+                    <View
+                        style={styles.viewforInputName}
+                    >
                         <TextInput
                             styles={styles.TextInput}
-                            placeholder="Password"
+                            placeholder="Last Name"
                             placeholderTextColor="black"
-                            secureTextEntry={true}
-                            onChangeText={(password) => { setPassword(password); console.log(password) }}
+                            onChangeText={(name) => setLastName(name)}
                         ></TextInput>
+
                     </View>
-                    <View style={styles.inputView}>
-                        <TextInput
-                            styles={styles.TextInput}
-                            placeholder="PhoneNumber"
-                            dataDetectorTypes="phoneNumber"
-                            placeholderTextColor="black"
-                            keyboardType='numeric'
-                            onChangeText={(phoneNumber) => setPhoneNumber(phoneNumber)}
-                        ></TextInput>
-                    </View>
-                    <View style={styles.inputView}>
-                        <TextInput
-                            styles={styles.TextInput}
-                            placeholder="Adress"
-                            placeholderTextColor="black"
-                            onChangeText={(adress) => { setAdress(adress)}}
-                        ></TextInput>
-                    </View>
-                    <TouchableOpacity>
-                        <Text style={styles.forgot_button}>Forgot Password?</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.loginBtn}
-                        onPress={() =>{adduser(); navigation.navigate("LoginForUser")}}>
-                        <Text style={styles.loginText}>Register</Text>
-                    </TouchableOpacity>
                 </View>
-            </ScrollView>
-    
+                <View style={styles.inputView}>
+                    <TextInput
+                        styles={styles.TextInput}
+                        placeholder="Email"
+                        dataDetectorTypes='address'
+                        placeholderTextColor="black"
+                        keyboardType='email-address'
+                        onChangeText={(email) => setEmail(email)}
+                    ></TextInput>
+                </View>
+                <View style={styles.inputView}>
+                    <TextInput
+                        styles={styles.TextInput}
+                        placeholder="Password"
+                        placeholderTextColor="black"
+                        secureTextEntry={true}
+                        onChangeText={(password) => { setPassword(password); console.log(password) }}
+                    ></TextInput>
+                </View>
+                <View style={styles.inputView}>
+                    <TextInput
+                        styles={styles.TextInput}
+                        placeholder="PhoneNumber"
+                        dataDetectorTypes="phoneNumber"
+                        placeholderTextColor="black"
+                        keyboardType='numeric'
+                        onChangeText={(phoneNumber) => setPhoneNumber(phoneNumber)}
+                    ></TextInput>
+                </View>
+                <View style={styles.inputView}>
+                    <TextInput
+                        styles={styles.TextInput}
+                        placeholder="Adress"
+                        placeholderTextColor="black"
+                        onChangeText={(adress) => { setAdress(adress) }}
+                    ></TextInput>
+                </View>
+                <TouchableOpacity>
+                    <Text style={styles.forgot_button}>Forgot Password?</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.loginBtn}
+                    onPress={() => { adduser(); navigation.navigate("LoginForUser") }}>
+                    <Text style={styles.loginText}>Register</Text>
+                </TouchableOpacity>
+            </View>
+        </ScrollView>
+
     );
 }
 
 const styles = StyleSheet.create({
     out: {
-      
+
     },
     container: {
         flex: 1,
@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
         left: 40
     },
     loginText: {
-color:"white"
+        color: "white"
     }
 });
 
