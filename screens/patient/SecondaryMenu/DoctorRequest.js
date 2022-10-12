@@ -16,7 +16,7 @@ function DoctorRequest({ navigation, route }) {
             description :description
         }
         console.log(Request)
-        axios.post("http://192.168.11.207:3000/request/addingRequest", Request).then((result) => { setidrequest(result.data.id);navigation.navigate("DoctorLoadingScreen", { requestid: idrequest }) }).catch((error) => console.log(error))
+        axios.post("http://192.168.101.3:3000/request/addingRequest", Request).then((result) => { setidrequest(result.data.id);navigation.navigate("DoctorLoadingScreen", { requestid: idrequest }) }).catch((error) => console.log(error))
     }
     return (
         <ScrollView>
@@ -29,7 +29,7 @@ function DoctorRequest({ navigation, route }) {
                             styles={styles.TextInput}
                             placeholder="Write your symptoms here"
                             placeholderTextColor="black"
-                            onChangeText={(adress) => { setAdress(adress)}}
+                            onChangeText={(description) => { setDescription(description)}}
                         ></TextInput>
                     </View>
 
@@ -81,11 +81,13 @@ const styles = StyleSheet.create({
         borderColor: "#077871",
         borderWidth: 2,
         marginTop:50,
+        multiline:true
+        
 
     },
 
     TextInput: {
-        height: 50,
+        height: 200,
         flex: 1,
         padding: 20,
         marginLeft: 20,

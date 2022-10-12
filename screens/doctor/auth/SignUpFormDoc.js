@@ -36,7 +36,7 @@ export default function SignUpForm({ navigation }) {
         adress: address,
       };
       await axios.post(
-        `http://192.168.11.205:3000/doctor/addDoctor`,
+        `http://192.168.11.247:3000/doctor/addDoctor`,
         NewDoctor,
         {
           withCredentials: true,

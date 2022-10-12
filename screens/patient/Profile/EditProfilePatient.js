@@ -1,18 +1,30 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image, Pressable, TextInput, KeyboardAvoidingView,  ScrollView ,} from 'react-native';
-import {Dropdown} from 'react-native-element-dropdown';
+import { StyleSheet, Text, View, Image, Pressable, TextInput, KeyboardAvoidingView, ScrollView, } from 'react-native';
+import { Dropdown } from 'react-native-element-dropdown';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useState } from "react";
 
 
 
-function EditProfilePatient({ navigation }) {
+function EditProfilePatient({ navigation,route }) {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
-    const [age, setAge] = useState("")
+    const [age, setAge] = useState("");
     const [gender, setGender] = useState("");
+    const data = [
+        { label: 'male', value: 'male' },
+        { label: 'female', value: 'female' },
+        { label: "none", value: "don't want to tell" },
+
+    ];
+
+const functiontoConsole=()=>{
+    console.log(route.params)
+}
+
+
     return (
         <ScrollView>
             <View style={styles.header}></View>
@@ -21,8 +33,8 @@ function EditProfilePatient({ navigation }) {
                 <View style={styles.bodyContent}
                     behavior={Platform.OS === "ios" ? "padding" : "height"}>
 
-                    <Text style={styles.name}>John Doe</Text>
-                    <Text style={styles.info}>UX Designer / Mobile developer</Text>
+                    <Text style={styles.name}>{route.params.patient.firstName}    {route.params.patient.lastName}</Text>
+                    <Text style={styles.info}>{route.params.patient.email}</Text>
                     <View style={styles.containerForEdit}>
                         <TextInput style={styles.description}
                             onChangeText={(email) => setEmail(email)}>
@@ -58,17 +70,25 @@ function EditProfilePatient({ navigation }) {
                         </Pressable>
                     </View>
                     <View style={styles.containerForEdit}>
-                        <TextInput style={styles.description}>Chronical Diseases</TextInput>
+                        <TextInput style={styles.description} onChange={()=>functiontoConsole()}>Chronical Diseases</TextInput>
                         <Pressable style={styles.editIcon}>
-                            <MaterialCommunityIcons name="book-edit-outline" size={20} />
+                            <MaterialCommunityIcons name="check-circle" size={20} />
                         </Pressable>
                     </View>
-                    <Dropdown style={styles.containerForEdit}>
-                        <TextInput style={styles.description}>Gender</TextInput>
-                        <Pressable style={styles.editIcon}>
-                            <MaterialCommunityIcons name="book-edit-outline" size={20} />
-                        </Pressable>
-                    </Dropdown>
+                    <Dropdown
+                        style={styles.dropdown}
+                        data={data}
+                        labelField="label"
+                        placeholder="Gender"
+                        value={gender}
+                        onChange={item => {
+                            setGender(item.value);
+                            console.log('selected', item);
+                        }}
+                    />
+                    <Pressable style={styles.editIcon}>
+                    </Pressable>
+
 
                 </View>
             </View>
@@ -83,7 +103,7 @@ const styles = StyleSheet.create({
     },
     header: {
         backgroundColor: "#077871",
-        height: 150,
+        height: 120,
     },
     avatar: {
         width: 130,
@@ -94,16 +114,14 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         alignSelf: 'center',
         position: 'absolute',
-        marginTop: 50
+        marginTop: 30
     },
     name: {
         fontSize: 22,
         color: "#FFFFFF",
         fontWeight: '600',
     },
-    body: {
-        marginTop: 40,
-    },
+
     bodyContent: {
         alignItems: 'center',
         padding: 30,
@@ -126,6 +144,11 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         textAlign: 'center',
         width: 300,
+        borderRadius:12,
+        borderColor:"#077871",
+        borderWidth: 2,
+        backgroundColor:"#fff",
+        height:40
 
     },
     buttonContainer: {
@@ -156,7 +179,22 @@ const styles = StyleSheet.create({
         position: "absolute",
         left: 300,
         top: "40%"
-    }
+    },
+    dropdown: {
+        backgroundColor: '#fff',
+        width: 300,
+        shadowColor: '#fff',
+        shadowRadius: 4,
+        shadowOffset: { height: 4, width: 0 },
+        shadowOpacity: 0.5,
+        borderRadius:12,
+        borderColor:"#077871",
+        borderWidth: 2,
+        marginTop:20
+
+    },
+
+
 });
 
 export default EditProfilePatient

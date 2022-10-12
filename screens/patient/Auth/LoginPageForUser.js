@@ -25,19 +25,19 @@ export default function LoginPageForUser({ navigation }) {
     }
     getData();
 
-    axios.post("https://quick-care-server.herokuapp.com/user/signin", user).then((ok) => {
+    axios.post("http://192.168.101.3:3000/user/signin", user).then((ok) => {
       setMessage("Welcome");
       navigation.navigate("EmergencyHome", { email: email })
-    }).catch((err) => {console.log(err); setMessage("wrong entries") })
+    }).catch((err) => { console.log(err); setMessage("wrong entries") })
   }
 
   return (
     <ScrollView style={styles.out}>
 
-<LottieView
-                       style={styles.logo }
-                       source={require("../../../assets/64216-super-nurse-animation.json")}
-                       autoPlay />
+      <LottieView
+        style={styles.logo}
+        source={require("../../../assets/64216-super-nurse-animation.json")}
+        autoPlay />
       <View style={styles.container}>
         <View style={styles.inputView}>
           <TextInput
