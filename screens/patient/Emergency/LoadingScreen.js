@@ -5,18 +5,22 @@ import axios from 'axios';
 
 
 
-function LoadingScreenEmergency({ navigation,route }) {
+function LoadingScreenEmergency({ navigation, route }) {
 
-const requestAccepted=()=>{
-const ActifRequest=route.params.requestid;
-axios.post("https://quick-care-server.herokuapp.com/request/checkRequest",ActifRequest).then((result)=>{
-  if(result.data==='message'){ requestAccepted()}
-  else navigation.navigate("EmergencyAccepted",{Hce:result.data}).catch((err)=>
-  console.log(err))
-})
-}
+  const requestAccepted = () => {
+    const ActifRequest = { id: route.params.requestid };
+    console.log(route.params)
+    axios.post("http://192.168.101.3:3000/request/checkRequest", ActifRequest).then((result) => {
+      console.log(result);
+      if (result.data === 'waiting') { requestAccepted(),console.log('--*-------------------------------->',"waiting") }
+      else navigation.navigate("EmergencyAccepted", { Hce: result.data }).catch((err) =>
+        console.log(err))
+        throw error;
+    })
+  }
   return (
     <View style={styles.container}>
+      {requestAccepted()}
       <Text>Loading</Text>
       <LottieView
         style={styles.lottie}
@@ -25,7 +29,7 @@ axios.post("https://quick-care-server.herokuapp.com/request/checkRequest",ActifR
       />
       <Text>Your emergency will be treated as soon as possible</Text>
       <TouchableOpacity
-      onPress={()=>requestAccepted()}
+        onPress={() => requestAccepted()}
       ><Text>kbngf</Text></TouchableOpacity>
     </View>
   );
@@ -39,7 +43,7 @@ const styles = StyleSheet.create({
   },
   lottie: {
     width: 400,
-    height:400,
+    height: 400,
     alignItems: 'center',
     justifyContent: 'center',
   },
