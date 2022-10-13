@@ -1,29 +1,58 @@
-import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image, Pressable, TextInput, KeyboardAvoidingView, ScrollView, } from 'react-native';
+import React, { useEffect } from 'react';
+import { StyleSheet, Text, View, Image, Pressable, TextInput, ScrollView, TouchableOpacity } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useState } from "react";
+import axios from 'axios';
+import { CommonActions } from '@react-navigation/native';
 
 
 
-function EditProfilePatient({ navigation,route }) {
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [phoneNumber, setPhoneNumber] = useState("");
-    const [age, setAge] = useState("");
-    const [gender, setGender] = useState("");
+function EditProfilePatient({ navigation, route }) {
+    const [firstname, setFirstName] = useState(route.params.patient.firstName);
+    const [lastName, setLastName] = useState(route.params.patient.lastName);
+    const [email, setEmail] = useState(route.params.patient.email);
+    const [password, setPassword] = useState(route.params.patient.password);
+    const [phoneNumber, setPhoneNumber] = useState(route.params.patient.phoneNumber);
+    const [age, setAge] = useState(route.params.patient.age);
+    const [gender, setGender] = useState(route.params.patient.gender);
+    const [Chronical, setChronical] = useState(route.params.patient.chronicDiseases)
     const data = [
         { label: 'male', value: 'male' },
         { label: 'female', value: 'female' },
-        { label: "none", value: "don't want to tell" },
+        { label: "Other", value: "don't want to tell" },
 
     ];
 
-const functiontoConsole=()=>{
-    console.log(route.params)
-}
+    useEffect(() => { })
 
+    const changerFirstName = () => {
+        axios.put("http://192.168.101.7:3000/user/updateAll", { id: route.params.patient.id, firstName: firstname }).then((a) => setFirstName(a.data.firstName)).catch((err) => console.log(err))
+    }
+
+    const changeLastName = () => {
+        axios.put("http://192.168.101.7:3000/user/updateAll", { id: route.params.patient.id, lastName: lastName }).then((a) => setLastName(a.data.lastName)).catch((err) => console.log(err))
+    }
+
+    const changeEmail = () => {
+        axios.put("http://192.168.101.7:3000/user/updateAll", { id: route.params.patient.id, email: email }).then((a) => setEmail(a.data.email)).catch((err) => console.log(err))
+    }
+
+    const changePhonenumber = () => {
+        axios.put("http://192.168.101.7:3000/user/updateAll", { id: route.params.patient.id, phoneNumber: phoneNumber }).then((a) => setPhoneNumber(a.data.phoneNumber)).catch((err) => console.log(err))
+    }
+
+    const changeAge = () => {
+        axios.put("http://192.168.101.7:3000/user/updateAll", { id: route.params.patient.id, age: age }).then((a) => setAge(a.data.age)).catch((err) => console.log(err))
+    }
+
+    const changegender = () => {
+        axios.put("http://192.168.101.7:3000/user/updateAll", { id: route.params.patient.id, gender: gender }).then((a) => setGender(a.data.gender)).catch((err) => console.log(err))
+    }
+
+    const changechronicals = () => {
+        axios.put("http://192.168.101.7:3000/user/updateAll", { id: route.params.patient.id, chronicDiseases: Chronical }).then((a) => setChronical(a.data.chronicDiseases)).catch((err) => console.log(err))
+    }
 
     return (
         <ScrollView>
@@ -33,63 +62,82 @@ const functiontoConsole=()=>{
                 <View style={styles.bodyContent}
                     behavior={Platform.OS === "ios" ? "padding" : "height"}>
 
-                    <Text style={styles.name}>{route.params.patient.firstName}    {route.params.patient.lastName}</Text>
-                    <Text style={styles.info}>{route.params.patient.email}</Text>
+                    <TextInput style={styles.name}
+                        onChangeText={(first) => setFirstName(first)}
+                    >{firstname}</TextInput>
+                    <TextInput style={styles.name}
+                        onChangeText={(last) => setLastName(last)}
+                    >{lastName}</TextInput>
+                    <TextInput style={styles.info}>{email}</TextInput>
+                    <Text>Email :</Text>
                     <View style={styles.containerForEdit}>
                         <TextInput style={styles.description}
-                            onChangeText={(email) => setEmail(email)}>
-                            email</TextInput>
-                        <Pressable style={styles.editIcon}>
-                            <MaterialCommunityIcons name="book-edit-outline" size={20} />
-                        </Pressable>
+                            onChangeText={(email) => setEmail(email)}
+                            defaultValue={email}
+                        >
+                        </TextInput>
+
                     </View>
+                    <Text>password :</Text>
                     <View style={styles.containerForEdit}>
                         <TextInput style={styles.description}
                             onChangeText={(password) => setPassword(password)}
+                            defaultValue={phoneNumber}
                         >
-                            password</TextInput>
-                        <Pressable style={styles.editIcon}>
-                            <MaterialCommunityIcons name="book-edit-outline" size={20} />
-                        </Pressable>
+                        </TextInput>
+
                     </View>
+                    <Text>phoneNumber :</Text>
                     <View style={styles.containerForEdit}>
                         <TextInput style={styles.description}
                             onChangeText={(PhoneNumber) => setPhoneNumber(PhoneNumber)}
                             keyboardType='numeric'
+                            placeholder={phoneNumber}
+                            defaultValue={phoneNumber}
                         >
-                            phone Number</TextInput>
-                        <Pressable style={styles.editIcon}>
-                            <MaterialCommunityIcons name="book-edit-outline" size={20} />
-                        </Pressable>
+                        </TextInput>
+
                     </View>
+                    <Text>Age :</Text>
                     <View style={styles.containerForEdit}>
                         <TextInput style={styles.description}
-                        >Age</TextInput>
-                        <Pressable style={styles.editIcon}>
-                            <MaterialCommunityIcons name="book-edit-outline" size={20} />
-                        </Pressable>
+                            onChangeText={(age) => setAge(age)}
+                            defaultValue={age}
+                        ></TextInput>
+
+                    </View>
+                    <Text>Medical records :</Text>
+                    <View style={styles.containerForEdit}>
+                        <TextInput style={styles.description}
+                            onChange={(Chronical) => setChronical(Chronical)}
+
+                        ></TextInput>
+
                     </View>
                     <View style={styles.containerForEdit}>
-                        <TextInput style={styles.description} onChange={()=>functiontoConsole()}>Chronical Diseases</TextInput>
-                        <Pressable style={styles.editIcon}>
-                            <MaterialCommunityIcons name="check-circle" size={20} />
-                        </Pressable>
+                        <Dropdown
+                            style={styles.dropdown}
+                            data={data}
+                            labelField="label"
+                            placeholder="Gender"
+                            value={gender}
+                            onChange={item => {
+                                setGender(item.value);
+                                console.log('selected', item);
+                            }}
+                        />
+
                     </View>
-                    <Dropdown
-                        style={styles.dropdown}
-                        data={data}
-                        labelField="label"
-                        placeholder="Gender"
-                        value={gender}
-                        onChange={item => {
-                            setGender(item.value);
-                            console.log('selected', item);
-                        }}
-                    />
-                    <Pressable style={styles.editIcon}>
-                    </Pressable>
-
-
+                    <TouchableOpacity style={styles.confirm} onPress={() => {
+                        navigation.dispatch(
+                            CommonActions.navigate({
+                                name: 'ProfilePatient',
+                                params: {id: route.params.patient.id},
+                              })
+                        ); changerFirstName(); changeLastName(); changeEmail(); changePhonenumber(); changeAge(); changechronicals(); changegender()
+                    }}>
+                        <MaterialCommunityIcons name="check" size={50} color={"#077871"} />
+                    </TouchableOpacity>
                 </View>
             </View>
         </ScrollView>
@@ -114,7 +162,7 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         alignSelf: 'center',
         position: 'absolute',
-        marginTop: 30
+        marginTop: 60
     },
     name: {
         fontSize: 22,
@@ -124,7 +172,7 @@ const styles = StyleSheet.create({
 
     bodyContent: {
         alignItems: 'center',
-        padding: 30,
+        padding: 70,
     },
     name: {
         fontSize: 28,
@@ -144,11 +192,11 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         textAlign: 'center',
         width: 300,
-        borderRadius:12,
-        borderColor:"#077871",
+        borderRadius: 12,
+        borderColor: "#077871",
         borderWidth: 2,
-        backgroundColor:"#fff",
-        height:40
+        backgroundColor: "#fff",
+        height: 40
 
     },
     buttonContainer: {
@@ -187,12 +235,25 @@ const styles = StyleSheet.create({
         shadowRadius: 4,
         shadowOffset: { height: 4, width: 0 },
         shadowOpacity: 0.5,
-        borderRadius:12,
-        borderColor:"#077871",
+        borderRadius: 12,
+        borderColor: "#077871",
         borderWidth: 2,
-        marginTop:20
+        marginTop: 20,
+        alignContent: "center",
+        textAlign: "center"
 
     },
+    editbigIcon: {
+        position: "absolute",
+        left: 300,
+        top: "8%"
+    },
+    confirm: {
+        borderWidth: 2,
+        borderColor: "#077871",
+        marginTop: 15,
+        borderRadius: 50
+    }
 
 
 });

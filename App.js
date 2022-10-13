@@ -36,7 +36,7 @@ export default function App() {
         <Stack.Screen name="EmergencyAccepted" component={EmergencyAccepted} />
         <Stack.Screen name="TrackAmbulance" component={TrackAmbulance} />
         <Stack.Screen name="ProfilePatient" component={ProfilePatient} />
-        <Stack.Screen name="EditProfilePatient" component={EditProfilePatient} />
+        <Stack.Screen name="EditProfilePatient" component={EditProfilePatient} options={{ headerShown: false }} />
         <Stack.Screen name="secondaryMenu" component={SecondaryMenu} />
         <Stack.Screen name="DoctorRequest" component={DoctorRequest} />
         <Stack.Screen name="DoctorLoadingScreen" component={DoctorLoadingScreen} />
