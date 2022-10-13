@@ -9,12 +9,14 @@ function ProfilePatient({navigation,route}){
   const [Patient, setPatient] = useState("");
   useEffect(()=>{
     const Request ={
-      email:route.params.email
+      id:route.params.id
   }
   
-    axios.post("http://192.168.11.207:3000/user/One",Request).then((result)=>setPatient(result.data)).catch((err)=>console.log(err))
+    axios.post("http://192.168.101.9:3000/user/One",Request).then((result)=>{setPatient(result.data);
+    console.log(result)}
+    ).catch((err)=>console.log(err))
    
-  },[])
+  },[navigation])
  
     return (
       <View style={styles.container}>
@@ -22,7 +24,7 @@ function ProfilePatient({navigation,route}){
           <Image style={styles.avatar} source={{uri: 'https://bootdey.com/img/Content/avatar/avatar6.png'}}/>
           <View style={styles.body}>
             <View style={styles.bodyContent}>
-              <Text style={styles.name}>{Patient.firstName}{Patient.lastName}</Text>
+              <Text style={styles.name}>{Patient.firstName}  {Patient.lastName}</Text>
               <Text style={styles.info}>{Patient.email}</Text>
               <Text style={styles.description}>{Patient.phoneNumber}</Text>
               <Text style={styles.description}>{Patient.createdAt}</Text>
@@ -46,7 +48,7 @@ function ProfilePatient({navigation,route}){
 const styles = StyleSheet.create({
   header:{
     backgroundColor: "#077871",
-    height:210,
+    height:120,
   },
   avatar: {
     width: 130,
@@ -57,7 +59,7 @@ const styles = StyleSheet.create({
     marginBottom:10,
     alignSelf:'center',
     position: 'absolute',
-    marginTop:120
+    marginTop:60
   },
   name:{
     fontSize:22,

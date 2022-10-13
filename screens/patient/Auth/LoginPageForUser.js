@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useTogglePasswordVisibility } from "../../../hooks/TogglePassword";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import axios from "axios";
+import LottieView from 'lottie-react-native';
 
 
 
@@ -24,20 +25,20 @@ export default function LoginPageForUser({ navigation }) {
     }
     getData();
 
-    axios.post("http://192.168.11.207:3000/user/signin", user).then((ok) => {
+    axios.post("http://192.168.101.9:3000/user/signin", user).then((ok) => {
       setMessage("Welcome");
-      navigation.navigate("EmergencyHome", { email: email })
-    }).catch((err) => {console.log(err); setMessage("wrong entries") })
+      console.log(ok.data.id)
+      navigation.navigate("EmergencyHome", { id: ok.data.id })
+    }).catch((err) => { console.log(err); setMessage("wrong entries") })
   }
 
   return (
     <ScrollView style={styles.out}>
 
-      <Image
+      <LottieView
         style={styles.logo}
-        source={{
-          uri: 'https://media.discordapp.net/attachments/1024223915582689342/1026412844360679515/Capture.png',
-        }} />
+        source={require("../../../assets/64216-super-nurse-animation.json")}
+        autoPlay />
       <View style={styles.container}>
         <View style={styles.inputView}>
           <TextInput
@@ -123,11 +124,11 @@ const styles = StyleSheet.create({
     marginTop: 80,
   },
   logo: {
-    width: 130,
-    height: 150,
+    width: 150,
+    height: 200,
     top: 10,
     borderRadius: 0,
-    left: 120
+    left: 40
   },
   inputViewPassword: {
     display: 'flex',

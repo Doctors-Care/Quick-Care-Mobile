@@ -1,45 +1,48 @@
+import axios from 'axios';
+import { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, Image, Button, Alert, Pressable, TouchableOpacity, ScrollView } from 'react-native';
 
 
 
-function DoctorRequest({navigation,route}) {
+
+function DoctorRequest({ navigation, route }) {
     const [idrequest, setidrequest] = useState("");
-    const createEmergency = ()=>{
-        const Request ={
-            email:route.params.email,
-            state:'HCE'
+    const [description ,setDescription] = useState("")
+    const createDoctorrequest = () => {
+        console.log(route)
+        const Request = {
+            email: route.params.email,
+            status: 'Doctor',
+            description :description
         }
         console.log(Request)
-          axios.post("http://192.168.11.207:3000/request/addingRequest",Request).then((result)=>{setidrequest(result.data.id);navigation.navigate('LoadingScreen',{requestid:idrequest})}).catch((error)=>console.log(error))
+        axios.post("http://192.168.101.9:3000/request/addingRequest", Request).then((result) => { setidrequest(result.data.id);navigation.navigate("DoctorLoadingScreen", { requestid: idrequest }) }).catch((error) => console.log(error))
     }
     return (
         <ScrollView>
             <View style={styles.container}>
                 <View>
-                <View style={styles.container1}>
-                <Text>Symptoms</Text>
-                    <Text>tttt</Text>
-                    <Text>tttt</Text>
-                    <Text>tttt</Text>
-                    <Text>tttt</Text>
-                    <Text>tttt</Text>
-                    <TextInput placeholder="Details"
-                    ></TextInput>
-                    
-                    
-                    <TouchableOpacity
-                        style={styles.loginBtn}
-                        onPress={() => navigation.navigate('DoctorLoadingScreen')}
-                    >
-                        <Text style={styles.loginText}>confirm</Text>
-                    </TouchableOpacity>
+                    <View style={styles.container1}>
+                        <Text>Symptoms</Text>
+                        <View style={styles.inputView}>
+                        <TextInput
+                            styles={styles.TextInput}
+                            placeholder="Write your symptoms here"
+                            placeholderTextColor="black"
+                            onChangeText={(description) => { setDescription(description)}}
+                        ></TextInput>
+                    </View>
 
-                    <TouchableOpacity
-                        style={styles.loginBtn}
-                        onPress={() => Alert.alert("done")}
-                    >
-                        <Text style={styles.loginText}>Cancel</Text>
-                    </TouchableOpacity>
+
+
+                        <TouchableOpacity
+                            style={styles.loginBtn}
+                            onPress={() => createDoctorrequest()}
+                        >
+                            <Text style={styles.loginText}>confirm</Text>
+                        </TouchableOpacity>
+
+                 
                     </View>
                 </View>
             </View>
@@ -52,9 +55,9 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
 
     },
-    container1:{
-        alignItems:"center",
-        justifyContent:"center"
+    container1: {
+        alignItems: "center",
+        justifyContent: "center"
     },
     loginBtn: {
         width: "90%",
@@ -68,6 +71,29 @@ const styles = StyleSheet.create({
     },
     loginText: {
         color: "white"
+    },
+    inputView: {
+        backgroundColor: "#F6F6F6",
+        borderRadius: 30,
+        width: "90%",
+        height: 200,
+        marginBottom: 50,
+        alignItems: "center",
+        borderColor: "#077871",
+        borderWidth: 2,
+        marginTop:50,
+        multiline:true
+        
+
+    },
+
+    TextInput: {
+        height: 200,
+        flex: 1,
+        padding: 20,
+        marginLeft: 20,
+        marginTop: 10,
+
     },
 
 });

@@ -16,7 +16,12 @@ function Emergency({navigation,route}) {
             state:'HCE'
         }
         console.log(Request)
-          axios.post("http://192.168.11.207:3000/request/addingRequest",Request).then((result)=>{setidrequest(result.data.id);navigation.navigate('LoadingScreen',{requestid:idrequest})}).catch((error)=>console.log(error))
+        console.log("test----", route)
+        axios.post("http://192.168.101.9:3000/request/addingRequest", Request).then((result) => {
+            setidrequest(result.data.id);
+            navigation.navigate('LoadingScreen', { requestid: result.data.id })
+        }).catch((error) =>
+            console.log(error))
     }
     return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -34,11 +39,11 @@ function Emergency({navigation,route}) {
 }
 
 function Notifications() {
-    return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text>Notifications!</Text>
-        </View>
-    );
+  return (
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <Text>Notifications!</Text>
+    </View>
+  );
 }
 
 const Tab = createMaterialBottomTabNavigator();
@@ -86,7 +91,7 @@ export default function MyTabs({navigation,route}) {
             <Tab.Screen
                 name="ProfilePatient"
                 component={ProfilePatient}
-                initialParams={{email: route.params.email}}
+                initialParams={{ id: route.params.id }}
                 options={{
                     tabBarLabel: 'Profile',
                     tabBarIcon: ({ color }) => (
