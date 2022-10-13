@@ -10,6 +10,7 @@ import History from './historyOfRequests';
 
 function Emergency({ navigation, route }) {
     const [idrequest, setidrequest] = useState("");
+    React.useEffect(()=> console.log(route.params))
     const createEmergency = () => {
         const Request = {
             email: route.params.email,
@@ -17,7 +18,7 @@ function Emergency({ navigation, route }) {
         }
         console.log(Request)
         console.log("test----", route)
-        axios.post("http://192.168.101.3:3000/request/addingRequest", Request).then((result) => {
+        axios.post("http://192.168.101.7:3000/request/addingRequest", Request).then((result) => {
             setidrequest(result.data.id);
             navigation.navigate('LoadingScreen', { requestid: result.data.id })
         }).catch((error) =>
@@ -71,6 +72,7 @@ export default function MyTabs({ navigation, route }) {
             <Tab.Screen
                 name="History"
                 component={History}
+                initialParams={{ id: route.params.id }}
                 options={{
                     tabBarLabel: 'History',
                     tabBarIcon: ({ color }) => (
@@ -92,7 +94,7 @@ export default function MyTabs({ navigation, route }) {
             <Tab.Screen
                 name="ProfilePatient"
                 component={ProfilePatient}
-                initialParams={{ email: route.params.email }}
+                initialParams={{ id: route.params.id }}
                 options={{
                     tabBarLabel: 'Profile',
                     tabBarIcon: ({ color }) => (

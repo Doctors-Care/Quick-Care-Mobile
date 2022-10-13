@@ -1,33 +1,27 @@
 import  React, { useEffect, useState } from 'react';
 import { SafeAreaView,TouchableOpacity,View,Text,StyleSheet } from "react-native";
 import {Row, Rows, Table, TableWrapper} from "react-native-table-component";
+import axios from 'axios';
 
-const headers = ["Doctor","Hospital","Date","Description"]
-const rows = [
-    "Row11","Row12","Row13","Row14",
-    "Row21","Row22","Row23","Row24",
-    "Row31","Row32","Row33","Row34",
-    "Row41","Row42","Row43","Row44"
-]
-
-export default function History (route){
-    const [request, setRequest] = useState([]);
+export default function History ({route}){
+    const [requests, setRequests] = useState([]);
+    const headers = ["Doctor","Hospital","Date","Description"]
+    // const rows = [
+    //     request
+    // ]
     useEffect(()=>{
+        console.log(route)
         const Request = {
-            email: route.params.email,
+            id: route.params.id,
         }
-        axios.post("http://192.168.101.3:3000/request/getAllofOnePatient", Request).then((result) => {
-            result.data.map((request)=>{setRequest((prevRequest)=>{return [...prevRequest,[request.doctor, request.hce, request.hce, request.description]]})})
+        axios.post("http://192.168.11.224:3000/request/getAllofOnePatient", Request).then((result) => { result.data.map((req)=> setRequests(()=>{console.log(req); return requests.push(["req.Doctor.lastName" , "req.hce.name", req.createdAt ,"req.description"])}))
         }).catch((error) =>
             console.log(error))
     })
     return(<>
+    {console.log(requests)}
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
             <Text style={styles.Title1}>History of Requests</Text>
-            <TouchableOpacity
-                style={styles.emergencyButton}
-                onPress={() => createEmergency()}>
-            </TouchableOpacity>
         </View>
         <SafeAreaView style={{flex: 1}}>
             <View style={{flex: 1 , padding: 10}}>
@@ -43,7 +37,7 @@ export default function History (route){
                 }}
                 />
                   <TableWrapper>
-                    <Rows data={rows} />
+                    <Rows data={requests} />
                   </TableWrapper>
                 </Table>
             </View>
