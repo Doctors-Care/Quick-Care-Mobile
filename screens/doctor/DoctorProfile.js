@@ -1,56 +1,124 @@
-import { useState } from 'react'
-import { StyleSheet,
-    Text,
-    View,
-    Image,
-    TouchableOpacity,
-    Switch, } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  Switch,
+} from "react-native";
+import axios from "axios";
 
-const DoctorProfile = ({navigation}) => {
-    const [isEnabled, setIsEnabled] = useState(false);
-    const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
+const DoctorProfile = ({ navigation, route }) => {
+  const [isEnabled, setIsEnabled] = useState(false);
+  const [doctor, setDoctor] = useState({
+    firstName: "",
+    lastName:   "",
+    email:      "",
+    phoneNumber: "",
+    address:    "",
+    speciality: "",
+    status:    "",
+  });
+  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
+  //   fetch("http://192.168.101.3:3000/doctor/getOne", {
+  //     method: "POST",
+  //     headers: {
+  //       Accept: "application/json",
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //       id: route.params.id,
+  //     }),
+  //   })
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       console.log(data);
+  //       setDoctor(data);
+  //     })
+  //     .catch((err) => console.error(err));
+  //
+  // const getdoctor = async () => {
+  useEffect(() => {
+    const res = axios
+      .post(`http://192.168.101.3:3000/doctor/getOne`, { id: route.params.id })
+      .then((res) => {
+        console.log(res);
+        setDoctor({
+              firstName: res.data.firstName,
+              lastName: res.data.lastName,
+              email: res.data.email,
+              phoneNumber: res.data.phoneNumber,
+              address: res.data.address,
+              speciality: res.data.speciality,
+              status: res.data.status,
+            } );
+      })
+      .catch((err) => console.error(err));
+    //   console.log(res);
+    //   setDoctor({
+    //     firstName: res.data.firstName,
+    //     lastName: res.data.lastName,
+    //     email: res.data.email,
+    //     phoneNumber: res.data.phoneNumber,
+    //     address: res.data.address,
+    //     speciality: res.data.speciality,
+    //     status: res.data.status,
+    //   });
+    // } catch (err) {
+    //   console.log(err);
+    //   setDoctor({
+    //     firstName: "loading",
+    //     lastName: "loading...",
+    //     email: "loading...",
+    //     phone: "loading...",
+    //   });
+    // }
+  }, []);
+
   return (
     <View style={styles.container}>
-    <View style={styles.header}></View>
-    <Image
-      style={styles.avatar}
-      source={{ uri: "https://bootdey.com/img/Content/avatar/avatar6.png" }}
-    />
-    <View style={styles.body}>
-      <View style={styles.bodyContent}>
-        <Text style={styles.name}>John Doe</Text>
-        <Switch
-          trackColor={{ false: "#767577", true: "#81b0ff" }}
-          thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
-          ios_backgroundColor="#3e3e3e"
-          onValueChange={toggleSwitch}
-          value={isEnabled}
-        />
-        <Text style={styles.info}>UX Designer / Mobile developer</Text>
-        <Text style={styles.description}>
-          Lorem ipsum dolor sit amet, saepe sapientem eu nam. Qui ne assum
-          electram expetendis, omittam deseruisse consequuntur ius an,
-        </Text>
+      <View style={styles.header}></View>
+      <Image
+        style={styles.avatar}
+        source={{ uri: "https://bootdey.com/img/Content/avatar/avatar6.png" }}
+      />
+      <View style={styles.body}>
+        <View style={styles.bodyContent}>
+          <Text style={styles.name}>{doctor.firstName}</Text>
+          <Text style={styles.name}>{doctor.lastName}</Text>
 
-        <TouchableOpacity
-          style={styles.buttonContainer}
-          // onPress={() => navigation.navigate("EditprofileForm")}
-        >
-          <Text>Edit Profile</Text>
-        </TouchableOpacity>
-        {/* <TouchableOpacity style={styles.buttonContainer}>
+          <Switch
+            trackColor={{ false: "#767577", true: "#81b0ff" }}
+            thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
+            ios_backgroundColor="#3e3e3e"
+            onValueChange={toggleSwitch}
+            value={isEnabled}
+          />
+          <Text style={styles.info}>{doctor.email}</Text>
+          <Text style={styles.description}>{doctor.phoneNumber}</Text>
+
+          <TouchableOpacity
+            style={styles.buttonContainer}
+            onPress={() =>
+              navigation.navigate("EditPageDoc", { doctor: doctor })
+            }
+          >
+            <Text>Edit Profile</Text>
+          </TouchableOpacity>
+          {/* <TouchableOpacity style={styles.buttonContainer}>
               <Text>Opcion 2</Text> 
             </TouchableOpacity> */}
+        </View>
       </View>
     </View>
-  </View>
   );
-}
+};
 
-export default DoctorProfile
+export default DoctorProfile;
 
-const styles = StyleSheet.create({ header: {
+const styles = StyleSheet.create({
+  header: {
     backgroundColor: "#00BFFF",
     height: 200,
   },
@@ -102,4 +170,5 @@ const styles = StyleSheet.create({ header: {
     width: 100,
     borderRadius: 30,
     backgroundColor: "#00BFFF",
-  },})
+  },
+});

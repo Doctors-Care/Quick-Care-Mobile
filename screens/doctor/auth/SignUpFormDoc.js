@@ -36,7 +36,7 @@ export default function SignUpForm({ navigation }) {
         adress: address,
       };
       await axios.post(
-        `http://192.168.11.247:3000/doctor/addDoctor`,
+        `http://192.168.101.9:3000/doctor/addDoctor`,
         NewDoctor,
         {
           withCredentials: true,
@@ -174,5 +174,12 @@ const styles = StyleSheet.create({
   },
   container1: {
     flex: 1,
-  }
+  },
+  logo: {
+    width: 150,
+    height: 200,
+    top: 10,
+    borderRadius: 0,
+   
+  },
 });

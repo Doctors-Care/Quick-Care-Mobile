@@ -9,10 +9,12 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import axios from "axios";
+import LottieView from "lottie-react-native";
 
 export default function LoginForm({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [id, setid] = useState("");
   const login = async () => {
     try {
       const doctor = {
@@ -20,28 +22,32 @@ export default function LoginForm({ navigation }) {
         password: password,
       };
       const res = await axios.post(
-        `http://192.168.11.247:3000/doctor/loginDoc`,
+        `http://192.168.101.3:3000/doctor/loginDoc`,
         doctor,
         { withCredentials: true }
       );
-      if 
-      (res.data.message === "welcome Back") {
+      if (res.data.message === 'verify your credentials') {
         alert(res.data.message);
 
-        navigation.navigate("DoctorNav");
-      }
-      else {
-        alert(res.data.message);
+
+      } else {
+        alert("welcome back")
+        setid(res.data.doctorAuth.id);; 
+        navigation.navigate("DoctorNav",{id:res.data.doctorAuth.id});
+        console.log(res.data.doctorAuth.id);
       }
     } catch (err) {
-      alert(res.data.message);
       console.log(err);
     }
   };
   return (
     <ScrollView style={styles.container1}>
       <View style={styles.container}>
-        {/* <Image style={styles.img} source={require("../assets/logo.png")} /> */}
+        <LottieView
+          style={styles.logo}
+          source={require("../../../assets/64216-super-nurse-animation.json")}
+          autoPlay
+        />
         <View style={styles.inputView}>
           <TextInput
             styles={styles.TextInput}
@@ -64,8 +70,9 @@ export default function LoginForm({ navigation }) {
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate("SignUpFormDoctor");
+            navigation.navigate("SignUpFormDoctor", { id: id });
           }}
+
         >
           <Text style={styles.forgot_button}>Signup here</Text>
         </TouchableOpacity>
@@ -82,7 +89,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 150,
+    
   },
   img: {
     justifyContent: "center",
@@ -122,5 +129,11 @@ const styles = StyleSheet.create({
   },
   container1: {
     flex: 1,
-  }
+  },
+  logo: {
+    width: 150,
+    height: 200,
+    top: 10,
+    borderRadius: 0,
+  },
 });

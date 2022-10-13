@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View, SafeAreaView, FlatList, TouchableOpacity } from "react-native";
-import React from "react";
+import { StyleSheet, Text, View, SafeAreaView, FlatList, Button,Alert } from "react-native";
+import React, { useEffect } from "react";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import DoctorProfile from "./DoctorProfile";
@@ -7,7 +7,8 @@ import  { useState } from "react";
 
 const GetAllRequests = () => {
   const [data, setData] = useState([]);
-  fetch('http://192.168.11.247:3000/request/getAllRequests',{
+  useEffect(() => {
+  fetch('http://192.168.101.3:3000/request/getAllRequests',{
       method: 'GET',
       headers: {
           Accept: 'application/json',
@@ -20,17 +21,30 @@ const GetAllRequests = () => {
       setData(data);
   })
   .catch(err => console.error(err));
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
         data={data}
         renderItem={({ item }) => (
-          <View>
+          <View style={styles.item}>
             <Text>{item.id}</Text>
+            <Text>{item.email}</Text>
             <Text>{item.status}</Text>
-            <TouchableOpacity><Text>Accept</Text></TouchableOpacity>
-            <TouchableOpacity><Text>Reject</Text></TouchableOpacity>
+            <Text>{item.description}</Text>
+
+
+
+            <Text>{item.status}</Text>
+            <Button
+        title="Accept"
+        onPress={() => Alert.alert('accepted')}
+      />
+        <Button
+        title="Reject"
+        onPress={() => Alert.alert('reject')}
+      />
 
           </View>
         )}
@@ -57,7 +71,7 @@ function Notifications() {
 }
 const Tab = createMaterialBottomTabNavigator();
 
-const DoctorNav = () => {
+const DoctorNav = ({route}) => {
   return (
     <Tab.Navigator
       initialRouteName="GetAllRequests"
@@ -89,6 +103,7 @@ const DoctorNav = () => {
       <Tab.Screen
         name="DoctorProfile"
         component={DoctorProfile}
+        initialParams={{ id: route.params.id }}
         options={{
           tabBarLabel: "Profile",
           tabBarIcon: ({ color }) => (
@@ -102,4 +117,21 @@ const DoctorNav = () => {
 
 export default DoctorNav;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginTop: 20,
+  },
+  item: {
+    backgroundColor: "#88AFF7",
+    padding: 20,
+    marginVertical: 8,
+    marginHorizontal: 16,
+  },
+  title: {
+    justifyContent: "center",
+    fontSize: 32,
+
+  },  
+
+});
