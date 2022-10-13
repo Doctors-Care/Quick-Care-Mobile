@@ -10,7 +10,7 @@ function LoadingScreenEmergency({ navigation, route }) {
   const requestAccepted = () => {
     const ActifRequest = { id: route.params.requestid };
     console.log(route.params)
-    axios.post("http://192.168.101.7:3000/request/checkRequest", ActifRequest).then((result) => {
+    axios.post("http://192.168.101.9:3000/request/checkRequest", ActifRequest).then((result) => {
       console.log(result);
       if (result.data === 'waiting') { requestAccepted(),console.log('--*-------------------------------->',"waiting") }
       else navigation.navigate("EmergencyAccepted", { Hce: result.data }).catch((err) =>

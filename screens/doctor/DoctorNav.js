@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, SafeAreaView, FlatList, Button,Alert } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import DoctorProfile from "./DoctorProfile";
@@ -7,7 +7,8 @@ import  { useState } from "react";
 
 const GetAllRequests = () => {
   const [data, setData] = useState([]);
-  fetch('http://192.168.101.5:3000/request/getAllRequests',{
+  useEffect(() => {
+  fetch('http://192.168.101.3:3000/request/getAllRequests',{
       method: 'GET',
       headers: {
           Accept: 'application/json',
@@ -20,6 +21,7 @@ const GetAllRequests = () => {
       setData(data);
   })
   .catch(err => console.error(err));
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -69,7 +71,7 @@ function Notifications() {
 }
 const Tab = createMaterialBottomTabNavigator();
 
-const DoctorNav = () => {
+const DoctorNav = ({route}) => {
   return (
     <Tab.Navigator
       initialRouteName="GetAllRequests"
@@ -101,6 +103,7 @@ const DoctorNav = () => {
       <Tab.Screen
         name="DoctorProfile"
         component={DoctorProfile}
+        initialParams={{ id: route.params.id }}
         options={{
           tabBarLabel: "Profile",
           tabBarIcon: ({ color }) => (

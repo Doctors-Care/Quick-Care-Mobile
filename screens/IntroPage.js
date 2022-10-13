@@ -1,10 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image, Alert, Pressable, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Image, Alert, Pressable, TouchableOpacity, ScrollView } from 'react-native';
 import LottieView from 'lottie-react-native';
 
 function Welcome({ navigation }) {
 
   return (
+    <ScrollView >
     <View style={styles.container}>
       <LottieView
         style={styles.logo}
@@ -40,6 +41,7 @@ function Welcome({ navigation }) {
           onPress={() => navigation.navigate('LoginFormDoctor')}>Are you a doctor ?</Text>
       </TouchableOpacity>
     </View>
+    </ScrollView>
   );
 }
 

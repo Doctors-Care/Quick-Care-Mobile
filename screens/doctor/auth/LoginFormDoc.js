@@ -14,6 +14,7 @@ import LottieView from "lottie-react-native";
 export default function LoginForm({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [id, setid] = useState("");
   const login = async () => {
     try {
       const doctor = {
@@ -21,19 +22,21 @@ export default function LoginForm({ navigation }) {
         password: password,
       };
       const res = await axios.post(
-        `http://192.168.101.5:3000/doctor/loginDoc`,
+        `http://192.168.101.3:3000/doctor/loginDoc`,
         doctor,
         { withCredentials: true }
       );
-      if (res.data.message === "welcome Back") {
+      if (res.data.message === 'verify your credentials') {
         alert(res.data.message);
 
-        navigation.navigate("DoctorNav");
+
       } else {
-        alert(res.data.message);
+        alert("welcome back")
+        setid(res.data.doctorAuth.id);; 
+        navigation.navigate("DoctorNav",{id:res.data.doctorAuth.id});
+        console.log(res.data.doctorAuth.id);
       }
     } catch (err) {
-      alert(res.data.message);
       console.log(err);
     }
   };
@@ -67,8 +70,9 @@ export default function LoginForm({ navigation }) {
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate("SignUpFormDoctor");
+            navigation.navigate("SignUpFormDoctor", { id: id });
           }}
+
         >
           <Text style={styles.forgot_button}>Signup here</Text>
         </TouchableOpacity>
@@ -85,7 +89,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 150,
+    
   },
   img: {
     justifyContent: "center",
