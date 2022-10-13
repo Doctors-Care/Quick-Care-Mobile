@@ -21,7 +21,7 @@ function RegistrationForUser({ navigation }) {
             phoneNumber: phoneNumber,
             adress: adress,
         }
-        axios.post("http://192.168.101.3:3000/user/signup", NewUser, { withCredentials: true }).then((ok) => { console.log(ok); return "valid" }).catch((err) => console.log(err))
+        axios.post("http://192.168.101.5:3000/user/signup", NewUser, { withCredentials: true }).then((ok) => { console.log(ok); return "valid" }).catch((err) => console.log(err))
     }
 
     return (

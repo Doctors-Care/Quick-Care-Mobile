@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, SafeAreaView, FlatList, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, SafeAreaView, FlatList, Button,Alert } from "react-native";
 import React from "react";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -7,7 +7,7 @@ import  { useState } from "react";
 
 const GetAllRequests = () => {
   const [data, setData] = useState([]);
-  fetch('http://192.168.11.247:3000/request/getAllRequests',{
+  fetch('http://192.168.101.5:3000/request/getAllRequests',{
       method: 'GET',
       headers: {
           Accept: 'application/json',
@@ -26,11 +26,23 @@ const GetAllRequests = () => {
       <FlatList
         data={data}
         renderItem={({ item }) => (
-          <View>
+          <View style={styles.item}>
             <Text>{item.id}</Text>
+            <Text>{item.email}</Text>
             <Text>{item.status}</Text>
-            <TouchableOpacity><Text>Accept</Text></TouchableOpacity>
-            <TouchableOpacity><Text>Reject</Text></TouchableOpacity>
+            <Text>{item.description}</Text>
+
+
+
+            <Text>{item.status}</Text>
+            <Button
+        title="Accept"
+        onPress={() => Alert.alert('accepted')}
+      />
+        <Button
+        title="Reject"
+        onPress={() => Alert.alert('reject')}
+      />
 
           </View>
         )}
@@ -102,4 +114,21 @@ const DoctorNav = () => {
 
 export default DoctorNav;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginTop: 20,
+  },
+  item: {
+    backgroundColor: "#88AFF7",
+    padding: 20,
+    marginVertical: 8,
+    marginHorizontal: 16,
+  },
+  title: {
+    justifyContent: "center",
+    fontSize: 32,
+
+  },  
+
+});

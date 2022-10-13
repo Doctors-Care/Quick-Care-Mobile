@@ -8,7 +8,8 @@ function SecondaryMenu({ navigation, route }) {
             <View style={styles.container2}>
                 <TouchableOpacity
                     style={styles.emergencyButton}
-                    onPress={() => navigation.navigate('DoctorRequest', { email: route.params.email })}>
+                    onPress={() =>{console.log(route);
+                        navigation.navigate('DoctorRequest', { email: route.params.email })}}>
                     <LottieView
                        style={styles.imageForMenu }
                        source={require("../../../assets/64216-super-nurse-animation.json")}
