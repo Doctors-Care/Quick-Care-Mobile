@@ -6,7 +6,7 @@ import ProfilePatient from '../Profile/ProfilePatient'
 import SecondaryMenu from '../SecondaryMenu/SecondaryMenu';
 import axios from 'axios';
 import { useState } from "react";
-
+import History from './historyOfRequests';
 
 function Emergency({ navigation, route }) {
     const [idrequest, setidrequest] = useState("");
@@ -69,10 +69,10 @@ export default function MyTabs({ navigation, route }) {
                 }}
             />
             <Tab.Screen
-                name="Notifications"
-                component={Notifications}
+                name="History"
+                component={History}
                 options={{
-                    tabBarLabel: 'Notifications',
+                    tabBarLabel: 'History',
                     tabBarIcon: ({ color }) => (
                         <MaterialCommunityIcons name="bell" color={color} size={26} />
                     ),

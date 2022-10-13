@@ -18,7 +18,7 @@ import SecondaryMenu from './screens/patient/SecondaryMenu/SecondaryMenu'
 import DoctorRequest from './screens/patient/SecondaryMenu/DoctorRequest'
 import DoctorLoadingScreen from './screens/patient/SecondaryMenu/DoctrLoadingScreen'
 import AcceptedDoctor from './screens/patient/SecondaryMenu/AcceptedDoctorCall'
-
+import History from './screens/patient/Home/historyOfRequests';
 export default function App() {
   const Stack = createNativeStackNavigator();
   return (
@@ -41,6 +41,7 @@ export default function App() {
         <Stack.Screen name="DoctorRequest" component={DoctorRequest} />
         <Stack.Screen name="DoctorLoadingScreen" component={DoctorLoadingScreen} />
         <Stack.Screen name="AcceptedDoctor" component={AcceptedDoctor} />
+        <Stack.Screen name="History" component={History}/>
         
       </Stack.Navigator>
     </NavigationContainer>

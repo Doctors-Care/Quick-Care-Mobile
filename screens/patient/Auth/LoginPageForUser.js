@@ -25,7 +25,7 @@ export default function LoginPageForUser({ navigation }) {
     }
     getData();
 
-    axios.post("http://192.168.101.3:3000/user/signin", user).then((ok) => {
+    axios.post("http://192.168.11.224:3000/user/signin", user).then((ok) => {
       setMessage("Welcome");
       navigation.navigate("EmergencyHome", { email: email })
     }).catch((err) => { console.log(err); setMessage("wrong entries") })
