@@ -5,6 +5,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useState } from "react";
 import axios from 'axios';
 import { CommonActions } from '@react-navigation/native';
+import link from '../../../Adress';
 
 
 
@@ -27,31 +28,31 @@ function EditProfilePatient({ navigation, route }) {
     useEffect(() => { })
 
     const changerFirstName = () => {
-        axios.put("http://192.168.101.9:3000/user/updateAll", { id: route.params.patient.id, firstName: firstname }).then((a) => setFirstName(a.data.firstName)).catch((err) => console.log(err))
+        axios.put(`${link}/user/updateAll`, { id: route.params.patient.id, firstName: firstname }).then((a) => setFirstName(a.data.firstName)).catch((err) => console.log(err))
     }
 
     const changeLastName = () => {
-        axios.put("http://192.168.101.9:3000/user/updateAll", { id: route.params.patient.id, lastName: lastName }).then((a) => setLastName(a.data.lastName)).catch((err) => console.log(err))
+        axios.put(`${link}/user/updateAll`, { id: route.params.patient.id, lastName: lastName }).then((a) => setLastName(a.data.lastName)).catch((err) => console.log(err))
     }
 
     const changeEmail = () => {
-        axios.put("http://192.168.101.9:3000/user/updateAll", { id: route.params.patient.id, email: email }).then((a) => setEmail(a.data.email)).catch((err) => console.log(err))
+        axios.put(`${link}/user/updateAll`, { id: route.params.patient.id, email: email }).then((a) => setEmail(a.data.email)).catch((err) => console.log(err))
     }
 
     const changePhonenumber = () => {
-        axios.put("http://192.168.101.9:3000/user/updateAll", { id: route.params.patient.id, phoneNumber: phoneNumber }).then((a) => setPhoneNumber(a.data.phoneNumber)).catch((err) => console.log(err))
+        axios.put(`${link}/user/updateAll`, { id: route.params.patient.id, phoneNumber: phoneNumber }).then((a) => setPhoneNumber(a.data.phoneNumber)).catch((err) => console.log(err))
     }
 
     const changeAge = () => {
-        axios.put("http://192.168.101.9:3000/user/updateAll", { id: route.params.patient.id, age: age }).then((a) => setAge(a.data.age)).catch((err) => console.log(err))
+        axios.put(`${link}/user/updateAll`, { id: route.params.patient.id, age: age }).then((a) => setAge(a.data.age)).catch((err) => console.log(err))
     }
 
     const changegender = () => {
-        axios.put("http://192.168.101.9:3000/user/updateAll", { id: route.params.patient.id, gender: gender }).then((a) => setGender(a.data.gender)).catch((err) => console.log(err))
+        axios.put(`${link}/user/updateAll`, { id: route.params.patient.id, gender: gender }).then((a) => setGender(a.data.gender)).catch((err) => console.log(err))
     }
 
     const changechronicals = () => {
-        axios.put("http://192.168.101.9:3000/user/updateAll", { id: route.params.patient.id, chronicDiseases: Chronical }).then((a) => setChronical(a.data.chronicDiseases)).catch((err) => console.log(err))
+        axios.put(`${link}/user/updateAll`, { id: route.params.patient.id, chronicDiseases: Chronical }).then((a) => setChronical(a.data.chronicDiseases)).catch((err) => console.log(err))
     }
 
     return (

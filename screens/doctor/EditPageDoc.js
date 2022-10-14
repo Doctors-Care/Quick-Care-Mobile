@@ -14,6 +14,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useState } from "react";
 import axios from "axios";
 import { CommonActions } from "@react-navigation/native";
+import link from "../../Adress";
 
 function EditPageDoc({ navigation, route }) {
   // const [firstname, setFirstName] = useState(route.params.patient.firstName);
@@ -69,9 +70,9 @@ function EditPageDoc({ navigation, route }) {
     adress: route.params.doctor.adress,
     disponibility: route.params.doctor.disponibility,
   });
-  const updateDocProfile = () => {
+  useEffect(() => {
     axios
-      .put("http://192.168.101.3:3000/doctor/update", {
+      .put(`${link}/doctor/update`, {
         id: route.params.doctor.id,
       })
       .then((a) => {
@@ -79,7 +80,7 @@ function EditPageDoc({ navigation, route }) {
         setData(a.data);
       })
       .catch((err) => console.log(err));
-  };
+  },[])
 
   return (
     <ScrollView>
@@ -101,7 +102,7 @@ function EditPageDoc({ navigation, route }) {
             name="firstName"
             onChangeText={(text) => setData({ ...data, firstName: text })}
           >
-            {firstname}
+            {firstName}
           </TextInput>
           <TextInput
             style={styles.name}

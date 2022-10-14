@@ -10,6 +10,7 @@ import {
 import React, { useState } from "react";
 import axios from "axios";
 import LottieView from "lottie-react-native";
+import link from "../../../Adress";
 
 export default function LoginForm({ navigation }) {
   const [email, setEmail] = useState("");
@@ -22,7 +23,7 @@ export default function LoginForm({ navigation }) {
         password: password,
       };
       const res = await axios.post(
-        `http://192.168.101.3:3000/doctor/loginDoc`,
+        `${link}/doctor/loginDoc`,
         doctor,
         { withCredentials: true }
       );
@@ -31,10 +32,10 @@ export default function LoginForm({ navigation }) {
 
 
       } else {
+        console.log(res.data);
         alert("welcome back")
-        setid(res.data.doctorAuth.id);; 
+        setid(res.data);
         navigation.navigate("DoctorNav",{id:res.data.doctorAuth.id});
-        console.log(res.data.doctorAuth.id);
       }
     } catch (err) {
       console.log(err);

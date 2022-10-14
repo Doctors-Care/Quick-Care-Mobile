@@ -6,6 +6,7 @@ import ProfilePatient from '../Profile/ProfilePatient'
 import SecondaryMenu from '../SecondaryMenu/SecondaryMenu';
 import axios from 'axios';
 import { useState } from "react";
+import link from '../../../Adress';
 
 
 function Emergency({navigation,route}) {
@@ -17,7 +18,7 @@ function Emergency({navigation,route}) {
         }
         console.log(Request)
         console.log("test----", route)
-        axios.post("http://192.168.101.9:3000/request/addingRequest", Request).then((result) => {
+        axios.post(`${link}/request/addingRequest`, Request).then((result) => {
             setidrequest(result.data.id);
             navigation.navigate('LoadingScreen', { requestid: result.data.id })
         }).catch((error) =>

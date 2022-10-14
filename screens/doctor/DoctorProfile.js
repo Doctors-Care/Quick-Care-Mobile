@@ -8,6 +8,7 @@ import {
   Switch,
 } from "react-native";
 import axios from "axios";
+import link from "../../Adress";
 
 const DoctorProfile = ({ navigation, route }) => {
   const [isEnabled, setIsEnabled] = useState(false);
@@ -41,7 +42,7 @@ const DoctorProfile = ({ navigation, route }) => {
   // const getdoctor = async () => {
   useEffect(() => {
     const res = axios
-      .post(`http://192.168.101.3:3000/doctor/getOne`, { id: route.params.id })
+      .post(`${link}/doctor/getOne`, { id: route.params.id })
       .then((res) => {
         console.log(res);
         setDoctor({
@@ -89,9 +90,9 @@ const DoctorProfile = ({ navigation, route }) => {
           <Text style={styles.name}>{doctor.lastName}</Text>
 
           <Switch
-            trackColor={{ false: "#767577", true: "#81b0ff" }}
-            thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
-            ios_backgroundColor="#3e3e3e"
+            trackColor={{ false: "#ffffff", true: "#ffffff" }}
+            thumbColor={isEnabled ? "#00BFFF" : "black"}
+            ios_backgroundColor="#00BFFF"
             onValueChange={toggleSwitch}
             value={isEnabled}
           />
