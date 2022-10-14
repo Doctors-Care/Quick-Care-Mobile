@@ -63,24 +63,36 @@ function EditPageDoc({ navigation, route }) {
   // }
 
   const [data, setData] = useState({
-    firstName: route.params.doctor.firstName,
-    lastName: route.params.doctor.lastName,
-    email: route.params.doctor.email,
-    phoneNumber: route.params.doctor.phoneNumber,
-    adress: route.params.doctor.adress,
-    disponibility: route.params.doctor.disponibility,
+    id:"",
+    firstName: "",
+    lastName: "",
+    email: "",
+    password:"",
+    phoneNumber: "",
+    adress: "",
+    disponibility: "",
   });
   useEffect(() => {
+    console.log (route.params)
     axios
-      .put(`${link}/doctor/update`, {
+      .post(`${link}/doctor/getOne`, {
         id: route.params.doctor.id,
       })
       .then((a) => {
-        console.log(a);
+        console.log(a.config);
         setData(a.data);
       })
       .catch((err) => console.log(err));
-  },[])
+  }, []);
+  const update = () => {
+    axios
+      .put(`${link}/doctor/update`, data)
+      .then((result) => {
+        console.log(result)
+        setData(result.data);
+      })
+      .catch((err) => console.log(err,data));
+  };
 
   return (
     <ScrollView>
@@ -101,59 +113,49 @@ function EditPageDoc({ navigation, route }) {
             value={data.firstName}
             name="firstName"
             onChangeText={(text) => setData({ ...data, firstName: text })}
-          >
-            {firstName}
-          </TextInput>
+          ></TextInput>
           <TextInput
             style={styles.name}
-            onChangeText={(last) =>console.log("haha")}
-          >
-            {lastName}
-          </TextInput>
-          <TextInput style={styles.info}>{email}</TextInput>
-          <Text>Email :</Text>
-          <View style={styles.containerForEdit}>
-            <TextInput
-              style={styles.description}
-              onChangeText={(last) =>console.log("haha")}
-              defaultValue={email}
-            ></TextInput>
-          </View>
+            placeholder="last Name"
+            key="last Name"
+            value={data.lastName}
+            name="lastname"
+            onChangeText={(text) => setData({ ...data, lastName: text })}
+          ></TextInput>
+          <TextInput style={styles.info}
+           onChangeText={(email) => setData({ ...data, email: email })}
+          >{data.email}</TextInput>
+     
           <Text>password :</Text>
-          <View style={styles.containerForEdit}>
+          {/* <View style={styles.containerForEdit}>
             <TextInput
               style={styles.description}
-              onChangeText={(last) =>console.log("haha")}
-              defaultValue={phoneNumber}
+              secureTextEntry={true}
+              onChangeText={(text) => setData({ ...data, password: text })}
+              defaultValue={data.phoneNumber}
             ></TextInput>
-          </View>
+          </View> */}
           <Text>phoneNumber :</Text>
           <View style={styles.containerForEdit}>
             <TextInput
               style={styles.description}
-              onChangeText={(last) =>console.log("haha")}
+              onChangeText={(last) => console.log("haha")}
               keyboardType="numeric"
-              placeholder={phoneNumber}
-              defaultValue={phoneNumber}
+              placeholder={data.phoneNumber}
+              defaultValue={data.phoneNumber}
             ></TextInput>
           </View>
-          <Text>Age :</Text>
+          <Text>Adress :</Text>
           <View style={styles.containerForEdit}>
             <TextInput
               style={styles.description}
-              onChangeText={(last) =>console.log("haha")}
-              defaultValue={age}
+              onChangeText={(last) => console.log("haha")}
+              defaultValue={data.age}
             ></TextInput>
           </View>
-          <Text>Medical records :</Text>
+        
           <View style={styles.containerForEdit}>
-            <TextInput
-              style={styles.description}
-              onChangeText={(last) =>console.log("haha")}
-              ></TextInput>
-          </View>
-          <View style={styles.containerForEdit}>
-            <Dropdown
+            {/* <Dropdown
               style={styles.dropdown}
               data={data}
               labelField="label"
@@ -163,28 +165,19 @@ function EditPageDoc({ navigation, route }) {
                 setGender(item.value);
                 console.log("selected", item);
               }}
-            />
+            /> */}
           </View>
-          {/* <TouchableOpacity
-            style={styles.confirm}
-            onPress={() => {
-              navigation.dispatch(
-                CommonActions.navigate({
-                  name: "ProfilePatient",
-                  params: { id: route.params.patient.id },
+          <TouchableOpacity style={styles.confirm}
+          onPress={()=>{update();
+            navigation.dispatch(
+              CommonActions.navigate({
+                  name: 'DoctorProfile',
+                  params: {id: route.params.doctor.id},
                 })
-              );
-              changerFirstName();
-              changeLastName();
-              changeEmail();
-              changePhonenumber();
-              changeAge();
-              changechronicals();
-              changegender();
-            }}
+          )}}
           >
-            <MaterialCommunityIcons name="check" size={50} color={"#077871"} />
-          </TouchableOpacity> */}
+            <MaterialCommunityIcons name="check" size={50} color={"#44b3cc"} />
+          </TouchableOpacity>
         </View>
       </View>
     </ScrollView>
@@ -196,7 +189,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
-    backgroundColor: "#077871",
+    backgroundColor: "#44b3cc",
     height: 120,
   },
   avatar: {
@@ -239,7 +232,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     width: 300,
     borderRadius: 12,
-    borderColor: "#077871",
+    borderColor: "#44b3cc",
     borderWidth: 2,
     backgroundColor: "#fff",
     height: 40,
@@ -262,7 +255,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginTop: 40,
-    backgroundColor: "#077871",
+    backgroundColor: "#44b3cc",
     marginTop: 80,
   },
   loginText: {
@@ -273,20 +266,6 @@ const styles = StyleSheet.create({
     left: 300,
     top: "40%",
   },
-  dropdown: {
-    backgroundColor: "#fff",
-    width: 300,
-    shadowColor: "#fff",
-    shadowRadius: 4,
-    shadowOffset: { height: 4, width: 0 },
-    shadowOpacity: 0.5,
-    borderRadius: 12,
-    borderColor: "#077871",
-    borderWidth: 2,
-    marginTop: 20,
-    alignContent: "center",
-    textAlign: "center",
-  },
   editbigIcon: {
     position: "absolute",
     left: 300,
@@ -294,7 +273,7 @@ const styles = StyleSheet.create({
   },
   confirm: {
     borderWidth: 2,
-    borderColor: "#077871",
+    borderColor: "#44b3cc",
     marginTop: 15,
     borderRadius: 50,
   },

@@ -14,12 +14,12 @@ const DoctorProfile = ({ navigation, route }) => {
   const [isEnabled, setIsEnabled] = useState(false);
   const [doctor, setDoctor] = useState({
     firstName: "",
-    lastName:   "",
-    email:      "",
+    lastName: "",
+    email: "",
     phoneNumber: "",
-    address:    "",
+    address: "",
     speciality: "",
-    status:    "",
+    status: "",
   });
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
   //   fetch("http://192.168.101.3:3000/doctor/getOne", {
@@ -46,14 +46,15 @@ const DoctorProfile = ({ navigation, route }) => {
       .then((res) => {
         console.log(res);
         setDoctor({
-              firstName: res.data.firstName,
-              lastName: res.data.lastName,
-              email: res.data.email,
-              phoneNumber: res.data.phoneNumber,
-              address: res.data.address,
-              speciality: res.data.speciality,
-              status: res.data.status,
-            } );
+          id: res.data.id,
+          firstName: res.data.firstName,
+          lastName: res.data.lastName,
+          email: res.data.email,
+          phoneNumber: res.data.phoneNumber,
+          address: res.data.address,
+          speciality: res.data.speciality,
+          status: res.data.status,
+        });
       })
       .catch((err) => console.error(err));
     //   console.log(res);
