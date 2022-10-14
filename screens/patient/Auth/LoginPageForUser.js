@@ -25,7 +25,7 @@ export default function LoginPageForUser({ navigation }) {
     }
     getData();
 
-    axios.post("http://192.168.11.224:3000/user/signin", user).then((ok) => {
+    axios.post("http://192.168.11.35:3000/user/signin", user).then((ok) => {
       setMessage("Welcome");
       console.log(ok.data.id)
       navigation.navigate("EmergencyHome", { id: ok.data.id })

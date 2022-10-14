@@ -16,7 +16,7 @@ function DoctorRequest({ navigation, route }) {
             description :description
         }
         console.log(Request)
-        axios.post("http://192.168.101.7:3000/request/addingRequest", Request).then((result) => { setidrequest(result.data.id);navigation.navigate("DoctorLoadingScreen", { requestid: idrequest }) }).catch((error) => console.log(error))
+        axios.post("http://192.168.101.9:3000/request/addingRequest", Request).then((result) => { setidrequest(result.data.id);navigation.navigate("DoctorLoadingScreen", { requestid: idrequest }) }).catch((error) => console.log(error))
     }
     return (
         <ScrollView>
@@ -32,6 +32,7 @@ function DoctorRequest({ navigation, route }) {
                             onChangeText={(description) => { setDescription(description)}}
                         ></TextInput>
                     </View>
+
 
 
                         <TouchableOpacity
