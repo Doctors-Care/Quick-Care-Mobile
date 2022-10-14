@@ -4,11 +4,12 @@ import { createMaterialBottomTabNavigator } from "@react-navigation/material-bot
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import DoctorProfile from "./DoctorProfile";
 import  { useState } from "react";
+import link from "../../Adress";
 
 const GetAllRequests = () => {
   const [data, setData] = useState([]);
   useEffect(() => {
-  fetch('http://192.168.101.3:3000/request/getAllRequests',{
+  fetch(`${link}/request/getAllRequests`,{
       method: 'GET',
       headers: {
           Accept: 'application/json',

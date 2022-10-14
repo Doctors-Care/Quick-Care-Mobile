@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, Image, Button, Alert, Pressable, TouchableOpacity, ScrollView } from 'react-native';
+import link from '../../../Adress';
 
 
 
@@ -16,7 +17,7 @@ function DoctorRequest({ navigation, route }) {
             description :description
         }
         console.log(Request)
-        axios.post("http://192.168.101.9:3000/request/addingRequest", Request).then((result) => { setidrequest(result.data.id);navigation.navigate("DoctorLoadingScreen", { requestid: idrequest }) }).catch((error) => console.log(error))
+        axios.post(`${link}/request/addingRequest`, Request).then((result) => { setidrequest(result.data.id);navigation.navigate("DoctorLoadingScreen", { requestid: idrequest }) }).catch((error) => console.log(error))
     }
     return (
         <ScrollView>
