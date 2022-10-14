@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {StyleSheet,Text,View,Image,TouchableOpacity, Alert} from 'react-native';
 import { useState,useEffect } from "react";
 import axios from 'axios';
+import link from '../../../Adress';
 
 
 
@@ -12,7 +13,7 @@ function ProfilePatient({navigation,route}){
       id:route.params.id
   }
   
-    axios.post("http://192.168.101.7:3000/user/One",Request).then((result)=>{setPatient(result.data);
+    axios.post(`${link}/user/One`,Request).then((result)=>{setPatient(result.data);
     console.log(result)}
     ).catch((err)=>console.log(err))
    

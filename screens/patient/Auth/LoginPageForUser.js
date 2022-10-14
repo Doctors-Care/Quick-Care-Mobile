@@ -4,6 +4,7 @@ import { useTogglePasswordVisibility } from "../../../hooks/TogglePassword";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import axios from "axios";
 import LottieView from 'lottie-react-native';
+import link from "../../../Adress";
 
 
 
@@ -25,7 +26,7 @@ export default function LoginPageForUser({ navigation }) {
     }
     getData();
 
-    axios.post("http://192.168.101.7:3000/user/signin", user).then((ok) => {
+    axios.post(`${link}/user/signin`, user).then((ok) => {
       setMessage("Welcome");
       console.log(ok.data.id)
       navigation.navigate("EmergencyHome", { id: ok.data.id })
