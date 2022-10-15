@@ -2,15 +2,36 @@ import { StyleSheet, Text, View, TextInput, Image, Button, Alert, Pressable, Tou
 import LottieView from 'lottie-react-native';
 import axios from 'axios';
 import link from '../../../Adress';
+import { useEffect, useState } from 'react';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 
 
-function LoadingScreenEmergency({ navigation, route }) {
 
+function LoadingScreenEmergency({ navigation }) {
+const [patient,setPatient]=useState({});
+useEffect (async()=>{
+  await getData()
+},[])
+
+  const getData = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem('Patient')
+      const Patient = JSON.parse(jsonValue)
+      console.log('hethi e reponse',jsonValue)
+       setPatient(Patient)
+       return patient
+      console.log('patient',patient)
+    } catch(e) {
+      console.log (e)
+    }
+  }
   const requestAccepted = () => {
-    const ActifRequest = { id: route.params.requestid };
-    console.log(route.params)
+   
+     var a = patient;
+console.log(a);
+    const ActifRequest = { id: a.id };
     axios.post(`${link}/request/checkRequest`, ActifRequest).then((result) => {
       console.log(result);
       if (result.data === 'waiting') { requestAccepted(),console.log('--*-------------------------------->',"waiting") }
