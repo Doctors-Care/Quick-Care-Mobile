@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     marginBottom:10,
     alignSelf:'center',
     position: 'absolute',
-    marginTop:100
+    marginTop:90
   },
   name:{
     fontSize:22,

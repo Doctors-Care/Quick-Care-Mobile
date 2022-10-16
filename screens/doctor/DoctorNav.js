@@ -16,9 +16,10 @@ import { useState } from "react";
 import link from "../../Adress";
 import axios from "axios";
 
-const GetAllRequests = () => {
+const GetAllRequests = ({navigation}) => {
   const [data, setData] = useState([]);
-  const [patient,setPatient]=useState({})
+
+ 
   useEffect(() => {
     fetch(`${link}/request/getAllRequests`, {
       method: "GET",
@@ -34,45 +35,26 @@ const GetAllRequests = () => {
       .catch((err) => console.error(err));
   }, []);
 
-  const getOne = async (item) => {
-    var PatientId = {
-      id: item.PatientId,
-    };
-    console.log(PatientId)
-    await axios
-      .post(`${link}/user/One`, PatientId)
-      .then((result) => {
-        setPatient(result.data)
-      })
-      .catch((err) => console.log(err));
-  };
-
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
         data={data}
         renderItem={({ item }) => (
           <View style={styles.item}>
+            <TouchableOpacity style={styles.touch}>
             <Text>request :{item.id}</Text>
-
             <Text>{item.description}</Text>
-
             <View style={styles.buttonContainer}>
               <TouchableOpacity
                 style={styles.button}
                 title="Accept"
-                onPress={() => Alert.alert("accepted")}
-              >
-                <Text>accept</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.button}
-                title="Reject"
-                onPress={() => Alert.alert("reject")}
+                onPress={() => navigation.navigate('DetailsForDoctor',{id:item.patientId,requestId:item.id})}
               >
                 <Text>details</Text>
               </TouchableOpacity>
+         
             </View>
+            </TouchableOpacity>
           </View>
         )}
         keyExtractor={(item) => item.id}
@@ -147,7 +129,7 @@ export default DoctorNav;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 20,
+    marginTop: 50,
   },
   item: {
     backgroundColor: "#ffffff",
@@ -178,8 +160,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  map: {
-    width: 200,
-    height: 100,
+  touch: {
+    justifyContent:"center",
+    alignItems:"center",
   },
+  
 });

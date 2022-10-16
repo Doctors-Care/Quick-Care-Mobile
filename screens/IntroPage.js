@@ -11,10 +11,21 @@ function Welcome({ navigation }) {
         style={styles.logo}
         source={require("../assets/64216-super-nurse-animation.json")}
         autoPlay />
-      <Image
-        style={styles.tuto}
-        source={require('../assets/splash.png')
-        } />
+ <ScrollView style={styles.tutoScroll} horizontal={true}>
+  <Image
+  style={styles.tuto}
+        source={require("../assets/Screenshot_20221016-193158.png")}/>
+         <Image
+  style={styles.tuto}
+        source={require("../assets/Screenshot_20221016-193218.png")}/>
+         <Image
+  style={styles.tuto}
+        source={require("../assets/Screenshot_20221016-193321.png")}/>
+         <Image
+  style={styles.tuto}
+        source={require("../assets/Screenshot_20221016-193335.png")}/>
+
+ </ScrollView>
       <StatusBar style="auto" />
       <View
         style={styles.viewforbutton}
@@ -28,7 +39,7 @@ function Welcome({ navigation }) {
             style={styles.ButtonText}>Patient</Text>
         </Pressable>
         <Pressable
-          style={styles.buttonBottom}
+          style={styles.buttonBottomDoctor}
           title="Register"
           onPress={() => navigation.navigate('LoginFormDoctor')}>
           <Text
@@ -49,6 +60,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    paddingTop:50
   },
   logo: {
     width: 150,
@@ -56,14 +68,6 @@ const styles = StyleSheet.create({
     top: 10,
     borderRadius: 0,
 
-  },
-  tuto: {
-    width: 330,
-    height: 350,
-    top: 10,
-    Button: 300,
-
-    borderRadius: 50,
   },
   buttonBottom: {
     alignItems: 'center',
@@ -89,6 +93,34 @@ const styles = StyleSheet.create({
   containerScroll:{
     flex:1,
     backgroundColor:"#ffffff"
+  },
+  buttonBottomDoctor:{
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 160,
+    height: 70,
+    paddingVertical: 12,
+    paddingHorizontal: 12,
+    borderRadius: 40,
+    elevation: 3,
+    color: "#077871",
+    borderColor: "#077871",
+    backgroundColor: "#44b3cc",
+    margin: 10,
+  },
+  tutoScroll:{
+    horizontal:true,
+    top: 10,
+    marginBottom:50,
+    paddingLeft:50
+  },
+  tuto:{
+    width: 168,
+    height: 380,
+    top: 10,
+    Button: 300,
+    marginRight:50
+
   }
 });
 
