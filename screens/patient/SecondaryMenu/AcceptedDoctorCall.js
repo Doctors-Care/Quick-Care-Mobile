@@ -1,7 +1,8 @@
 import { StyleSheet, Text, View, TextInput, Image, Button, Alert, Pressable, TouchableOpacity } from 'react-native';
 
 
-function AcceptedDoctor() {
+function AcceptedDoctor({route}) {
+    console.log(route);
     return(
     <View style={styles.container}>
         <Text>Doctor Accepted</Text>
@@ -9,8 +10,10 @@ function AcceptedDoctor() {
     style={styles.emergencyButton}
     source={require('../../../assets/Capture12.png')
     } />
-    <Text>doctor name</Text>
-    <Text>time needed</Text>
+    <Text>{route.params.Doctor.firstName}</Text>
+    <Text>{route.params.Doctor.lastName}</Text>
+    <Text>{route.params.Doctor.email}</Text>
+    <Text>{route.params.Doctor.phoneNumber}</Text>
     </View>)
 }
 const styles = StyleSheet.create({

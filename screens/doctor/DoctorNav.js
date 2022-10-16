@@ -14,9 +14,11 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import DoctorProfile from "./DoctorProfile";
 import { useState } from "react";
 import link from "../../Adress";
+import axios from "axios";
 
 const GetAllRequests = () => {
   const [data, setData] = useState([]);
+  const [patient,setPatient]=useState({})
   useEffect(() => {
     fetch(`${link}/request/getAllRequests`, {
       method: "GET",
@@ -27,11 +29,23 @@ const GetAllRequests = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         setData(data);
       })
       .catch((err) => console.error(err));
   }, []);
+
+  const getOne = async (item) => {
+    var PatientId = {
+      id: item.PatientId,
+    };
+    console.log(PatientId)
+    await axios
+      .post(`${link}/user/One`, PatientId)
+      .then((result) => {
+        setPatient(result.data)
+      })
+      .catch((err) => console.log(err));
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -39,19 +53,25 @@ const GetAllRequests = () => {
         data={data}
         renderItem={({ item }) => (
           <View style={styles.item}>
-            <Text>{item.id}</Text>
-            <Text>{item.email}</Text>
-            <Text>{item.status}</Text>
+            <Text>request :{item.id}</Text>
+
             <Text>{item.description}</Text>
 
-            <Text>{item.status}</Text>
-            <View style={styles.buttonContainer }>
-            <TouchableOpacity style={styles.button } title="Accept" onPress={() => Alert.alert("accepted")} >
-              <Text>accept</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.button } title="Reject" onPress={() => Alert.alert("reject")} >
-            <Text>decline</Text>
-            </TouchableOpacity>
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity
+                style={styles.button}
+                title="Accept"
+                onPress={() => Alert.alert("accepted")}
+              >
+                <Text>accept</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.button}
+                title="Reject"
+                onPress={() => Alert.alert("reject")}
+              >
+                <Text>details</Text>
+              </TouchableOpacity>
             </View>
           </View>
         )}
@@ -138,24 +158,28 @@ const styles = StyleSheet.create({
     borderColor: "#44b3cc",
     borderWidth: 1,
     borderRadius: 40,
-    justifyContent:"center",
+    justifyContent: "center",
     alignItems: "center",
   },
   title: {
     justifyContent: "center",
     fontSize: 32,
   },
-  buttonContainer :{
-    display:"flex",
-    flexDirection:'row',
+  buttonContainer: {
+    display: "flex",
+    flexDirection: "row",
   },
-  button:{
-    padding:10,
-    backgroundColor:"#44b3cc",
-    borderRadius:20,
-    width:120,
-    margin:20,
-    justifyContent:"center",
+  button: {
+    padding: 10,
+    backgroundColor: "#44b3cc",
+    borderRadius: 20,
+    width: 120,
+    margin: 20,
+    justifyContent: "center",
     alignItems: "center",
-  }
+  },
+  map: {
+    width: 200,
+    height: 100,
+  },
 });

@@ -5,7 +5,7 @@ import LottieView from 'lottie-react-native';
 function Welcome({ navigation }) {
 
   return (
-    <ScrollView >
+    <ScrollView style={styles.containerScroll}>
     <View style={styles.container}>
       <LottieView
         style={styles.logo}
@@ -25,21 +25,17 @@ function Welcome({ navigation }) {
           color="#077871"
           onPress={() => navigation.navigate('LoginForUser')}>
           <Text
-            style={styles.ButtonText}>Log In</Text>
+            style={styles.ButtonText}>Patient</Text>
         </Pressable>
         <Pressable
           style={styles.buttonBottom}
           title="Register"
-          onPress={() => navigation.navigate('Registration')}>
+          onPress={() => navigation.navigate('LoginFormDoctor')}>
           <Text
             style={styles.ButtonText}
-          >Register</Text>
+          >Doctor</Text>
         </Pressable>
       </View>
-      <TouchableOpacity>
-        <Text style={styles.forgot_button}
-          onPress={() => navigation.navigate('LoginFormDoctor')}>Are you a doctor ?</Text>
-      </TouchableOpacity>
     </View>
     </ScrollView>
   );
@@ -73,7 +69,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     width: 160,
-    height: 50,
+    height: 70,
     paddingVertical: 12,
     paddingHorizontal: 12,
     borderRadius: 40,
@@ -89,6 +85,10 @@ const styles = StyleSheet.create({
   viewforbutton: {
     display: "flex",
     flexDirection: "row"
+  },
+  containerScroll:{
+    flex:1,
+    backgroundColor:"#ffffff"
   }
 });
 

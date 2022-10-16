@@ -49,7 +49,7 @@ function ProfilePatient({navigation,route}){
 const styles = StyleSheet.create({
   header:{
     backgroundColor: "#077871",
-    height:120,
+    height:160,
   },
   avatar: {
     width: 130,
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     marginBottom:10,
     alignSelf:'center',
     position: 'absolute',
-    marginTop:60
+    marginTop:100
   },
   name:{
     fontSize:22,

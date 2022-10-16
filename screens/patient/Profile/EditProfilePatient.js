@@ -191,7 +191,7 @@ function EditProfilePatient({ navigation, route }) {
             onPress={() => {
               navigation.dispatch(
                 CommonActions.navigate({
-                  name: "ProfilePatient",
+                  name: "EmergencyHome",
                   params: { id: route.params.patient.id },
                 })
               );
@@ -218,7 +218,7 @@ const styles = StyleSheet.create({
   },
   header: {
     backgroundColor: "#077871",
-    height: 120,
+    height: 160,
   },
   avatar: {
     width: 130,
@@ -229,7 +229,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     alignSelf: "center",
     position: "absolute",
-    marginTop: 60,
+    marginTop: 100,
   },
   name: {
     fontSize: 22,
@@ -239,7 +239,7 @@ const styles = StyleSheet.create({
 
   bodyContent: {
     alignItems: "center",
-    padding: 70,
+    padding: 30,
   },
   name: {
     fontSize: 28,
