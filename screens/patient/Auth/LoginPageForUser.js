@@ -28,13 +28,13 @@ export default function LoginPageForUser({ navigation }) {
   };
   const patientStore = async (patient) => {
     try {
-      await AsyncStorage.setItem("Patient",JSON.stringify(patient));
-     console.log(patient)
+      await AsyncStorage.setItem("Patient", JSON.stringify(patient));
+      console.log(patient);
     } catch (error) {
       console.log(error);
     }
   };
-  const login =  () => {
+  const login = () => {
     const user = {
       email: email,
       password: password,
@@ -45,8 +45,11 @@ export default function LoginPageForUser({ navigation }) {
       .post(`${link}/user/signin`, user)
       .then((ok) => {
         setMessage("Welcome");
-        patientStore(ok.data)
-        navigation.navigate("EmergencyHome", { id: ok.data.id,email:ok.data.email });
+        patientStore(ok.data);
+        navigation.navigate("EmergencyHome", {
+          id: ok.data.id,
+          email: ok.data.email,
+        });
       })
       .catch((err) => {
         console.log(err);
@@ -91,8 +94,7 @@ export default function LoginPageForUser({ navigation }) {
         <TouchableOpacity>
           <Text style={styles.forgot_button}>Forgot Password?</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-        onPress={() => navigation.navigate('Registration')}>
+        <TouchableOpacity onPress={() => navigation.navigate("Registration")}>
           <Text style={styles.forgot_button}>Register ?</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.loginBtn} onPress={() => login()}>
@@ -158,8 +160,8 @@ const styles = StyleSheet.create({
   loginText: {
     color: "#ffffff",
   },
-  containerScroll:{
-    flex:1,
-    backgroundColor:"#ffffff"
-  }
+  containerScroll: {
+    flex: 1,
+    backgroundColor: "#ffffff",
+  },
 });

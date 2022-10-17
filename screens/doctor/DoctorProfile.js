@@ -76,7 +76,7 @@ const DoctorProfile = ({ navigation, route }) => {
     //     phone: "loading...",
     //   });
     // }
-  }, []);
+  }, [doctor]);
 
   return (
     <View style={styles.container}>
@@ -108,9 +108,10 @@ const DoctorProfile = ({ navigation, route }) => {
           >
             <Text>Edit Profile</Text>
           </TouchableOpacity>
-          {/* <TouchableOpacity style={styles.buttonContainer}>
-              <Text>Opcion 2</Text> 
-            </TouchableOpacity> */}
+          <TouchableOpacity style={styles.buttonContainer}
+          onPress={()=> navigation.navigate('LoginFormDoctor')}>
+              <Text>Logout</Text> 
+            </TouchableOpacity>
         </View>
       </View>
     </View>
@@ -172,5 +173,6 @@ const styles = StyleSheet.create({
     width: 100,
     borderRadius: 30,
     backgroundColor: "#00BFFF",
+    marginTop: 30
   },
 });

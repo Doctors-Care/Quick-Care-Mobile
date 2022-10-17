@@ -2,7 +2,6 @@ import {
   StyleSheet,
   TextInput,
   View,
-  Image,
   TouchableOpacity,
   Text,
   ScrollView,
@@ -12,35 +11,41 @@ import axios from "axios";
 import LottieView from "lottie-react-native";
 import link from "../../../Adress";
 
+//login screen for doctor component
 export default function LoginForm({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [id, setid] = useState("");
+
+  //login function (get doctor by email and check the password)
   const login = async () => {
     try {
+      //email and password of the doctor
       const doctor = {
         email: email,
         password: password,
       };
-      const res = await axios.post(
-        `${link}/doctor/loginDoc`,
-        doctor,
-        { withCredentials: true }
-      );
-      if (res.data.message === 'verify your credentials') {
+      //axios function to send the email and password of the doctor
+      const res = await axios.post(`${link}/doctor/loginDoc`, doctor, {
+        withCredentials: true,
+      });
+      //alert the doctor to check his credentials
+      if (res.data.message === "verify your credentials") {
         alert(res.data.message);
-
-
-      } else {
+      } 
+      //accept the emal and password and navigate to doc home screen 
+      else {
         console.log(res.data);
-        alert("welcome back")
+        alert("welcome back");
         setid(res.data);
-        navigation.navigate("DoctorNav",{id:res.data.doctorAuth.id});
+        navigation.navigate("DoctorNav", { id: res.data.doctorAuth.id });
       }
     } catch (err) {
       console.log(err);
     }
   };
+
+  //login screen
   return (
     <ScrollView style={styles.container1}>
       <View style={styles.container}>
@@ -66,31 +71,38 @@ export default function LoginForm({ navigation }) {
             onChangeText={(password) => setPassword(password)}
           ></TextInput>
         </View>
+
         <TouchableOpacity>
           <Text style={styles.forgot_button}>Forgot Password?</Text>
         </TouchableOpacity>
+
         <TouchableOpacity
+          //navigate to sign up screen for Doctor
           onPress={() => {
             navigation.navigate("SignUpFormDoctor", { id: id });
           }}
-
         >
           <Text style={styles.forgot_button}>Signup here</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.loginBtn} onPress={login}>
+        <TouchableOpacity
+          style={styles.loginBtn}
+          //button who activate the login function
+          onPress={login}
+        >
           <Text style={styles.loginText}>Login</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
   );
 }
+
+//style for the login screen
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
-    
   },
   img: {
     justifyContent: "center",
@@ -130,7 +142,7 @@ const styles = StyleSheet.create({
   },
   container1: {
     flex: 1,
-    backgroundColor:"#ffffff"
+    backgroundColor: "#ffffff",
   },
   logo: {
     width: 150,
