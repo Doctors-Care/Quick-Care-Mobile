@@ -130,6 +130,7 @@ const styles = StyleSheet.create({
   },
   container1: {
     flex: 1,
+    backgroundColor:"#ffffff"
   },
   logo: {
     width: 150,
