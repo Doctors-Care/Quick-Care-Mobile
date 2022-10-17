@@ -12,9 +12,12 @@ function Welcome({ navigation }) {
         source={require("../assets/64216-super-nurse-animation.json")}
         autoPlay />
  <ScrollView style={styles.tutoScroll} horizontal={true}>
+  <View>
+    <Text>make emergency call with one click</Text>
   <Image
   style={styles.tuto}
         source={require("../assets/Screenshot_20221016-193158.png")}/>
+        </View>
          <Image
   style={styles.tuto}
         source={require("../assets/Screenshot_20221016-193218.png")}/>
