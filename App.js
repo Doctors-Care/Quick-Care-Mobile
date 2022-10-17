@@ -20,19 +20,20 @@ import DoctorLoadingScreen from './screens/patient/SecondaryMenu/DoctrLoadingScr
 import AcceptedDoctor from './screens/patient/SecondaryMenu/AcceptedDoctorCall'
 import History from './screens/patient/Home/historyOfRequests';
 import EditPageDoc from './screens/doctor/EditPageDoc';
+import DetailsForDoctor from './screens/doctor/detailsforDoctor';
 
 
 export default function App() {
   const Stack = createNativeStackNavigator();
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Welcome">
-        <Stack.Screen name="Welcome" component={Welcome} />
+      <Stack.Navigator initialRouteName="Welcome" >
+        <Stack.Screen name="Welcome" component={Welcome} options={{ headerShown: false }} />
         <Stack.Screen name="LoginForUser" component={LoginPageForUser} />
         <Stack.Screen name="Registration" component={RegistrationForUser} />
         <Stack.Screen name="LoginFormDoctor" component={LoginFormDoctor} />
         <Stack.Screen name="SignUpFormDoctor" component={SignUpFormDoctor} />
-        <Stack.Screen name="DoctorNav" component={DoctorNav} />
+        <Stack.Screen name="DoctorNav" component={DoctorNav} options={{ headerShown: false }}/>
         <Stack.Screen name="DoctorProfile" component={DoctorProfile} />
         <Stack.Screen name="EmergencyHome" component={MyTabs} options={{ headerShown: false }} />
         <Stack.Screen name="LoadingScreen" component={LoadingScreenEmergency} />
@@ -46,6 +47,7 @@ export default function App() {
         <Stack.Screen name="AcceptedDoctor" component={AcceptedDoctor} />
         <Stack.Screen name="History" component={History}/>
         <Stack.Screen name="EditPageDoc" component={EditPageDoc} />
+        <Stack.Screen name="DetailsForDoctor" component={DetailsForDoctor}/>
         
       </Stack.Navigator>
     </NavigationContainer>

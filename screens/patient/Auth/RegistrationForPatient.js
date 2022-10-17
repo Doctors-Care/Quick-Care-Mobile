@@ -12,6 +12,7 @@ function RegistrationForUser({ navigation }) {
     const [password, setPassword] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
     const [adress, setAdress] = useState("");
+    
 
     const adduser = () => {
         const NewUser = {
@@ -26,7 +27,7 @@ function RegistrationForUser({ navigation }) {
     }
 
     return (
-        <ScrollView style={styles.out}>
+        <ScrollView style={styles.containerScroll}>
 
             <LottieView
                 style={styles.logo}
@@ -97,7 +98,7 @@ function RegistrationForUser({ navigation }) {
                     <Text style={styles.forgot_button}>Forgot Password?</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.loginBtn}
-                    onPress={() => { adduser(); navigation.navigate("LoginForUser") }}>
+                    onPress={() => { navigation.navigate("Registration") }}>
                     <Text style={styles.loginText}>Register</Text>
                 </TouchableOpacity>
             </View>
@@ -107,15 +108,13 @@ function RegistrationForUser({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-    out: {
 
-    },
     container: {
         flex: 1,
         backgroundColor: "#fff",
         alignItems: "center",
         justifyContent: "center",
-        marginTop: 70,
+        marginTop: 30,
     },
     inputView: {
         backgroundColor: "#F6F6F6",
@@ -135,6 +134,7 @@ const styles = StyleSheet.create({
         padding: 20,
         marginLeft: 20,
         marginTop: 10,
+        
 
     },
     forgot_button: {
@@ -148,9 +148,9 @@ const styles = StyleSheet.create({
         height: 50,
         alignItems: "center",
         justifyContent: "center",
-        marginTop: 40,
+        marginTop: 10,
         backgroundColor: "#077871",
-        marginTop: 20,
+        marginTop: 10,
     },
     logo: {
         width: 150,
@@ -160,8 +160,29 @@ const styles = StyleSheet.create({
         left: 40
     },
     loginText: {
-        color: "white"
-    }
+        color: "#ffffff"
+    },
+    containerScroll:{
+        flex:1,
+        backgroundColor:"#ffffff"
+      },
+      NameStyle:{
+        display:'flex',
+        flexDirection:'row',
+      },
+      viewforInputName:{
+        backgroundColor: "#F6F6F6",
+        borderRadius: 30,
+        width: 150,
+        height: 45,
+        marginBottom: 20,
+        alignItems: "center",
+        borderColor: "#077871",
+        borderWidth: 2,
+        marginHorizontal:10
+        
+        
+      }
 });
 
 export default RegistrationForUser;
