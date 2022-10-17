@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import * as ImagePicker from 'expo-image-picker';
 import {
   StyleSheet,
   Text,
@@ -15,9 +16,12 @@ import { useState } from "react";
 import axios from "axios";
 import { CommonActions } from "@react-navigation/native";
 import link from "../../../Adress";
+// import env from "react-dotenv";
 
 function EditProfilePatient({ navigation, route }) {
   const [firstname, setFirstName] = useState(route.params.patient.firstName);
+  const [file, setFile] = useState(null);
+  const [image, setImage] = useState(null);
   const [lastName, setLastName] = useState(route.params.patient.lastName);
   const [email, setEmail] = useState(route.params.patient.email);
   const [password, setPassword] = useState(route.params.patient.password);
@@ -83,6 +87,50 @@ function EditProfilePatient({ navigation, route }) {
       .then((a) => setAge(a.data.age))
       .catch((err) => console.log(err));
   };
+  const pickImage = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+    //   setFile(result.uri)
+   try{
+    const formData = new FormData ()
+    formData.append("file",result.uri)
+    formData.append("upload_preset", "akvv0jtv")
+    console.log("formData",formData);
+    fetch(`https://api.cloudinary.com/v1_1/dtwuychif/upload`,{
+        method: "POST",
+        body: formData,
+        headers:{
+            Accept: "application/json",
+            "Content-Type":"application/json",
+        },
+    }) .then(response => {console.log("response", response);response.json();}
+            )
+            .then(data => {
+                // if (data.secure_url !== ""){
+                    console.log(data)
+                // }
+            })
+            .catch(error => {
+                   console.log("error",error);
+                  })
+   }  
+   catch (err){ console.log(err)}
+      
+    //   await axios.post (`https://api.cloudinary.com/v1_1/dtwuychif/upload`,formData,{ withCredentials: true })
+    //   .then(response => {
+    //     console.log("response", response.data.secure_url);
+    //     // axios.post('http://localhost:3000/addPost', newPost)
+    //   })
+    //   .catch(error => {
+    //    console.log("error",error);
+    //   })
+    
+                }   
 
   const changegender = () => {
     axios
@@ -107,11 +155,17 @@ function EditProfilePatient({ navigation, route }) {
   return (
     <ScrollView>
       <View style={styles.header}></View>
-      <Image
+      {!image&& <Image 
         style={styles.avatar}
-        source={{ uri: "https://bootdey.com/img/Content/avatar/avatar6.png" }}
-      />
-      <TouchableOpacity style={styles.editPicture}>
+        source={{ uri: "file:///data/user/0/host.exp.exponent/cache/ImagePicker/cc0d33b8-53ac-48eb-a1b3-ad0280533d40.jpeg"}}
+      /> }
+      {image&& <Image 
+        style={styles.avatar}
+        source={{ uri: {image} }}
+      /> 
+       }
+      
+      <TouchableOpacity style={styles.editPicture} onPress={()=>pickImage()}>
         <MaterialCommunityIcons name="image-edit" size={30} color={"#077871"} />
       </TouchableOpacity>
       <View style={styles.body}>
