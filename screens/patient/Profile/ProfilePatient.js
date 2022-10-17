@@ -17,7 +17,7 @@ function ProfilePatient({navigation,route}){
     console.log(result)}
     ).catch((err)=>console.log(err))
    
-  },[navigation])
+  },[Patient])
  
     return (
       <View style={styles.container}>
@@ -38,7 +38,10 @@ function ProfilePatient({navigation,route}){
         >
           <Text style={styles.loginText}>Edit</Text>
         </TouchableOpacity>
+           <TouchableOpacity  style={styles.loginBtn1}
+          onPress={()=>navigation.navigate("LoginForUser")}><Text style={styles.loginText}>Logout</Text></TouchableOpacity>
             </View>
+           
         </View>
         
       </View>
@@ -107,6 +110,16 @@ const styles = StyleSheet.create({
     width: "90%",
     borderRadius: 25,
     height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 40,
+    backgroundColor: "#077871",
+    marginTop: 80,
+  },
+  loginBtn1: {
+    width: "50%",
+    borderRadius: 25,
+    height: 38,
     alignItems: "center",
     justifyContent: "center",
     marginTop: 40,
