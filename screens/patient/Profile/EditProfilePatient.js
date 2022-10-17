@@ -206,6 +206,8 @@ function EditProfilePatient({ navigation, route }) {
           >
             <MaterialCommunityIcons name="check" size={50} color={"#077871"} />
           </TouchableOpacity>
+
+          
         </View>
       </View>
     </ScrollView>

@@ -36,7 +36,7 @@ console.log("hetha l mrith ",route);
       if (result.data === 'waiting') { requestAccepted(),console.log('--*-------------------------------->',"waiting") }
       else navigation.navigate("EmergencyAccepted", { Hce: result.data }).catch((err) =>
         console.log(err))
-    })
+    }).catch((err)=>console.log(err))
   }
   return (
     <View style={styles.container}>
