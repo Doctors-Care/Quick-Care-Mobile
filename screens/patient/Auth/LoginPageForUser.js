@@ -28,13 +28,13 @@ export default function LoginPageForUser({ navigation }) {
   };
   const patientStore = async (patient) => {
     try {
-      await AsyncStorage.setItem("Patient",JSON.stringify(patient));
-     console.log(patient)
+      await AsyncStorage.setItem("Patient", JSON.stringify(patient));
+      console.log(patient);
     } catch (error) {
       console.log(error);
     }
   };
-  const login =  () => {
+  const login = () => {
     const user = {
       email: email,
       password: password,
@@ -45,8 +45,11 @@ export default function LoginPageForUser({ navigation }) {
       .post(`${link}/user/signin`, user)
       .then((ok) => {
         setMessage("Welcome");
-        patientStore(ok.data)
-        navigation.navigate("EmergencyHome", { id: ok.data.id });
+        patientStore(ok.data);
+        navigation.navigate("EmergencyHome", {
+          id: ok.data.id,
+          email: ok.data.email,
+        });
       })
       .catch((err) => {
         console.log(err);
@@ -55,7 +58,7 @@ export default function LoginPageForUser({ navigation }) {
   };
 
   return (
-    <ScrollView style={styles.out}>
+    <ScrollView style={styles.containerScroll}>
       <LottieView
         style={styles.logo}
         source={require("../../../assets/64216-super-nurse-animation.json")}
@@ -90,6 +93,9 @@ export default function LoginPageForUser({ navigation }) {
         </View>
         <TouchableOpacity>
           <Text style={styles.forgot_button}>Forgot Password?</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("Registration")}>
+          <Text style={styles.forgot_button}>Register ?</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.loginBtn} onPress={() => login()}>
           <Text style={styles.loginText}>Login</Text>
@@ -136,9 +142,9 @@ const styles = StyleSheet.create({
     height: 50,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 40,
+    marginTop: 20,
     backgroundColor: "#077871",
-    marginTop: 80,
+    marginTop: 10,
   },
   logo: {
     width: 150,
@@ -153,5 +159,9 @@ const styles = StyleSheet.create({
   },
   loginText: {
     color: "#ffffff",
+  },
+  containerScroll: {
+    flex: 1,
+    backgroundColor: "#ffffff",
   },
 });

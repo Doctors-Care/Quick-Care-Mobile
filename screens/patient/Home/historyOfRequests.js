@@ -19,7 +19,7 @@ export default function History({ route }) {
       id: route.params.id,
     };
     axios
-      .post("http://192.168.11.35:3000/request/getAllofOnePatient", Request)
+      .post("http://192.168.11.183:3000/request/getAllofOnePatient", Request)
       .then((result) => {
         console.log("result", result.data);
         result.data.map((element) => {

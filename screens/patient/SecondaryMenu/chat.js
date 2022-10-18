@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -13,48 +13,42 @@ import {
   ScrollView,
 } from "react-native";
 import link from "../../../Adress";
+import io from "socket.io-client"
+const socket =io.connect ("http://localhost:3001")
 
-function DoctorRequest({ navigation, route }) {
+function Chat({ navigation, route }) {
   const [idrequest, setidrequest] = useState("");
-  const [description, setDescription] = useState("");
-  const createDoctorrequest = () => {
-    console.log(route);
-    const Request = {
-      email: route.params.email,
-      status: "Doctor",
-      description: description,
-    };
-    console.log(Request);
-    axios
-      .post(`${link}/request/addingRequest`, Request)
-      .then((result) => {
-        setidrequest(result.data.id);
-        navigation.navigate("DoctorLoadingScreen", { id: result.data.id });
-      })
-      .catch((error) => console.log(error));
+  const [message, setMessage] = useState("");
+  const SendMessage = () => {
+    socket.emit("send_message", )
+    useEffect(()=>{
+socket.on("receive_message",(data)=>{
+    socket.broadcast.emit("receive_message", data)
+})
+    },[socket])
   };
   return (
     <ScrollView>
       <View style={styles.container}>
         <View>
           <View style={styles.container1}>
-            <Text>Symptoms</Text>
+            <Text>Message</Text>
             <View style={styles.inputView}>
               <TextInput
                 styles={styles.TextInput}
-                placeholder="Write your symptoms here"
+                placeholder="Write your message here"
                 placeholderTextColor="black"
                 onChangeText={(a) => {
-                  setDescription(a);
+                  setMessage(a);
                 }}
               ></TextInput>
             </View>
 
             <TouchableOpacity
               style={styles.loginBtn}
-              onPress={() => createDoctorrequest()}
+              onPress={() => SendMessage()}
             >
-              <Text style={styles.loginText}>confirm</Text>
+              <Text style={styles.loginText}>Send</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -105,4 +99,4 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
 });
-export default DoctorRequest;
+export default Chat;

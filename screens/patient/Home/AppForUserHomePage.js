@@ -35,7 +35,7 @@ function Emergency({navigation}) {
         console.log('hethi e request', Request)
         axios.post(`${link}/request/addingRequest`, Request).then((result) => {
             setidrequest(result.data.id);
-            navigation.navigate('LoadingScreen')
+            navigation.navigate('LoadingScreen',{id:result.data.id})
         }).catch((error) =>
             console.log(error))
     }
@@ -98,6 +98,7 @@ export default function MyTabs({navigation,route}) {
              <Tab.Screen
                 name="Menu"
                 component={SecondaryMenu}
+                initialParams={{ email: route.params.email }}
                 options={{
                     tabBarLabel: 'Menu',
                     tabBarIcon: () => (
@@ -133,5 +134,5 @@ const styles = StyleSheet.create({
        fontSize:50,
        padding:'10%',
        color:"#077871"
-    }
+    },
 })

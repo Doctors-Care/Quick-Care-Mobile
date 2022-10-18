@@ -9,10 +9,10 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 
-function LoadingScreenEmergency({ navigation }) {
+function LoadingScreenEmergency({ navigation ,route}) {
 const [patient,setPatient]=useState({});
-useEffect (async()=>{
-  await getData()
+useEffect (()=>{
+   getData()
 },[])
 
   const getData = async () => {
@@ -21,28 +21,25 @@ useEffect (async()=>{
       const Patient = JSON.parse(jsonValue)
       console.log('hethi e reponse',jsonValue)
        setPatient(Patient)
-       return patient
-      console.log('patient',patient)
-    } catch(e) {
-      console.log (e)
+
+    } catch(error) {
+      console.log (error)
+      return error
     }
   }
   const requestAccepted = () => {
-   
-     var a = patient;
-console.log(a);
-    const ActifRequest = { id: a.id };
+
+console.log("hetha l mrith ",route);
+    const ActifRequest = { id: route.params.id };
     axios.post(`${link}/request/checkRequest`, ActifRequest).then((result) => {
       console.log(result);
       if (result.data === 'waiting') { requestAccepted(),console.log('--*-------------------------------->',"waiting") }
       else navigation.navigate("EmergencyAccepted", { Hce: result.data }).catch((err) =>
         console.log(err))
-        throw error;
-    })
+    }).catch((err)=>console.log(err))
   }
   return (
     <View style={styles.container}>
-      {requestAccepted()}
       <Text>Loading</Text>
       <LottieView
         style={styles.lottie}
