@@ -21,19 +21,50 @@ import AcceptedDoctor from "./screens/patient/SecondaryMenu/AcceptedDoctorCall";
 import History from "./screens/patient/Home/historyOfRequests";
 import EditPageDoc from "./screens/doctor/EditPageDoc";
 import DetailsForDoctor from "./screens/doctor/detailsforDoctor";
+import VerificationScreen from "./screens/patient/Auth/VerificationPage";
 
 export default function App() {
+  //creating the Stack navigation
   const Stack = createNativeStackNavigator();
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Welcome">
-        <Stack.Screen
+      <Stack.Navigator  initialRouteName="Welcome">       
+        <Stack.Screen 
+        //the welcome page
           name="Welcome"
           component={Welcome}
           options={{ headerShown: false }}
         />
-        <Stack.Screen name="LoginForUser" component={LoginPageForUser} />
-        <Stack.Screen name="Registration" component={RegistrationForUser} />
+        <Stack.Screen
+        //login for user screen
+          name="LoginForUser"
+          options={{
+            title: "Welcome",
+            headerStyle: {
+              backgroundColor: "#077871",
+            },
+            headerTintColor: "#fff",
+            headerTitleAlign: "center",
+            headerTitleStyle: {
+              fontWeight: "bold",
+            },
+          }}
+          component={LoginPageForUser}
+        />
+        <Stack.Screen name="Registration" 
+              options={{
+                title: "Registration",
+                headerStyle: {
+                  backgroundColor: "#077871",
+                },
+                headerTintColor: "#fff",
+                headerTitleAlign: "center",
+                headerTitleStyle: {
+                  fontWeight: "bold",
+                },}}
+        //login for doctor screen
+        component={RegistrationForUser}
+         />
         <Stack.Screen
           name="LoginFormDoctor"
           options={{
@@ -80,6 +111,18 @@ export default function App() {
         <Stack.Screen name="History" component={History} />
         <Stack.Screen name="EditPageDoc" component={EditPageDoc} />
         <Stack.Screen name="DetailsForDoctor" component={DetailsForDoctor} />
+        <Stack.Screen name="VerificationScreen"
+        options={{
+          title: "Verification",
+          headerStyle: {
+            backgroundColor: "#077871",
+          },
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }} component={VerificationScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
