@@ -15,6 +15,8 @@ import axios from "axios";
 import LottieView from "lottie-react-native";
 import link from "../../../Adress";
 
+//registration component
+
 function RegistrationForUser({ navigation }) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -41,6 +43,7 @@ function RegistrationForUser({ navigation }) {
       })
       .catch((err) =>{ console.log(err);alert("check your entries")});
   };
+
 
   return (
     <ScrollView style={styles.containerScroll}>
