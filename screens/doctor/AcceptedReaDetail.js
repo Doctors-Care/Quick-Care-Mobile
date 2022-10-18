@@ -15,7 +15,7 @@ import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import * as Location from "expo-location";
 import link from "../../Adress";
 
-function DetailsForDoctor({ route }) {
+function AcceptedreaDetail({ route,navigation }) {
   const [errorMsg, setErrorMsg] = useState(null);
   const [latitude, setLatitude] = useState(0);
   const [longitude, setLongitude] = useState(0);
@@ -125,12 +125,7 @@ function DetailsForDoctor({ route }) {
       <Text style={styles.text}>{patient.age}</Text>
       <Text style={styles.text}>{patient.chronicDiseases}</Text>
       <Text style={styles.text}>{patient.gender}</Text>
-      <TouchableOpacity style={styles.button}
-      onPress={()=>{acceptDoctorCall()
-      navigation.navigate("AcceptedreaDetail")
-      }}>
-        <Text style={styles.textinButton}>Take in charge</Text>
-      </TouchableOpacity>
+      
     </View>
   );
 }
@@ -175,4 +170,4 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
 });
-export default DetailsForDoctor;
+export default AcceptedreaDetail;

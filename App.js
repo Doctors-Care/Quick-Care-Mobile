@@ -21,6 +21,7 @@ import AcceptedDoctor from "./screens/patient/SecondaryMenu/AcceptedDoctorCall";
 import History from "./screens/patient/Home/historyOfRequests";
 import EditPageDoc from "./screens/doctor/EditPageDoc";
 import DetailsForDoctor from "./screens/doctor/detailsforDoctor";
+import AcceptedreaDetail from "./screens/doctor/AcceptedReaDetail";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -80,6 +81,8 @@ export default function App() {
         <Stack.Screen name="History" component={History} />
         <Stack.Screen name="EditPageDoc" component={EditPageDoc} />
         <Stack.Screen name="DetailsForDoctor" component={DetailsForDoctor} />
+        <Stack.Screen name="AcceptedreaDetail" component={AcceptedreaDetail}/>
+
       </Stack.Navigator>
     </NavigationContainer>
   );
