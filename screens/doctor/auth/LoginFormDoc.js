@@ -104,6 +104,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  //styling
   img: {
     justifyContent: "center",
   },
