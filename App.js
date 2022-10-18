@@ -112,6 +112,7 @@ export default function App() {
         <Stack.Screen name="History" component={History} />
         <Stack.Screen name="EditPageDoc" component={EditPageDoc} />
         <Stack.Screen name="DetailsForDoctor" component={DetailsForDoctor} />
+        <Stack.Screen name="AcceptedreaDetail" component={AcceptedreaDetail}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

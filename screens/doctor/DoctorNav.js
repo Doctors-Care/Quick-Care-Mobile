@@ -14,10 +14,11 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import DoctorProfile from "./DoctorProfile";
 import { useState } from "react";
 import link from "../../Adress";
-import axios from "axios";
+import TreatedReq from "./TreatedReq";
 
 const GetAllRequests = ({navigation,route}) => {
   const [data, setData] = useState([]);
+  
   useEffect(() => {
     console.log(route.params.id);
     
@@ -35,6 +36,8 @@ const GetAllRequests = ({navigation,route}) => {
       })
       .catch((err) => console.error(err));
   }, []);
+
+  
 
 
 
@@ -104,8 +107,10 @@ const DoctorNav = ({ route }) => {
         }}
       />
       <Tab.Screen
-        name="Notifications"
-        component={Notifications}
+        name="TreatedReq"
+        component={TreatedReq}
+        initialParams={{ id: route.params.id }}
+
         options={{
           tabBarLabel: "Updates",
           tabBarIcon: ({ color }) => (

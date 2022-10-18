@@ -15,7 +15,7 @@ import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import * as Location from "expo-location";
 import link from "../../Adress";
 
-function AcceptedreaDetail({ route,navigation }) {
+function AcceptedreaDetail({ route }) {
   const [errorMsg, setErrorMsg] = useState(null);
   const [latitude, setLatitude] = useState(0);
   const [longitude, setLongitude] = useState(0);
