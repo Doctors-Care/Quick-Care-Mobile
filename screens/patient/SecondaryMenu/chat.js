@@ -1,52 +1,66 @@
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   StyleSheet,
   Text,
   View,
   TextInput,
-  Image,
-  Button,
-  Alert,
-  Pressable,
+  FlatList,
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-import link from "../../../Adress";
 import io from "socket.io-client"
-const socket =io.connect ("http://localhost:3001")
 
-function Chat({ navigation, route }) {
-  const [idrequest, setidrequest] = useState("");
-  const [message, setMessage] = useState("");
-  const SendMessage = () => {
-    socket.emit("send_message", )
-    useEffect(()=>{
-socket.on("receive_message",(data)=>{
-    socket.broadcast.emit("receive_message", data)
-})
-    },[socket])
-  };
-  return (
+
+
+function Chat() {
+  const [chat, setChat] = useState("");
+  const [messages, setMessages] = useState([])
+  const socketRef = useRef()
+  
+  useEffect(()=>{
+    socketRef.current = io("http://192.168.11.223:3001")
+    
+    socketRef.current.on("message",(message)=>{
+    setMessages([...messages, message])})
+    },[messages])
+
+    const sendMessage = () => {
+    
+      socketRef.current.emit("send_message",{chat} )
+      setChat("")
+    }
+  
+  
+  
+    return (
     <ScrollView>
       <View style={styles.container}>
         <View>
           <View style={styles.container1}>
-            <Text>Message</Text>
+            <Text>Chat</Text>
             <View style={styles.inputView}>
-              <TextInput
+              <FlatList
+                data={messages}
+                renderItem={({item}) => <Text style={styles.item}>{item}</Text>}
+              ></FlatList>
+              
+            </View>
+            <View>
+            <TextInput
                 styles={styles.TextInput}
+                onChangeText={(e) => {
+                  setChat(e);
+                }}
+                value={chat}
                 placeholder="Write your message here"
                 placeholderTextColor="black"
-                onChangeText={(a) => {
-                  setMessage(a);
-                }}
               ></TextInput>
             </View>
 
             <TouchableOpacity
               style={styles.loginBtn}
-              onPress={() => SendMessage()}
+              onPress={() => sendMessage()}
             >
               <Text style={styles.loginText}>Send</Text>
             </TouchableOpacity>
