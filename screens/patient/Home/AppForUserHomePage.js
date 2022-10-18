@@ -6,20 +6,36 @@ import ProfilePatient from '../Profile/ProfilePatient'
 import SecondaryMenu from '../SecondaryMenu/SecondaryMenu';
 import axios from 'axios';
 import { useState } from "react";
+import link from '../../../Adress';
+import History from './historyOfRequests';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-
-function Emergency({navigation,route}) {
+function Emergency({navigation}) {
     const [idrequest, setidrequest] = useState("");
-    const createEmergency = ()=>{
-        const Request ={
-            email:route.params.email,
+    const [patient,setPatient] =useState({})
+    const getData = async () => {
+        try {
+          const jsonValue = await AsyncStorage.getItem('Patient')
+          const Patient = JSON.parse(jsonValue)
+          console.log('hethi e reponse',jsonValue)
+           setPatient(Patient)
+           return patient
+        } catch(e) {
+          console.log (e)
+        }
+      }
+    const createEmergency =async ()=>{
+       await getData()
+        const a = patient 
+        console.log('aaaaaa',a)
+        var Request ={
+            email:a.email,
             state:'HCE'
         }
-        console.log(Request)
-        console.log("test----", route)
-        axios.post("http://192.168.101.9:3000/request/addingRequest", Request).then((result) => {
+        console.log('hethi e request', Request)
+        axios.post(`${link}/request/addingRequest`, Request).then((result) => {
             setidrequest(result.data.id);
-            navigation.navigate('LoadingScreen', { requestid: result.data.id })
+            navigation.navigate('LoadingScreen',{id:result.data.id})
         }).catch((error) =>
             console.log(error))
     }
@@ -28,7 +44,7 @@ function Emergency({navigation,route}) {
             <Text style={styles.Title1}>Emergency</Text>
             <TouchableOpacity
                 style={styles.emergencyButton}
-                    onPress={() => createEmergency()}>
+                    onPress={() =>{ ; createEmergency()}}>
                   <Image
         style={styles.emergencyButton}
         source={require('../../../assets/urgence.png')
@@ -69,10 +85,11 @@ export default function MyTabs({navigation,route}) {
                 }}
             />
             <Tab.Screen
-                name="Notifications"
-                component={Notifications}
+                name="History"
+                component={History}
+                initialParams={{ id: route.params.id }}
                 options={{
-                    tabBarLabel: 'Notifications',
+                    tabBarLabel: 'History',
                     tabBarIcon: ({ color }) => (
                         <MaterialCommunityIcons name="bell" color={color} size={26} />
                     ),
@@ -81,6 +98,7 @@ export default function MyTabs({navigation,route}) {
              <Tab.Screen
                 name="Menu"
                 component={SecondaryMenu}
+                initialParams={{ email: route.params.email }}
                 options={{
                     tabBarLabel: 'Menu',
                     tabBarIcon: () => (
@@ -116,5 +134,5 @@ const styles = StyleSheet.create({
        fontSize:50,
        padding:'10%',
        color:"#077871"
-    }
+    },
 })
