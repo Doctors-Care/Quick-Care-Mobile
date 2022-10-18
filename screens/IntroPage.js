@@ -21,7 +21,7 @@ function Welcome({ navigation }) {
           autoPlay
         />
               <Text style={styles.TextTuto}>
-                make emergency call with one click
+                Make emergency call with one click
               </Text>
         <ScrollView style={styles.tutoScroll} horizontal={true}>
             <View>
