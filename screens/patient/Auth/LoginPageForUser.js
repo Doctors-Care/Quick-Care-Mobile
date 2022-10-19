@@ -16,6 +16,8 @@ import LottieView from "lottie-react-native";
 import link from "../../../Adress";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+// login component
+
 export default function LoginPageForUser({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

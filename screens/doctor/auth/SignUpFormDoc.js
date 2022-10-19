@@ -14,6 +14,8 @@ import { useTogglePasswordVisibility } from "../../../hooks/TogglePassword";
 import axios from "axios";
 import link from "../../../Adress";
 
+// Sign up for doctor component
+
 export default function SignUpForm({ navigation }) {
   const [FirstName, setFirstName] = useState("");
   const [LastName, setLastName] = useState("");
