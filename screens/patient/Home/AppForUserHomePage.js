@@ -11,18 +11,84 @@ import History from './historyOfRequests';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function Emergency({navigation}) {
-    const [idrequest, setidrequest] = useState("");
-    const [patient,setPatient] =useState({})
-    const getData = async () => {
-        try {
-          const jsonValue = await AsyncStorage.getItem('Patient')
-          const Patient = JSON.parse(jsonValue)
-          console.log('hethi e reponse',jsonValue)
-           setPatient(Patient)
-           return patient
-        } catch(e) {
-          console.log (e)
+    Notifications.setNotificationHandler({
+        handleNotification: async () => ({
+          shouldShowAlert: true,
+          shouldPlaySound: true,
+          shouldSetBadge: false,
+        }),
+      });
+      const [idrequest, setidrequest] = useState("");
+      const [patient, setPatient] = useState({});
+      const [expoPushToken, setExpoPushToken] = useState("ExponentPushToken[slmcABBCHIScMr1ZDtvss7]");
+      const [notification, setNotification] = useState(false);
+      const notificationListener = useRef();
+      const responseListener = useRef();
+    
+      useEffect(() => {
+        registerForPushNotificationsAsync()
+          .then((token) => console.log("this", token))
+          .catch((err) => console.log(err));
+        notificationListener.current =
+          Notifications.addNotificationReceivedListener((notification) => {
+            setNotification(notification);
+          });
+        responseListener.current =
+          Notifications.addNotificationResponseReceivedListener((response) => {
+            console.log(response);
+          });
+        sendToken()
+          .then((result) => console.log(result))
+          .catch((err) => console.log(err));
+          return () => {
+            Notifications.removeNotificationSubscription(notificationListener.current);
+            Notifications.removeNotificationSubscription(responseListener.current);
+          };
+      }, []);
+    
+      async function registerForPushNotificationsAsync() {
+        let token;
+    
+        if (Platform.OS === "android") {
+          await Notifications.setNotificationChannelAsync("default", {
+            name: "default",
+            importance: Notifications.AndroidImportance.MAX,
+            vibrationPattern: [0, 250, 250, 250],
+            lightColor: "#FF231F7C",
+          });
         }
+    
+        if (Device.isDevice) {
+          const { status: existingStatus } =
+            await Notifications.getPermissionsAsync();
+          let finalStatus = existingStatus;
+          if (existingStatus !== "granted") {
+            const { status } = await Notifications.requestPermissionsAsync();
+            finalStatus = status;
+          }
+          if (finalStatus !== "granted") {
+            alert("Failed to get push token for push notification!");
+            return;
+          }
+          token = (await Notifications.getExpoPushTokenAsync()).data;
+          console.log(token);
+        } else {
+          alert("Must use physical device for Push Notifications");
+        }
+        console.log("fel fonction ", token);
+        setExpoPushToken(token);
+      }
+    
+      async function sendToken() {
+        console.log("this is ", expoPushToken);
+        let tokenForUser = {
+          id: route.params.id,
+          NotifToken: expoPushToken,
+        };
+        axios
+          .put(`${link}/user/updateAll`, tokenForUser)
+          .then((result) => console.log(result))
+          .catch((err) => console.log(err));
       }
     const createEmergency =async ()=>{
        await getData()
