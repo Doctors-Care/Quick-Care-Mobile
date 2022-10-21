@@ -13,12 +13,13 @@ import {
   SafeAreaView,
 } from "react-native";
 import io from "socket.io-client";
+import link from "../../../Adress"
 
 function DoctorChat() {
   const [chat, setChat] = useState("");
   const [messages, setMessages] = useState([]);
 
-  const socket = io.connect("http://192.168.11.82:3001");
+  const socket = io.connect(link);
 
 //   useEffect(() => {
     socket.on("Doctor_message", (message) => {
@@ -41,7 +42,6 @@ function DoctorChat() {
             <Text>Chat</Text>
             <FlatList
               data={messages}
-              keyExtractor={(item) => item.id}
               renderItem={({ item }) => {
                 return (
                   <View>
@@ -49,7 +49,8 @@ function DoctorChat() {
                   </View>
                 );
               }}
-            />
+              keyExtractor={(item) => item.id}
+              />
             <View>
               <TextInput
                 styles={styles.TextInput}
@@ -90,7 +91,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginTop: 40,
-    backgroundColor: "#077871",
+    backgroundColor: "#44b3cc",
     marginTop: 20,
   },
   loginText: {

@@ -10,11 +10,12 @@ import {
 } from "react-native";
 import React, { useEffect } from "react";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import DoctorProfile from "./DoctorProfile";
 import { useState } from "react";
 import link from "../../Adress";
-import axios from "axios";
 import DoctorChat from "../patient/SecondaryMenu/doctorChat";
 import TreatedReq from "./TreatedReq";
 
@@ -79,15 +80,22 @@ function Profile() {
     </View>
   );
 }
+const Tabt = createMaterialTopTabNavigator();
 
-function Notifications() {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Notifications!</Text>
-    </View>
-  );
+function Notifications({route}) {
+  
+    return (
+      <Tabt.Navigator>
+        <Tabt.Screen name="TreatedReq" component={TreatedReq}
+        initialParams={{ id: route.params.id }}
+        />
+        <Tabt.Screen name="profile" component={Profile} />
+      </Tabt.Navigator>
+    );
+  
 }
 const Tab = createMaterialBottomTabNavigator();
+
 
 const DoctorNav = ({ route }) => {
   return (
@@ -103,41 +111,41 @@ const DoctorNav = ({ route }) => {
         component={GetAllRequests}
         initialParams={{ id: route.params.id }}
         options={{
-          tabBarLabel: "GetAllRequests",
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="home" color={color} size={26} />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="TreatedReq"
-        component={TreatedReq}
-        initialParams={{ id: route.params.id }}
-
-        options={{
-          tabBarLabel: "Updates",
+          tabBarLabel: "Incoming ",
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="bell" color={color} size={26} />
           ),
         }}
       />
       <Tab.Screen
+        name="Notifications"
+        component={Notifications}
+        initialParams={{ id: route.params.id }}
+
+        options={{
+          tabBarLabel: "Updates",
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="archive" color={color} size={26} />
+          ),
+        }}
+      />
+        <Tab.Screen
+          name="Chat"
+          component={DoctorChat}
+          initialParams={{ id: route.params.id }}
+          options={{
+            tabBarLabel: "Chat",
+            tabBarIcon: ({ color }) => (
+              <MaterialCommunityIcons name="wechat" color={color} size={26} />
+            ),
+          }}
+        />
+      <Tab.Screen
         name="DoctorProfile"
         component={DoctorProfile}
         initialParams={{ id: route.params.id }}
         options={{
           tabBarLabel: "Profile",
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="account" color={color} size={26} />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Chat"
-        component={DoctorChat}
-        initialParams={{ id: route.params.id }}
-        options={{
-          tabBarLabel: "Chat",
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="account" color={color} size={26} />
           ),

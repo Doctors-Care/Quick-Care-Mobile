@@ -32,14 +32,8 @@ const TreatedReq = ({ route, navigation }) => {
       .catch((err) => console.error(err));
   }, []);
 
-  function reqstatus(obj) {
-    var doneOrNot = "";
-    if (obj.TreatedORNot === true) {
-      return (doneOrNot = "Done");
-    } else {
-      return (doneOrNot = "Not yet");
-    }
-  }
+
+
 
   return (
     <SafeAreaView style={styles.container}>
@@ -51,7 +45,6 @@ const TreatedReq = ({ route, navigation }) => {
               <Text style={styles.data}>Request :{index+1}</Text>
               <Text style={styles.data}>{item.description}</Text>
               <Text>{item.createdAt}</Text>
-              <Text style={styles.status}>{reqstatus(item)}</Text>
 
 
               <View style={styles.buttonContainer}>
