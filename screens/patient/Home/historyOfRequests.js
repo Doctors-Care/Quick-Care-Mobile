@@ -36,7 +36,7 @@ export default function History({ route }) {
     <>
       {console.log("requests", requests)}
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <Text style={styles.Title1}>History of Doctor Requests</Text>
+        <Text style={styles.Title1}>History of Requests</Text>
       </View>
       <SafeAreaView style={{ flex: 1 }}>
         <View style={{ flex: 1, padding: 10 }}>

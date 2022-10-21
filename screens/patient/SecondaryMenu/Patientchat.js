@@ -18,7 +18,7 @@ function Chat() {
   const [chat, setChat] = useState("");
   const [messages, setMessages] = useState([]);
 
-  const socket = io.connect("http://192.168.11.223:3001");
+  const socket = io.connect("http://192.168.11.85:3001");
   
   // useEffect(() => {
     
