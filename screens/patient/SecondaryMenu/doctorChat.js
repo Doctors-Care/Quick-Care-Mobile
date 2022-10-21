@@ -18,7 +18,7 @@ function DoctorChat() {
   const [chat, setChat] = useState("");
   const [messages, setMessages] = useState([]);
 
-  const socket = io.connect("http://192.168.11.223:3001");
+  const socket = io.connect("http://192.168.11.82:3001");
 
 //   useEffect(() => {
     socket.on("Doctor_message", (message) => {
@@ -34,7 +34,7 @@ function DoctorChat() {
 
 
   return (
-    <ScrollView>
+    
       <View style={styles.container}>
         <View>
           <View style={styles.container1}>
@@ -71,7 +71,7 @@ function DoctorChat() {
           </View>
         </View>
       </View>
-    </ScrollView>
+    
   );
 }
 const styles = StyleSheet.create({

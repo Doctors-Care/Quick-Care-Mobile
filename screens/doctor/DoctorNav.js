@@ -16,7 +16,10 @@ import { useState } from "react";
 import link from "../../Adress";
 import axios from "axios";
 import DoctorChat from "../patient/SecondaryMenu/doctorChat";
-const GetAllRequests = ({navigation}) => {
+import TreatedReq from "./TreatedReq";
+
+const GetAllRequests = ({navigation,route}) => {
+
   const [data, setData] = useState([]);
   
   useEffect(() => {
