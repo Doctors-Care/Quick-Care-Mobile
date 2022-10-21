@@ -76,7 +76,7 @@ const DoctorProfile = ({ navigation, route }) => {
     //     phone: "loading...",
     //   });
     // }
-  }, [doctor]);
+  }, []);
 
   return (
     <View style={styles.container}>

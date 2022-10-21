@@ -29,7 +29,7 @@ export default function LoginPageForUser({ navigation }) {
   const patientStore = async (patient) => {
     try {
       await AsyncStorage.setItem("Patient", JSON.stringify(patient));
-      console.log(patient);
+      // console.log(patient);
     } catch (error) {
       console.log(error);
     }

@@ -21,7 +21,7 @@ import AcceptedDoctor from "./screens/patient/SecondaryMenu/AcceptedDoctorCall";
 import History from "./screens/patient/Home/historyOfRequests";
 import EditPageDoc from "./screens/doctor/EditPageDoc";
 import DetailsForDoctor from "./screens/doctor/detailsforDoctor";
-import Chat from "./screens/patient/SecondaryMenu/chat";
+import Chat from "./screens/patient/SecondaryMenu/Patientchat";
 import VerificationScreen from "./screens/patient/Auth/VerificationPage";
 
 export default function App() {

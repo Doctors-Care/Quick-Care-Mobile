@@ -15,7 +15,7 @@ import DoctorProfile from "./DoctorProfile";
 import { useState } from "react";
 import link from "../../Adress";
 import axios from "axios";
-
+import DoctorChat from "../patient/SecondaryMenu/doctorChat";
 const GetAllRequests = ({navigation}) => {
   const [data, setData] = useState([]);
 
@@ -115,6 +115,17 @@ const DoctorNav = ({ route }) => {
         initialParams={{ id: route.params.id }}
         options={{
           tabBarLabel: "Profile",
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="account" color={color} size={26} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Chat"
+        component={DoctorChat}
+        initialParams={{ id: route.params.id }}
+        options={{
+          tabBarLabel: "Chat",
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="account" color={color} size={26} />
           ),
