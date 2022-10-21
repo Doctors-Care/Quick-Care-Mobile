@@ -12,7 +12,22 @@ import axios from "axios";
 import link from "../../../Adress";
 import LottieView from "lottie-react-native";
 
-function VerificationScreen({ navigation }) {
+
+
+function VerificationScreen({ navigation ,route}) {
+const [verify,setVerify]=useState("")
+
+const checkCode = () =>{
+let verificatioBody ={
+  id:route.params.id,
+  activationCode:verify
+}
+axios.post(`${link}/user/verify`,verificatioBody).then((result)=>{
+navigation.navigate("LoginForUser")
+alert('verified account')
+})
+}
+
   return (
     <ScrollView style={styles.containerScroll}>
       <LottieView
@@ -26,10 +41,10 @@ function VerificationScreen({ navigation }) {
           styles={styles.TextInput}
           placeholder="Verification Code"
           placeholderTextColor="black"
-          onChangeText={() => {}}
+          onChangeText={(text) => {setVerify(text)}}
         ></TextInput>
       </View>
-      <TouchableOpacity style={styles.loginBtn} onPress={() =>{}}>
+      <TouchableOpacity style={styles.loginBtn} onPress={() =>{checkCode()}}>
           <Text style={styles.loginText}>Login</Text>
         </TouchableOpacity>
       

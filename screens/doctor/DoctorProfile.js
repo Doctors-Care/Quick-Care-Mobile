@@ -76,11 +76,7 @@ const DoctorProfile = ({ navigation, route }) => {
     //     phone: "loading...",
     //   });
     // }
-<<<<<<< HEAD
-  }, []);
-=======
   }, [navigation]);
->>>>>>> 144735e2a184448ae6c9e028c5eea4b72de2d8fd
 
   return (
     <View style={styles.container}>
