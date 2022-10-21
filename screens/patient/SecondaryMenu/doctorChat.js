@@ -37,7 +37,7 @@ function DoctorChat() {
       <View style={styles.container}>
         <View>
           <View style={styles.container1}>
-            <Text style={styles.Title1}>chaaaaat</Text>
+            <Text style={styles.Title1}>Chat</Text>
             <FlatList
               data={messages}
               keyExtractor={(item) => item.id}
