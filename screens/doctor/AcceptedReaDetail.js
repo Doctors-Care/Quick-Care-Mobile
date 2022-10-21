@@ -10,13 +10,12 @@ import {
   Alert,
   Pressable,
   TouchableOpacity,
-  ScrollView,
 } from "react-native";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import * as Location from "expo-location";
 import link from "../../Adress";
 
-function DetailsForDoctor({ route, navigation }) {
+function AcceptedreaDetail({ route }) {
   const [errorMsg, setErrorMsg] = useState(null);
   const [latitude, setLatitude] = useState(0);
   const [longitude, setLongitude] = useState(0);
@@ -79,14 +78,15 @@ function DetailsForDoctor({ route, navigation }) {
   }, []);
 
 
-  
+  const assignDoc = () => {
+
+  }
 
 
 
   
 
   return (
-    <ScrollView>
     <View style={styles.container}>
       <Text style={styles.text}>First name :{patient.firstName}</Text>
       <Text style={styles.text}>Last name :{patient.lastName}</Text>
@@ -125,13 +125,8 @@ function DetailsForDoctor({ route, navigation }) {
       <Text style={styles.text}>{patient.age}</Text>
       <Text style={styles.text}>{patient.chronicDiseases}</Text>
       <Text style={styles.text}>{patient.gender}</Text>
-      <TouchableOpacity style={styles.button}
-      onPress={()=>{acceptDoctorCall();
-      navigation.navigate("AcceptedreaDetail", {id:route.params.id})
-      }}>
-        <Text style={styles.textinButton}>Take in charge</Text>
-      </TouchableOpacity>
-    </View></ScrollView>
+      
+    </View>
   );
 }
 const styles = StyleSheet.create({
@@ -175,4 +170,4 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
 });
-export default DetailsForDoctor;
+export default AcceptedreaDetail;

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {StyleSheet,Text,View,Image,TouchableOpacity, Alert} from 'react-native';
+import {StyleSheet,Text,View,Image,TouchableOpacity, Alert, ScrollView} from 'react-native';
 import { useState,useEffect } from "react";
 import axios from 'axios';
 import link from '../../../Adress';
@@ -13,13 +13,17 @@ function ProfilePatient({navigation,route}){
       id:route.params.id
   }
   
-    axios.post(`${link}/user/One`,Request).then((result)=>{setPatient(result.data);
-    console.log(result)}
+    axios.post(`${link}/user/One`,Request).then((result)=>{
+      setPatient(result.data);
+      
+    // console.log(result)
+  }
     ).catch((err)=>console.log(err))
    
-  },[Patient])
+  },[navigation])
  
     return (
+      <ScrollView>
       <View style={styles.container}>
           <View style={styles.header}></View>
           <Image style={styles.avatar} source={{uri: 'https://bootdey.com/img/Content/avatar/avatar6.png'}}/>
@@ -45,6 +49,7 @@ function ProfilePatient({navigation,route}){
         </View>
         
       </View>
+      </ScrollView>
     );
   }
 

@@ -14,6 +14,9 @@ import React, { useState } from "react";
 import axios from "axios";
 import LottieView from "lottie-react-native";
 import link from "../../../Adress";
+import { roundToNearestPixel } from "react-native/Libraries/Utilities/PixelRatio";
+
+//registration component
 
 //registration component
 
@@ -37,9 +40,9 @@ function RegistrationForUser({ navigation }) {
     axios
       .post(`${link}/user/signup`, NewUser, { withCredentials: true })
       .then((ok) => {
-        console.log(ok);
-        alert("valid");
-        navigation.navigate("VerificationScreen");
+        console.log(ok.data);
+        alert("wait for validation email");
+        navigation.navigate("VerificationScreen",{id:ok.data.id});
       })
       .catch((err) =>{ console.log(err);alert("check your entries")});
   };
@@ -57,148 +60,133 @@ function RegistrationForUser({ navigation }) {
           <View style={styles.viewforInputName}>
             <TextInput
               styles={styles.TextInput}
-              placeholder="First Name"
+              placeholder="Email"
+              dataDetectorTypes="address"
               placeholderTextColor="black"
-              onChangeText={(name) => setFirstName(name)}
+              keyboardType="email-address"
+              onChangeText={(email) => setEmail(email)}
             ></TextInput>
           </View>
-          <View style={styles.viewforInputName}>
+          <View style={styles.inputView}>
             <TextInput
               styles={styles.TextInput}
-              placeholder="Last Name"
+              placeholder="Password"
               placeholderTextColor="black"
-              onChangeText={(name) => setLastName(name)}
+              secureTextEntry={true}
+              onChangeText={(password) => {
+                setPassword(password);
+                console.log(password);
+              }}
             ></TextInput>
           </View>
-        </View>
-        <View style={styles.inputView}>
-          <TextInput
-            styles={styles.TextInput}
-            placeholder="Email"
-            dataDetectorTypes="address"
-            placeholderTextColor="black"
-            keyboardType="email-address"
-            onChangeText={(email) => setEmail(email)}
-          ></TextInput>
-        </View>
-        <View style={styles.inputView}>
-          <TextInput
-            styles={styles.TextInput}
-            placeholder="Password"
-            placeholderTextColor="black"
-            secureTextEntry={true}
-            onChangeText={(password) => {
-              setPassword(password);
-              console.log(password);
+          <View style={styles.inputView}>
+            <TextInput
+              styles={styles.TextInput}
+              placeholder="PhoneNumber"
+              dataDetectorTypes="phoneNumber"
+              placeholderTextColor="black"
+              keyboardType="numeric"
+              onChangeText={(phoneNumber) => setPhoneNumber(phoneNumber)}
+            ></TextInput>
+          </View>
+          <View style={styles.inputView}>
+            <TextInput
+              styles={styles.TextInput}
+              placeholder="Adress"
+              placeholderTextColor="black"
+              onChangeText={(adress) => {
+                setAdress(adress);
+              }}
+            ></TextInput>
+          </View>
+          <TouchableOpacity>
+            <Text style={styles.forgot_button}>Forgot Password?</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.loginBtn}
+            onPress={() => {
+              adduser();
             }}
-          ></TextInput>
+          >
+            <Text style={styles.loginText}>Register</Text>
+          </TouchableOpacity>
         </View>
-        <View style={styles.inputView}>
-          <TextInput
-            styles={styles.TextInput}
-            placeholder="PhoneNumber"
-            dataDetectorTypes="phoneNumber"
-            placeholderTextColor="black"
-            keyboardType="numeric"
-            onChangeText={(phoneNumber) => setPhoneNumber(phoneNumber)}
-          ></TextInput>
         </View>
-        <View style={styles.inputView}>
-          <TextInput
-            styles={styles.TextInput}
-            placeholder="Adress"
-            placeholderTextColor="black"
-            onChangeText={(adress) => {
-              setAdress(adress);
-            }}
-          ></TextInput>
-        </View>
-        <TouchableOpacity>
-          <Text style={styles.forgot_button}>Forgot Password?</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.loginBtn}
-          onPress={() => {
-            adduser();
-          }}
-        >
-          <Text style={styles.loginText}>Register</Text>
-        </TouchableOpacity>
-      </View>
-    </ScrollView>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 30,
-  },
-  inputView: {
-    backgroundColor: "#F6F6F6",
-    borderRadius: 30,
-    width: "90%",
-    height: 45,
-    marginBottom: 20,
-    alignItems: "center",
-    borderColor: "#077871",
-    borderWidth: 2,
-  },
-
-  TextInput: {
-    height: 50,
-    flex: 1,
-    padding: 20,
-    marginLeft: 20,
-    marginTop: 10,
-  },
-  forgot_button: {
-    height: 30,
-    marginBottom: 30,
-  },
-
-  loginBtn: {
-    width: "90%",
-    borderRadius: 25,
-    height: 50,
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 10,
-    backgroundColor: "#077871",
-    marginTop: 10,
-  },
-  logo: {
-    width: 150,
-    height: 200,
-    top: 10,
-    borderRadius: 0,
-    left: 40,
-  },
-  loginText: {
-    color: "#ffffff",
-  },
-  containerScroll: {
-    flex: 1,
-    backgroundColor: "#ffffff",
-  },
-  NameStyle: {
-    display: "flex",
-    flexDirection: "row",
-  },
-  viewforInputName: {
-    backgroundColor: "#F6F6F6",
-    borderRadius: 30,
-    width: 150,
-    height: 45,
-    marginBottom: 20,
-    alignItems: "center",
-    borderColor: "#077871",
-    borderWidth: 2,
-    marginHorizontal: 10,
-  },
-});
-
-export default RegistrationForUser;
+      </ScrollView>
+    );
+  }
+  
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: "#fff",
+      alignItems: "center",
+      justifyContent: "center",
+      marginTop: 30,
+    },
+    inputView: {
+      backgroundColor: "#F6F6F6",
+      borderRadius: 30,
+      width: "90%",
+      height: 45,
+      marginBottom: 20,
+      alignItems: "center",
+      borderColor: "#077871",
+      borderWidth: 2,
+    },
+  
+    TextInput: {
+      height: 50,
+      flex: 1,
+      padding: 20,
+      marginLeft: 20,
+      marginTop: 10,
+    },
+    forgot_button: {
+      height: 30,
+      marginBottom: 30,
+    },
+  
+    loginBtn: {
+      width: "90%",
+      borderRadius: 25,
+      height: 50,
+      alignItems: "center",
+      justifyContent: "center",
+      marginTop: 10,
+      backgroundColor: "#077871",
+      marginTop: 10,
+    },
+    logo: {
+      width: 150,
+      height: 200,
+      top: 10,
+      borderRadius: 0,
+      left: 40,
+    },
+    loginText: {
+      color: "#ffffff",
+    },
+    containerScroll: {
+      flex: 1,
+      backgroundColor: "#ffffff",
+    },
+    NameStyle: {
+      display: "flex",
+      flexDirection: "row",
+    },
+    viewforInputName: {
+      backgroundColor: "#F6F6F6",
+      borderRadius: 30,
+      width: 150,
+      height: 45,
+      marginBottom: 20,
+      alignItems: "center",
+      borderColor: "#077871",
+      borderWidth: 2,
+      marginHorizontal: 10,
+    },
+  });
+  
+  export default RegistrationForUser;
+  
