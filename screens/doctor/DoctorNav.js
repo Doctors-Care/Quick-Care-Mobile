@@ -1,27 +1,51 @@
-import { StyleSheet, Text, View, SafeAreaView, FlatList, Button,Alert } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  FlatList,
+  Button,
+  Alert,
+  TouchableOpacity,
+} from "react-native";
 import React, { useEffect } from "react";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import DoctorProfile from "./DoctorProfile";
-import  { useState } from "react";
+import { useState } from "react";
+import link from "../../Adress";
+<<<<<<< HEAD
+import axios from "axios";
+import DoctorChat from "../patient/SecondaryMenu/doctorChat";
+const GetAllRequests = ({navigation}) => {
+=======
+import TreatedReq from "./TreatedReq";
 
-const GetAllRequests = () => {
+const GetAllRequests = ({navigation,route}) => {
+>>>>>>> 144735e2a184448ae6c9e028c5eea4b72de2d8fd
   const [data, setData] = useState([]);
+  
   useEffect(() => {
-  fetch('http://192.168.101.3:3000/request/getAllRequests',{
-      method: 'GET',
+    console.log(route.params.id);
+    
+    fetch(`${link}/request/getAllRequests`, {
+      method: "GET",
       headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-      }
-  })
-  .then(response => response.json())
-  .then(data => {
-      console.log(data);
-      setData(data);
-  })
-  .catch(err => console.error(err));
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setData(data);
+      })
+      .catch((err) => console.error(err));
   }, []);
+
+  
+
+
 
   return (
     <SafeAreaView style={styles.container}>
@@ -29,23 +53,20 @@ const GetAllRequests = () => {
         data={data}
         renderItem={({ item }) => (
           <View style={styles.item}>
-            <Text>{item.id}</Text>
-            <Text>{item.email}</Text>
-            <Text>{item.status}</Text>
+            <TouchableOpacity style={styles.touch}>
+            <Text>request :{item.id}</Text>
             <Text>{item.description}</Text>
-
-
-
-            <Text>{item.status}</Text>
-            <Button
-        title="Accept"
-        onPress={() => Alert.alert('accepted')}
-      />
-        <Button
-        title="Reject"
-        onPress={() => Alert.alert('reject')}
-      />
-
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity
+                style={styles.button}
+                title="Accept"
+                onPress={() => navigation.navigate('DetailsForDoctor',{id:item.patientId,requestId:item.id,doctorId:route.params.id})}
+              >
+                <Text>details</Text>
+              </TouchableOpacity>
+         
+            </View>
+            </TouchableOpacity>
           </View>
         )}
         keyExtractor={(item) => item.id}
@@ -71,7 +92,7 @@ function Notifications() {
 }
 const Tab = createMaterialBottomTabNavigator();
 
-const DoctorNav = ({route}) => {
+const DoctorNav = ({ route }) => {
   return (
     <Tab.Navigator
       initialRouteName="GetAllRequests"
@@ -83,6 +104,7 @@ const DoctorNav = ({route}) => {
       <Tab.Screen
         name="GetAllRequests"
         component={GetAllRequests}
+        initialParams={{ id: route.params.id }}
         options={{
           tabBarLabel: "GetAllRequests",
           tabBarIcon: ({ color }) => (
@@ -91,8 +113,10 @@ const DoctorNav = ({route}) => {
         }}
       />
       <Tab.Screen
-        name="Notifications"
-        component={Notifications}
+        name="TreatedReq"
+        component={TreatedReq}
+        initialParams={{ id: route.params.id }}
+
         options={{
           tabBarLabel: "Updates",
           tabBarIcon: ({ color }) => (
@@ -111,6 +135,17 @@ const DoctorNav = ({route}) => {
           ),
         }}
       />
+      <Tab.Screen
+        name="Chat"
+        component={DoctorChat}
+        initialParams={{ id: route.params.id }}
+        options={{
+          tabBarLabel: "Chat",
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="account" color={color} size={26} />
+          ),
+        }}
+      />
     </Tab.Navigator>
   );
 };
@@ -120,18 +155,40 @@ export default DoctorNav;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 20,
+    marginTop: 50,
   },
   item: {
-    backgroundColor: "#88AFF7",
+    backgroundColor: "#ffffff",
     padding: 20,
     marginVertical: 8,
     marginHorizontal: 16,
+    borderRadius: 5,
+    borderColor: "#44b3cc",
+    borderWidth: 1,
+    borderRadius: 40,
+    justifyContent: "center",
+    alignItems: "center",
   },
   title: {
     justifyContent: "center",
     fontSize: 32,
-
-  },  
-
+  },
+  buttonContainer: {
+    display: "flex",
+    flexDirection: "row",
+  },
+  button: {
+    padding: 10,
+    backgroundColor: "#44b3cc",
+    borderRadius: 20,
+    width: 120,
+    margin: 20,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  touch: {
+    justifyContent:"center",
+    alignItems:"center",
+  },
+  
 });

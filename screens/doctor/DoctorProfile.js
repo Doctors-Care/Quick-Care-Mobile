@@ -8,17 +8,18 @@ import {
   Switch,
 } from "react-native";
 import axios from "axios";
+import link from "../../Adress";
 
 const DoctorProfile = ({ navigation, route }) => {
   const [isEnabled, setIsEnabled] = useState(false);
   const [doctor, setDoctor] = useState({
     firstName: "",
-    lastName:   "",
-    email:      "",
+    lastName: "",
+    email: "",
     phoneNumber: "",
-    address:    "",
+    address: "",
     speciality: "",
-    status:    "",
+    status: "",
   });
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
   //   fetch("http://192.168.101.3:3000/doctor/getOne", {
@@ -41,18 +42,19 @@ const DoctorProfile = ({ navigation, route }) => {
   // const getdoctor = async () => {
   useEffect(() => {
     const res = axios
-      .post(`http://192.168.101.3:3000/doctor/getOne`, { id: route.params.id })
+      .post(`${link}/doctor/getOne`, { id: route.params.id })
       .then((res) => {
         console.log(res);
         setDoctor({
-              firstName: res.data.firstName,
-              lastName: res.data.lastName,
-              email: res.data.email,
-              phoneNumber: res.data.phoneNumber,
-              address: res.data.address,
-              speciality: res.data.speciality,
-              status: res.data.status,
-            } );
+          id: res.data.id,
+          firstName: res.data.firstName,
+          lastName: res.data.lastName,
+          email: res.data.email,
+          phoneNumber: res.data.phoneNumber,
+          address: res.data.address,
+          speciality: res.data.speciality,
+          status: res.data.status,
+        });
       })
       .catch((err) => console.error(err));
     //   console.log(res);
@@ -74,7 +76,11 @@ const DoctorProfile = ({ navigation, route }) => {
     //     phone: "loading...",
     //   });
     // }
+<<<<<<< HEAD
   }, []);
+=======
+  }, [navigation]);
+>>>>>>> 144735e2a184448ae6c9e028c5eea4b72de2d8fd
 
   return (
     <View style={styles.container}>
@@ -89,9 +95,9 @@ const DoctorProfile = ({ navigation, route }) => {
           <Text style={styles.name}>{doctor.lastName}</Text>
 
           <Switch
-            trackColor={{ false: "#767577", true: "#81b0ff" }}
-            thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
-            ios_backgroundColor="#3e3e3e"
+            trackColor={{ false: "#ffffff", true: "#ffffff" }}
+            thumbColor={isEnabled ? "#00BFFF" : "black"}
+            ios_backgroundColor="#00BFFF"
             onValueChange={toggleSwitch}
             value={isEnabled}
           />
@@ -106,9 +112,10 @@ const DoctorProfile = ({ navigation, route }) => {
           >
             <Text>Edit Profile</Text>
           </TouchableOpacity>
-          {/* <TouchableOpacity style={styles.buttonContainer}>
-              <Text>Opcion 2</Text> 
-            </TouchableOpacity> */}
+          <TouchableOpacity style={styles.buttonContainer}
+          onPress={()=> navigation.navigate('LoginFormDoctor')}>
+              <Text>Logout</Text> 
+            </TouchableOpacity>
         </View>
       </View>
     </View>
@@ -170,5 +177,6 @@ const styles = StyleSheet.create({
     width: 100,
     borderRadius: 30,
     backgroundColor: "#00BFFF",
+    marginTop: 30
   },
 });

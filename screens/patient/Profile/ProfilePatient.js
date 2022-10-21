@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import {StyleSheet,Text,View,Image,TouchableOpacity, Alert} from 'react-native';
+import {StyleSheet,Text,View,Image,TouchableOpacity, Alert, ScrollView} from 'react-native';
 import { useState,useEffect } from "react";
 import axios from 'axios';
+import link from '../../../Adress';
 
 
 
@@ -12,13 +13,17 @@ function ProfilePatient({navigation,route}){
       id:route.params.id
   }
   
-    axios.post("http://192.168.101.9:3000/user/One",Request).then((result)=>{setPatient(result.data);
-    console.log(result)}
+    axios.post(`${link}/user/One`,Request).then((result)=>{
+      setPatient(result.data);
+      
+    // console.log(result)
+  }
     ).catch((err)=>console.log(err))
    
   },[navigation])
  
     return (
+      <ScrollView>
       <View style={styles.container}>
           <View style={styles.header}></View>
           <Image style={styles.avatar} source={{uri: 'https://bootdey.com/img/Content/avatar/avatar6.png'}}/>
@@ -37,10 +42,14 @@ function ProfilePatient({navigation,route}){
         >
           <Text style={styles.loginText}>Edit</Text>
         </TouchableOpacity>
+           <TouchableOpacity  style={styles.loginBtn1}
+          onPress={()=>navigation.navigate("LoginForUser")}><Text style={styles.loginText}>Logout</Text></TouchableOpacity>
             </View>
+           
         </View>
         
       </View>
+      </ScrollView>
     );
   }
 
@@ -48,7 +57,7 @@ function ProfilePatient({navigation,route}){
 const styles = StyleSheet.create({
   header:{
     backgroundColor: "#077871",
-    height:120,
+    height:160,
   },
   avatar: {
     width: 130,
@@ -59,7 +68,7 @@ const styles = StyleSheet.create({
     marginBottom:10,
     alignSelf:'center',
     position: 'absolute',
-    marginTop:60
+    marginTop:90
   },
   name:{
     fontSize:22,
@@ -106,6 +115,16 @@ const styles = StyleSheet.create({
     width: "90%",
     borderRadius: 25,
     height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 40,
+    backgroundColor: "#077871",
+    marginTop: 80,
+  },
+  loginBtn1: {
+    width: "50%",
+    borderRadius: 25,
+    height: 38,
     alignItems: "center",
     justifyContent: "center",
     marginTop: 40,

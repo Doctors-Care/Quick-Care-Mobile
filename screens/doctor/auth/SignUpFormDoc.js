@@ -12,6 +12,9 @@ import React, { useState } from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useTogglePasswordVisibility } from "../../../hooks/TogglePassword";
 import axios from "axios";
+import link from "../../../Adress";
+
+// Sign up for doctor component
 
 export default function SignUpForm({ navigation }) {
   const [FirstName, setFirstName] = useState("");
@@ -24,6 +27,8 @@ export default function SignUpForm({ navigation }) {
   const { passwordVisibility, rightIcon, handlePasswordVisibility } =
     useTogglePasswordVisibility();
 
+
+
   const register = async () => {
     try {
       const NewDoctor = {
@@ -34,9 +39,10 @@ export default function SignUpForm({ navigation }) {
         phoneNumber: PhoneNumber,
         licenseNumber: LicenseNumber,
         adress: address,
+        disponibility:true
       };
       await axios.post(
-        `http://192.168.101.9:3000/doctor/addDoctor`,
+      `${link}/doctor/addDoctor`,
         NewDoctor,
         {
           withCredentials: true,
