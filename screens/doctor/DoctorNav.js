@@ -19,6 +19,7 @@ import DoctorChat from "../patient/SecondaryMenu/doctorChat";
 import TreatedReq from "./TreatedReq";
 
 const GetAllRequests = ({navigation,route}) => {
+
   const [data, setData] = useState([]);
   
   useEffect(() => {

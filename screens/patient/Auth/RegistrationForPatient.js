@@ -14,6 +14,9 @@ import React, { useState } from "react";
 import axios from "axios";
 import LottieView from "lottie-react-native";
 import link from "../../../Adress";
+import { roundToNearestPixel } from "react-native/Libraries/Utilities/PixelRatio";
+
+//registration component
 
 //registration component
 
@@ -37,9 +40,9 @@ function RegistrationForUser({ navigation }) {
     axios
       .post(`${link}/user/signup`, NewUser, { withCredentials: true })
       .then((ok) => {
-        console.log(ok);
-        alert("valid");
-        navigation.navigate("VerificationScreen");
+        console.log(ok.data);
+        alert("wait for validation email");
+        navigation.navigate("VerificationScreen",{id:ok.data.id});
       })
       .catch((err) =>{ console.log(err);alert("check your entries")});
   };
