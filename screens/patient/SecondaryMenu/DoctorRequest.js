@@ -38,7 +38,7 @@ function DoctorRequest({ navigation, route }) {
       <View style={styles.container}>
         <View>
           <View style={styles.container1}>
-            <Text>Symptoms</Text>
+            <Text style={styles.Title1}>Symptoms</Text>
             <View style={styles.inputView}>
               <TextInput
                 styles={styles.TextInput}
@@ -103,6 +103,11 @@ const styles = StyleSheet.create({
     padding: 20,
     marginLeft: 20,
     marginTop: 10,
+  },
+  Title1: {
+    fontSize: 50,
+    padding: "10%",
+    color: "#077871",
   },
 });
 export default DoctorRequest;

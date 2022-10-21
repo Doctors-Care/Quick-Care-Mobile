@@ -18,7 +18,7 @@ function Chat() {
   const [chat, setChat] = useState("");
   const [messages, setMessages] = useState([]);
 
-  const socket = io.connect("http://192.168.11.223:3001");
+  const socket = io.connect("http://192.168.11.85:3001");
   
   // useEffect(() => {
     
@@ -36,23 +36,25 @@ function Chat() {
 
 
   return (
-    <ScrollView>
+   
       <View style={styles.container}>
         <View>
+           
           <View style={styles.container1}>
-            <Text>Chat</Text>
+            <View style={styles.containerForMessage}>
             <FlatList
               data={messages}
               keyExtractor={(item) => item.id}
               renderItem={({ item }) => {
                 return (
-                  <View>
-                    <Text> message: {item.chat} </Text>
+                  <View style={styles.messages}>
+                    <Text style={styles.messagetext}> {item.chat} </Text>
                   </View>
                 );
               }}
             />
-            <View>
+            </View>
+            <View style={styles.inputView}>
               <TextInput
                 styles={styles.TextInput}
                 onChangeText={(e) => {
@@ -63,17 +65,17 @@ function Chat() {
                 placeholderTextColor="black"
               ></TextInput>
             </View>
-
             <TouchableOpacity
               style={styles.loginBtn}
               onPress={() => sendMessage()}
             >
               <Text style={styles.loginText}>Send</Text>
             </TouchableOpacity>
+
           </View>
         </View>
       </View>
-    </ScrollView>
+    
   );
 }
 const styles = StyleSheet.create({
@@ -82,8 +84,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   container1: {
-    alignItems: "center",
+    alignItems: "flex-start",
     justifyContent: "center",
+    left:13,
+    right:13
   },
   loginBtn: {
     width: "90%",
@@ -97,6 +101,7 @@ const styles = StyleSheet.create({
   },
   loginText: {
     color: "white",
+    fontSize:18
   },
   areaView: {
     backgroundColor: "#F6F6F6",
@@ -118,5 +123,37 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     marginTop: 10,
   },
+  Title1: {
+    fontSize: 50,
+    padding: 10,
+    color: "#077871",
+  },
+  inputView:{
+    borderWidth:2,
+    borderColor:"#077871",
+    width:"90%",
+    height:70,
+    borderRadius:50,
+    textAlign:"center",
+    alignItems:"center"
+  },
+  messages:{
+    borderWidth:3,
+    borderColor:"#077871",
+    borderRadius:20,
+    margin:7,
+    backgroundColor:"#6CA86B",
+    marginRight:22
+
+  },
+  messagetext:{
+    padding:10,
+    color:"#ffffff",
+    fontSize:18
+  },
+  containerForMessage:{
+    width:350,
+    height:400
+  }
 });
 export default Chat;

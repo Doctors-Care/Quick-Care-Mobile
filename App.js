@@ -105,7 +105,18 @@ export default function App() {
         />
         <Stack.Screen name="secondaryMenu" component={SecondaryMenu} />
         <Stack.Screen name="DoctorRequest" component={DoctorRequest} />
-        <Stack.Screen name="Chat" component={Chat} />
+        <Stack.Screen name="Chat"
+             options={{
+              title: "Chat with Doctor",
+              headerStyle: {
+                backgroundColor: "#077871",
+              },
+              headerTintColor: "#fff",
+              headerTitleAlign: "center",
+              headerTitleStyle: {
+                fontWeight: "bold",
+              },}}
+         component={Chat} />
         <Stack.Screen
           name="DoctorLoadingScreen"
           component={DoctorLoadingScreen}
@@ -115,6 +126,7 @@ export default function App() {
         <Stack.Screen name="EditPageDoc" component={EditPageDoc} />
         <Stack.Screen name="DetailsForDoctor" component={DetailsForDoctor} />
         <Stack.Screen name="AcceptedreaDetail" component={AcceptedreaDetail}/>
+        <Stack.Screen name="VerificationScreen" component={VerificationScreen}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
