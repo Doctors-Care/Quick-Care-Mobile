@@ -22,6 +22,7 @@ import History from "./screens/patient/Home/historyOfRequests";
 import EditPageDoc from "./screens/doctor/EditPageDoc";
 import DetailsForDoctor from "./screens/doctor/detailsforDoctor";
 import Chat from "./screens/patient/SecondaryMenu/Patientchat";
+import AcceptedreaDetail from "./screens/doctor/AcceptedReaDetail";
 import VerificationScreen from "./screens/patient/Auth/VerificationPage";
 
 export default function App() {
@@ -113,18 +114,7 @@ export default function App() {
         <Stack.Screen name="History" component={History} />
         <Stack.Screen name="EditPageDoc" component={EditPageDoc} />
         <Stack.Screen name="DetailsForDoctor" component={DetailsForDoctor} />
-        <Stack.Screen name="VerificationScreen"
-        options={{
-          title: "Verification",
-          headerStyle: {
-            backgroundColor: "#077871",
-          },
-          headerTintColor: "#fff",
-          headerTitleAlign: "center",
-          headerTitleStyle: {
-            fontWeight: "bold",
-          },
-        }} component={VerificationScreen} />
+        <Stack.Screen name="AcceptedreaDetail" component={AcceptedreaDetail}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

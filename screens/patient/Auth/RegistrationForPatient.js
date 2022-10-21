@@ -1,74 +1,60 @@
 import {
-    StyleSheet,
-    Text,
-    View,
-    TextInput,
-    Image,
-    Button,
-    Alert,
-    Pressable,
-    TouchableOpacity,
-    ScrollView,
-  } from "react-native";
-  import React, { useState } from "react";
-  import axios from "axios";
-  import LottieView from "lottie-react-native";
-  import link from "../../../Adress";
-  
-  function RegistrationForUser({ navigation }) {
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [phoneNumber, setPhoneNumber] = useState("");
-    const [adress, setAdress] = useState("");
-  
-    const adduser = () => {
-      const NewUser = {
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        password: password,
-        phoneNumber: phoneNumber,
-        adress: adress,
-      };
-      axios
-        .post(`${link}/user/signup`, NewUser, { withCredentials: true })
-        .then((ok) => {
-          console.log(ok);
-          alert("valid");
-          navigation.navigate("VerificationScreen");
-        })
-        .catch((err) =>{ console.log(err);alert("check your entries")});
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  Image,
+  Button,
+  Alert,
+  Pressable,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
+import React, { useState } from "react";
+import axios from "axios";
+import LottieView from "lottie-react-native";
+import link from "../../../Adress";
+
+//registration component
+
+function RegistrationForUser({ navigation }) {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [adress, setAdress] = useState("");
+
+  const adduser = () => {
+    const NewUser = {
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      password: password,
+      phoneNumber: phoneNumber,
+      adress: adress,
     };
-  
-    return (
-      <ScrollView style={styles.containerScroll}>
-        <LottieView
-          style={styles.logo}
-          source={require("../../../assets/64216-super-nurse-animation.json")}
-          autoPlay
-        />
-        <View style={styles.container}>
-          <View style={styles.NameStyle}>
-            <View style={styles.viewforInputName}>
-              <TextInput
-                styles={styles.TextInput}
-                placeholder="First Name"
-                placeholderTextColor="black"
-                onChangeText={(name) => setFirstName(name)}
-              ></TextInput>
-            </View>
-            <View style={styles.viewforInputName}>
-              <TextInput
-                styles={styles.TextInput}
-                placeholder="Last Name"
-                placeholderTextColor="black"
-                onChangeText={(name) => setLastName(name)}
-              ></TextInput>
-            </View>
-          </View>
-          <View style={styles.inputView}>
+    axios
+      .post(`${link}/user/signup`, NewUser, { withCredentials: true })
+      .then((ok) => {
+        console.log(ok);
+        alert("valid");
+        navigation.navigate("VerificationScreen");
+      })
+      .catch((err) =>{ console.log(err);alert("check your entries")});
+  };
+
+
+  return (
+    <ScrollView style={styles.containerScroll}>
+      <LottieView
+        style={styles.logo}
+        source={require("../../../assets/64216-super-nurse-animation.json")}
+        autoPlay
+      />
+      <View style={styles.container}>
+        <View style={styles.NameStyle}>
+          <View style={styles.viewforInputName}>
             <TextInput
               styles={styles.TextInput}
               placeholder="Email"
@@ -121,6 +107,7 @@ import {
           >
             <Text style={styles.loginText}>Register</Text>
           </TouchableOpacity>
+        </View>
         </View>
       </ScrollView>
     );

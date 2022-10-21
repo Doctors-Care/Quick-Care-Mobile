@@ -14,13 +14,20 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import DoctorProfile from "./DoctorProfile";
 import { useState } from "react";
 import link from "../../Adress";
+<<<<<<< HEAD
 import axios from "axios";
 import DoctorChat from "../patient/SecondaryMenu/doctorChat";
 const GetAllRequests = ({navigation}) => {
-  const [data, setData] = useState([]);
+=======
+import TreatedReq from "./TreatedReq";
 
- 
+const GetAllRequests = ({navigation,route}) => {
+>>>>>>> 144735e2a184448ae6c9e028c5eea4b72de2d8fd
+  const [data, setData] = useState([]);
+  
   useEffect(() => {
+    console.log(route.params.id);
+    
     fetch(`${link}/request/getAllRequests`, {
       method: "GET",
       headers: {
@@ -30,10 +37,15 @@ const GetAllRequests = ({navigation}) => {
     })
       .then((response) => response.json())
       .then((data) => {
+        console.log(data);
         setData(data);
       })
       .catch((err) => console.error(err));
   }, []);
+
+  
+
+
 
   return (
     <SafeAreaView style={styles.container}>
@@ -48,7 +60,7 @@ const GetAllRequests = ({navigation}) => {
               <TouchableOpacity
                 style={styles.button}
                 title="Accept"
-                onPress={() => navigation.navigate('DetailsForDoctor',{id:item.patientId,requestId:item.id})}
+                onPress={() => navigation.navigate('DetailsForDoctor',{id:item.patientId,requestId:item.id,doctorId:route.params.id})}
               >
                 <Text>details</Text>
               </TouchableOpacity>
@@ -92,6 +104,7 @@ const DoctorNav = ({ route }) => {
       <Tab.Screen
         name="GetAllRequests"
         component={GetAllRequests}
+        initialParams={{ id: route.params.id }}
         options={{
           tabBarLabel: "GetAllRequests",
           tabBarIcon: ({ color }) => (
@@ -100,8 +113,10 @@ const DoctorNav = ({ route }) => {
         }}
       />
       <Tab.Screen
-        name="Notifications"
-        component={Notifications}
+        name="TreatedReq"
+        component={TreatedReq}
+        initialParams={{ id: route.params.id }}
+
         options={{
           tabBarLabel: "Updates",
           tabBarIcon: ({ color }) => (
