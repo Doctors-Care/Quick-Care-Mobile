@@ -18,7 +18,7 @@ function Chat() {
   const [chat, setChat] = useState("");
   const [messages, setMessages] = useState([]);
 
-  const socket = io.connect("http://192.168.11.85:3001");
+  const socket = io.connect("http://192.168.11.82:3001");
   
   // useEffect(() => {
     
@@ -36,7 +36,7 @@ function Chat() {
 
 
   return (
-    <ScrollView>
+   
       <View style={styles.container}>
         <View>
           <View style={styles.container1}>
@@ -73,7 +73,7 @@ function Chat() {
           </View>
         </View>
       </View>
-    </ScrollView>
+    
   );
 }
 const styles = StyleSheet.create({

@@ -18,6 +18,8 @@ import { roundToNearestPixel } from "react-native/Libraries/Utilities/PixelRatio
 
 //registration component
 
+//registration component
+
 function RegistrationForUser({ navigation }) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
