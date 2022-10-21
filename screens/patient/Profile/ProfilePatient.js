@@ -13,8 +13,11 @@ function ProfilePatient({navigation,route}){
       id:route.params.id
   }
   
-    axios.post(`${link}/user/One`,Request).then((result)=>{setPatient(result.data);
-    console.log(result)}
+    axios.post(`${link}/user/One`,Request).then((result)=>{
+      setPatient(result.data);
+      
+    // console.log(result)
+  }
     ).catch((err)=>console.log(err))
    
   },[navigation])
