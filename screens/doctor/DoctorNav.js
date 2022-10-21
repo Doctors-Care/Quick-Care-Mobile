@@ -14,9 +14,15 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import DoctorProfile from "./DoctorProfile";
 import { useState } from "react";
 import link from "../../Adress";
+<<<<<<< HEAD
+import axios from "axios";
+import DoctorChat from "../patient/SecondaryMenu/doctorChat";
+const GetAllRequests = ({navigation}) => {
+=======
 import TreatedReq from "./TreatedReq";
 
 const GetAllRequests = ({navigation,route}) => {
+>>>>>>> 144735e2a184448ae6c9e028c5eea4b72de2d8fd
   const [data, setData] = useState([]);
   
   useEffect(() => {
@@ -124,6 +130,17 @@ const DoctorNav = ({ route }) => {
         initialParams={{ id: route.params.id }}
         options={{
           tabBarLabel: "Profile",
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="account" color={color} size={26} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Chat"
+        component={DoctorChat}
+        initialParams={{ id: route.params.id }}
+        options={{
+          tabBarLabel: "Chat",
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="account" color={color} size={26} />
           ),

@@ -21,6 +21,7 @@ import AcceptedDoctor from "./screens/patient/SecondaryMenu/AcceptedDoctorCall";
 import History from "./screens/patient/Home/historyOfRequests";
 import EditPageDoc from "./screens/doctor/EditPageDoc";
 import DetailsForDoctor from "./screens/doctor/detailsforDoctor";
+import Chat from "./screens/patient/SecondaryMenu/Patientchat";
 import AcceptedreaDetail from "./screens/doctor/AcceptedReaDetail";
 import VerificationScreen from "./screens/patient/Auth/VerificationPage";
 
@@ -104,6 +105,7 @@ export default function App() {
         />
         <Stack.Screen name="secondaryMenu" component={SecondaryMenu} />
         <Stack.Screen name="DoctorRequest" component={DoctorRequest} />
+        <Stack.Screen name="Chat" component={Chat} />
         <Stack.Screen
           name="DoctorLoadingScreen"
           component={DoctorLoadingScreen}
