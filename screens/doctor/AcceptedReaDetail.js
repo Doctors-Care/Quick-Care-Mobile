@@ -125,6 +125,18 @@ function AcceptedreaDetail({ route }) {
       <Text style={styles.text}>{patient.age}</Text>
       <Text style={styles.text}>{patient.chronicDiseases}</Text>
       <Text style={styles.text}>{patient.gender}</Text>
+      {/* <TouchableOpacity
+      // onPress={async()=>{
+      //   axios
+      // .put(`${link}/request/markasdne`, true)
+      // .then((result) => {
+      //   console.log(result.data);
+      // })
+      // .catch((err) => {
+      //   console.log(err);
+      // });
+      // }}      
+      ><Text>Mark as done</Text></TouchableOpacity> */}
       
     </View>
   );

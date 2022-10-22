@@ -21,25 +21,24 @@ function DoctorChat() {
 
   const socket = io.connect(link);
 
-//   useEffect(() => {
-    socket.on("Doctor_message", (message) => {
-      setMessages([...messages, message]);
-    });
-    console.log(messages);
-//   }, [socket]);
+  //   useEffect(() => {
+  socket.on("Doctor_message", (message) => {
+    setMessages([...messages, message]);
+  });
+  console.log(messages);
+  //   }, [socket]);
 
   const sendMessage = () => {
     socket.emit("doctor_send_message", { chat });
-    setChat(""); 
+    setChat("");
   };
-
 
   return (
     
       <View style={styles.container}>
         <View>
           <View style={styles.container1}>
-            <Text>Chat</Text>
+            <Text style={styles.Title1}>Chat</Text>
             <FlatList
               data={messages}
               renderItem={({ item }) => {
@@ -116,6 +115,11 @@ const styles = StyleSheet.create({
     padding: 20,
     marginLeft: 20,
     marginTop: 10,
+  },
+  Title1: {
+    fontSize: 50,
+    padding: "10%",
+    color: "#077871",
   },
 });
 export default DoctorChat;

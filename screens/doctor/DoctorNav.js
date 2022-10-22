@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import React, { useEffect } from "react";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import DoctorProfile from "./DoctorProfile";
@@ -19,13 +19,12 @@ import link from "../../Adress";
 import DoctorChat from "../patient/SecondaryMenu/doctorChat";
 import TreatedReq from "./TreatedReq";
 
-const GetAllRequests = ({navigation,route}) => {
-
+const GetAllRequests = ({ navigation, route }) => {
   const [data, setData] = useState([]);
-  
+
   useEffect(() => {
     console.log(route.params.id);
-    
+
     fetch(`${link}/request/getAllRequests`, {
       method: "GET",
       headers: {
@@ -41,10 +40,6 @@ const GetAllRequests = ({navigation,route}) => {
       .catch((err) => console.error(err));
   }, []);
 
-  
-
-
-
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
@@ -52,18 +47,23 @@ const GetAllRequests = ({navigation,route}) => {
         renderItem={({ item }) => (
           <View style={styles.item}>
             <TouchableOpacity style={styles.touch}>
-            <Text>request :{item.id}</Text>
-            <Text>{item.description}</Text>
-            <View style={styles.buttonContainer}>
-              <TouchableOpacity
-                style={styles.button}
-                title="Accept"
-                onPress={() => navigation.navigate('DetailsForDoctor',{id:item.patientId,requestId:item.id,doctorId:route.params.id})}
-              >
-                <Text>details</Text>
-              </TouchableOpacity>
-         
-            </View>
+              <Text>request :{item.id}</Text>
+              <Text>{item.description}</Text>
+              <View style={styles.buttonContainer}>
+                <TouchableOpacity
+                  style={styles.button}
+                  title="Accept"
+                  onPress={() =>
+                    navigation.navigate("DetailsForDoctor", {
+                      id: item.patientId,
+                      requestId: item.id,
+                      doctorId: route.params.id,
+                    })
+                  }
+                >
+                  <Text>details</Text>
+                </TouchableOpacity>
+              </View>
             </TouchableOpacity>
           </View>
         )}
@@ -73,29 +73,66 @@ const GetAllRequests = ({navigation,route}) => {
   );
 };
 
-function Profile() {
+function Profile({ navigation, route }) {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    console.log(route.params.id);
+
+    fetch(`${link}/request/getAllOKDoneRequests`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setData(data);
+      })
+      .catch((err) => console.error(err));
+  }, []);
+
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Profile!</Text>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <FlatList
+        data={data}
+        renderItem={({ item, index }) => (
+          <View style={styles.item}>
+            <TouchableOpacity style={styles.touch}>
+              <Text style={styles.data}>Request :{index + 1}</Text>
+              <Text style={styles.data}>{item.description}</Text>
+              <Text>{item.createdAt}</Text>
+
+              <View style={styles.buttonContainer}></View>
+            </TouchableOpacity>
+          </View>
+        )}
+        keyExtractor={(item) => item.id}
+      />
+    </SafeAreaView>
   );
 }
 const Tabt = createMaterialTopTabNavigator();
 
-function Notifications({route}) {
-  
-    return (
-      <Tabt.Navigator>
-        <Tabt.Screen name="TreatedReq" component={TreatedReq}
+function Notifications({ route }) {
+  return (
+    <Tabt.Navigator>
+      <Tabt.Screen
+        name="TreatedReq"
+        component={TreatedReq}
         initialParams={{ id: route.params.id }}
-        />
-        <Tabt.Screen name="profile" component={Profile} />
-      </Tabt.Navigator>
-    );
-  
+      />
+      <Tabt.Screen
+        name="profile"
+        component={Profile}
+        initialParams={{ id: route.params.id }}
+      />
+    </Tabt.Navigator>
+  );
 }
 const Tab = createMaterialBottomTabNavigator();
-
 
 const DoctorNav = ({ route }) => {
   return (
@@ -121,7 +158,6 @@ const DoctorNav = ({ route }) => {
         name="Notifications"
         component={Notifications}
         initialParams={{ id: route.params.id }}
-
         options={{
           tabBarLabel: "Updates",
           tabBarIcon: ({ color }) => (
@@ -129,17 +165,17 @@ const DoctorNav = ({ route }) => {
           ),
         }}
       />
-        <Tab.Screen
-          name="Chat"
-          component={DoctorChat}
-          initialParams={{ id: route.params.id }}
-          options={{
-            tabBarLabel: "Chat",
-            tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons name="wechat" color={color} size={26} />
-            ),
-          }}
-        />
+      <Tab.Screen
+        name="Chat"
+        component={DoctorChat}
+        initialParams={{ id: route.params.id }}
+        options={{
+          tabBarLabel: "Chat",
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="wechat" color={color} size={26} />
+          ),
+        }}
+      />
       <Tab.Screen
         name="DoctorProfile"
         component={DoctorProfile}
@@ -192,8 +228,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   touch: {
-    justifyContent:"center",
-    alignItems:"center",
+    justifyContent: "center",
+    alignItems: "center",
   },
-  
 });

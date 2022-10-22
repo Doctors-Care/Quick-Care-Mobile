@@ -13,6 +13,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useTogglePasswordVisibility } from "../../../hooks/TogglePassword";
 import axios from "axios";
 import link from "../../../Adress";
+import LottieView from "lottie-react-native";
 
 // Sign up for doctor component
 
@@ -57,7 +58,11 @@ export default function SignUpForm({ navigation }) {
   return (
     <ScrollView style={styles.container1}>
       <View style={styles.container}>
-        {/* <Image style={styles.img} source={require("../assets/logo.png")} /> */}
+      <LottieView
+          style={styles.logo}
+          source={require("../../../assets/64216-super-nurse-animation.json")}
+          autoPlay
+        />
         <View style={styles.inputView}>
           <TextInput
             styles={styles.TextInput}
