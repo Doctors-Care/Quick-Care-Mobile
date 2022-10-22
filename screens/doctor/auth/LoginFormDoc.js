@@ -29,12 +29,11 @@ export default function LoginForm({ navigation }) {
       const res = await axios.post(`${link}/doctor/loginDoc`, doctor, {
         withCredentials: true,
       });
-      console.log(res);
 
       //alert the doctor to check his credentials
-      if (res.data.message !== "welcome Back") {
-        alert(res.data.message);
-        console.log(res.data.message);
+      if (res.message !== "welcome Back") {
+        
+        console.log('fccfcfc',res.response);
       } 
       //accept the emal and password and navigate to doc home screen 
       else {
@@ -44,7 +43,8 @@ export default function LoginForm({ navigation }) {
         navigation.navigate("DoctorNav", { id: res.data.doctorAuth.id });
       }
     } catch (err) {
-      console.log(err);
+      alert(err.response.data.message);
+      console.log(err.response.data.message);
     }
   };
 
