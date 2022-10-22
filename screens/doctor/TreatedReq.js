@@ -52,7 +52,7 @@ const TreatedReq = ({ route, navigation }) => {
                   style={styles.button}
                   title="Accept"
                   onPress={() =>
-                    navigation.navigate("AcceptedreaDetail", {
+                    navigation.navigate("Done", {
                       id: item.patientId,
                       requestId: item.id,
                       doctorId: route.params.id,
