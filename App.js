@@ -21,8 +21,10 @@ import AcceptedDoctor from "./screens/patient/SecondaryMenu/AcceptedDoctorCall";
 import History from "./screens/patient/Home/historyOfRequests";
 import EditPageDoc from "./screens/doctor/EditPageDoc";
 import DetailsForDoctor from "./screens/doctor/detailsforDoctor";
+import Chat from "./screens/patient/SecondaryMenu/Patientchat";
 import AcceptedreaDetail from "./screens/doctor/AcceptedReaDetail";
 import VerificationScreen from "./screens/patient/Auth/VerificationPage";
+import Done from "./screens/doctor/Done";
 
 export default function App() {
   //creating the Stack navigation
@@ -104,6 +106,18 @@ export default function App() {
         />
         <Stack.Screen name="secondaryMenu" component={SecondaryMenu} />
         <Stack.Screen name="DoctorRequest" component={DoctorRequest} />
+        <Stack.Screen name="Chat"
+             options={{
+              title: "Chat with Doctor",
+              headerStyle: {
+                backgroundColor: "#077871",
+              },
+              headerTintColor: "#fff",
+              headerTitleAlign: "center",
+              headerTitleStyle: {
+                fontWeight: "bold",
+              },}}
+         component={Chat} />
         <Stack.Screen
           name="DoctorLoadingScreen"
           component={DoctorLoadingScreen}
@@ -113,6 +127,9 @@ export default function App() {
         <Stack.Screen name="EditPageDoc" component={EditPageDoc} />
         <Stack.Screen name="DetailsForDoctor" component={DetailsForDoctor} />
         <Stack.Screen name="AcceptedreaDetail" component={AcceptedreaDetail}/>
+        <Stack.Screen name="VerificationScreen" component={VerificationScreen}/>
+        <Stack.Screen name="Done" component={Done}/>
+
       </Stack.Navigator>
     </NavigationContainer>
   );

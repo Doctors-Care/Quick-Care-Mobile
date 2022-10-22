@@ -37,9 +37,9 @@ function RegistrationForUser({ navigation }) {
     axios
       .post(`${link}/user/signup`, NewUser, { withCredentials: true })
       .then((ok) => {
-        console.log(ok);
-        alert("valid");
-        navigation.navigate("VerificationScreen");
+        console.log(ok.data);
+        alert("wait for validation email");
+        navigation.navigate("VerificationScreen",{id:ok.data.id});
       })
       .catch((err) =>{ console.log(err);alert("check your entries")});
   };

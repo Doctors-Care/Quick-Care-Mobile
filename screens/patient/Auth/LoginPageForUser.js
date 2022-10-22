@@ -31,7 +31,7 @@ export default function LoginPageForUser({ navigation }) {
   const patientStore = async (patient) => {
     try {
       await AsyncStorage.setItem("Patient", JSON.stringify(patient));
-      console.log(patient);
+      // console.log(patient);
     } catch (error) {
       console.log(error);
     }
@@ -49,8 +49,8 @@ export default function LoginPageForUser({ navigation }) {
         setMessage("Welcome");
         patientStore(ok.data);
         navigation.navigate("EmergencyHome", {
-          id: ok.data.id,
-          email: ok.data.email,
+          id: ok.data.Patient.id,
+          email: ok.data.Patient.email,
         });
       })
       .catch((err) => {

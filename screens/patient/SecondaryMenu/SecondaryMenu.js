@@ -38,12 +38,12 @@ function SecondaryMenu({ navigation, route }) {
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.emergencyButton}
-                    onPress={() => navigation.navigate('DoctorRequest')}>
+                    onPress={() => navigation.navigate('Chat')}>
                     <LottieView
                         style={styles.imageForMenu}
                         source={require('../../../assets/107925-doctor.json')
                         } />
-                    <Text style={styles.TextForMenu}>Forum</Text>
+                    <Text style={styles.TextForMenu}>Chat with Doctor</Text>
                 </TouchableOpacity>
             </View>
 

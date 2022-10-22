@@ -1,61 +1,77 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
   View,
+  List,
   TextInput,
+  ListItem,
+  FlatList,
   TouchableOpacity,
   ScrollView,
+  SafeAreaView,
 } from "react-native";
-import link from "../../../Adress";
+import io from "socket.io-client";
+import link from "../../../Adress"
 
-function DoctorRequest({ navigation, route }) {
-  const [idrequest, setidrequest] = useState("");
-  const [description, setDescription] = useState("");
-  const createDoctorrequest = () => {
-    console.log(route);
-    const Request = {
-      email: route.params.email,
-      status: "Doctor",
-      description: description,
-    };
-    console.log(Request);
-    axios
-      .post(`${link}/request/addingRequest`, Request)
-      .then((result) => {
-        setidrequest(result.data.id);
-        navigation.navigate("DoctorLoadingScreen", { id: result.data.id });
-      })
-      .catch((error) => console.log(error));
+function DoctorChat() {
+  const [chat, setChat] = useState("");
+  const [messages, setMessages] = useState([]);
+
+  const socket = io.connect(link);
+
+  //   useEffect(() => {
+  socket.on("Doctor_message", (message) => {
+    setMessages([...messages, message]);
+  });
+  console.log(messages);
+  //   }, [socket]);
+
+  const sendMessage = () => {
+    socket.emit("doctor_send_message", { chat });
+    setChat("");
   };
+
   return (
-    <ScrollView>
+    
       <View style={styles.container}>
         <View>
           <View style={styles.container1}>
-            <Text style={styles.Title1}>Symptoms</Text>
-            <View style={styles.inputView}>
+            <Text style={styles.Title1}>Chat</Text>
+            <FlatList
+              data={messages}
+              renderItem={({ item }) => {
+                return (
+                  <View>
+                    <Text> message: {item.chat} </Text>
+                  </View>
+                );
+              }}
+              keyExtractor={(item) => item.id}
+              />
+            <View>
               <TextInput
                 styles={styles.TextInput}
-                placeholder="Write your symptoms here"
-                placeholderTextColor="black"
-                onChangeText={(a) => {
-                  setDescription(a);
+                onChangeText={(e) => {
+                  setChat(e);
                 }}
+                value={chat}
+                placeholder="Write your message here"
+                placeholderTextColor="black"
               ></TextInput>
             </View>
 
             <TouchableOpacity
               style={styles.loginBtn}
-              onPress={() => createDoctorrequest()}
+              onPress={() => sendMessage()}
             >
-              <Text style={styles.loginText}>confirm</Text>
+              <Text style={styles.loginText}>Send</Text>
             </TouchableOpacity>
           </View>
         </View>
       </View>
-    </ScrollView>
+    
   );
 }
 const styles = StyleSheet.create({
@@ -74,13 +90,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginTop: 40,
-    backgroundColor: "#077871",
+    backgroundColor: "#44b3cc",
     marginTop: 20,
   },
   loginText: {
     color: "white",
   },
-  inputView: {
+  areaView: {
     backgroundColor: "#F6F6F6",
     borderRadius: 30,
     width: "90%",
@@ -106,4 +122,4 @@ const styles = StyleSheet.create({
     color: "#077871",
   },
 });
-export default DoctorRequest;
+export default DoctorChat;
