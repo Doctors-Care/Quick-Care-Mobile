@@ -18,17 +18,18 @@ function DoctorChat() {
   const [chat, setChat] = useState("");
   const [messages, setMessages] = useState([]);
 
-  const socket = io.connect("http://192.168.11.82:3001");
+  const socket = io.connect("http://192.168.1.5:3001");
 
   //   useEffect(() => {
   socket.on("Doctor_message", (message) => {
     setMessages([...messages, message]);
   });
-  console.log(messages);
+  // console.log(messages);
   //   }, [socket]);
 
   const sendMessage = () => {
-    socket.emit("doctor_send_message", { chat });
+    socket.emit("doctor_send_message", { Doctor:chat });
+    setMessages([...messages, {chat}]);
     setChat("");
   };
 
@@ -43,9 +44,15 @@ function DoctorChat() {
               data={messages}
               keyExtractor={(item) => item.id}
               renderItem={({ item }) => {
+                console.log("Doctor log el item",item);
                 return (
+                  item.chat?
                   <View style={styles.messages}>
                     <Text style={styles.messagetext}> {item.chat} </Text>
+                  </View>
+                  :
+                  <View style={styles.PatientMessages}>
+                    <Text style={styles.messagetext}> {item.Patient} </Text>
                   </View>
                 );
               }}
@@ -149,6 +156,15 @@ const styles = StyleSheet.create({
     borderRadius:50,
     textAlign:"center",
     alignItems:"center"
+  },
+  PatientMessages:{
+    borderWidth:3,
+    borderColor:"#077871",
+    borderRadius:20,
+    margin:7,
+    backgroundColor:"#6CA86B",
+    marginRight:22
+
   },
   messagetext:{
     padding:10,
