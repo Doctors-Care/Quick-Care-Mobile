@@ -18,6 +18,7 @@ import { useState } from "react";
 import link from "../../Adress";
 import DoctorChat from "../patient/SecondaryMenu/doctorChat";
 import TreatedReq from "./TreatedReq";
+import Done from "./Done";
 
 const GetAllRequests = ({ navigation, route }) => {
   const [data, setData] = useState([]);
