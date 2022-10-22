@@ -39,18 +39,20 @@ function DoctorChat() {
         <View>
           <View style={styles.container1}>
             <Text style={styles.Title1}>Chat</Text>
+            <View style={styles.containerForMessage}>
             <FlatList
               data={messages}
               renderItem={({ item }) => {
                 return (
-                  <View>
-                    <Text> message: {item.chat} </Text>
+                  <View style={styles.messages}>
+                    <Text style={styles.messagetext}> {item.chat} </Text>
                   </View>
                 );
               }}
-              keyExtractor={(item) => item.id}
-              />
-            <View>
+
+            />
+            </View>
+            <View style={styles.inputView}>
               <TextInput
                 styles={styles.TextInput}
                 onChangeText={(e) => {
@@ -82,6 +84,7 @@ const styles = StyleSheet.create({
   container1: {
     alignItems: "center",
     justifyContent: "center",
+    alignItems:"center"
   },
   loginBtn: {
     width: "90%",
@@ -108,7 +111,12 @@ const styles = StyleSheet.create({
     marginTop: 50,
     multiline: true,
   },
-
+  container1: {
+    alignItems: "flex-start",
+    justifyContent: "center",
+    left:13,
+    right:13
+  },
   TextInput: {
     height: 200,
     flex: 1,
@@ -118,8 +126,35 @@ const styles = StyleSheet.create({
   },
   Title1: {
     fontSize: 50,
-    padding: "10%",
-    color: "#077871",
+    padding: 10,
+    color: "#44b3cc",
+  },
+  containerForMessage:{
+    width:350,
+    height:400
+  },
+  messages:{
+    borderWidth:3,
+    borderColor:"#00BFFF",
+    borderRadius:20,
+    margin:7,
+    backgroundColor:"#44b3cc",
+    marginRight:22
+
+  },
+  inputView:{
+    borderWidth:2,
+    borderColor:"#00BFFF",
+    width:"90%",
+    height:70,
+    borderRadius:50,
+    textAlign:"center",
+    alignItems:"center"
+  },
+  messagetext:{
+    padding:10,
+    color:"#ffffff",
+    fontSize:18
   },
 });
 export default DoctorChat;
