@@ -1,2 +1,2 @@
-var link = "http:/192.168.11.82:3001"
+var link = "http:/192.168.1.5:3001"
 export default link

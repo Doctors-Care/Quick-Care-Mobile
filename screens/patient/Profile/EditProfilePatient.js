@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import * as ImagePicker from 'expo-image-picker';
+import * as ImagePicker from "expo-image-picker"
 import {
   StyleSheet,
   Text,
@@ -87,39 +87,83 @@ function EditProfilePatient({ navigation, route }) {
       .then((a) => setAge(a.data.age))
       .catch((err) => console.log(err));
   };
-  const pickImage = async () => {
-    // No permissions request is necessary for launching the image library
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
+  const selectPhotoTapped = () => {
+    const options = {
+      title: 'Select Photo',
+      storageOptions: {
+        skipBackup: true,
+        path: 'images',
+      },
+    };
+    ImagePicker.launchImageLibraryAsync(options, (response) => {
+
+      console.log('Response = ', response);
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else {
+        const uri = response.uri;
+        const type = response.type;
+        const name = response.fileName;
+        const source = {
+          uri,
+          type,
+          name,
+        }
+        cloudinaryUpload(source)
+      }
     });
-    //   setFile(result.uri)
-   try{
-    const formData = new FormData ()
-    formData.append("file",result.uri)
-    formData.append("upload_preset", "akvv0jtv")
-    console.log("formData",formData);
-    fetch(`https://api.cloudinary.com/v1_1/dtwuychif/upload`,{
-        method: "POST",
-        body: formData,
-        headers:{
-            Accept: "application/json",
-            "Content-Type":"application/json",
-        },
-    }) .then(response => {console.log("response", response);response.json();}
-            )
-            .then(data => {
-                // if (data.secure_url !== ""){
-                    console.log(data)
-                // }
-            })
-            .catch(error => {
-                   console.log("error",error);
-                  })
-   }  
-   catch (err){ console.log(err)}
+  }
+  const cloudinaryUpload = (photo) => {
+    const data = new FormData()
+    data.append('file', photo)
+    data.append('upload_preset', 'akvv0jtv')
+    data.append("cloud_name", "ogcodes")
+    fetch("https://api.cloudinary.com/v1_1/dtwuychif/upload", {
+      method: "post",
+      body: data
+    }).then(res => res.json()).
+      then(data => {
+        setPhoto(data.secure_url)
+
+      }).catch(err => {
+        Alert.alert("An Error Occured While Uploading")
+      })
+  }
+  // const pickImage = async () => {
+  //   // No permissions request is necessary for launching the image library
+  //   let result = await ImagePicker.launchImageLibraryAsync({
+  //     mediaTypes: ImagePicker.MediaTypeOptions.All,
+  //     allowsEditing: true,
+  //     aspect: [4, 3],
+  //     quality: 1,
+  //   });
+  //   //   setFile(result.uri)
+  //  try{
+  //   const formData = new FormData ()
+  //   formData.append("file",result.uri)
+  //   formData.append("upload_preset", "akvv0jtv")
+  //   console.log("formData",formData);
+  //   fetch(`https://api.cloudinary.com/v1_1/dtwuychif/upload`,{
+  //       method: "POST",
+  //       body: formData,
+  //       headers:{
+  //           Accept: "application/json",
+  //           "Content-Type":"application/json",
+  //       },
+  //   }) .then(response => {console.log("response", response);response.json();}
+  //           )
+  //           .then(data => {
+  //               // if (data.secure_url !== ""){
+  //                   console.log(data)
+  //               // }
+  //           })
+  //           .catch(error => {
+  //                  console.log("error",error);
+  //                 })
+  //  }  
+  //  catch (err){ console.log(err)}
       
     //   await axios.post (`https://api.cloudinary.com/v1_1/dtwuychif/upload`,formData,{ withCredentials: true })
     //   .then(response => {
@@ -130,7 +174,7 @@ function EditProfilePatient({ navigation, route }) {
     //    console.log("error",error);
     //   })
     
-                }   
+                // }   
 
   const changegender = () => {
     axios
@@ -165,7 +209,7 @@ function EditProfilePatient({ navigation, route }) {
       /> 
        }
       
-      <TouchableOpacity style={styles.editPicture} onPress={()=>pickImage()}>
+      <TouchableOpacity style={styles.editPicture} onPress={()=>selectPhotoTapped()}>
         <MaterialCommunityIcons name="image-edit" size={30} color={"#077871"} />
       </TouchableOpacity>
       <View style={styles.body}>
