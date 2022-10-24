@@ -63,21 +63,23 @@ export default function SignUpForm({ navigation }) {
           source={require("../../../assets/64216-super-nurse-animation.json")}
           autoPlay
         />
-        <View style={styles.inputView}>
-          <TextInput
-            styles={styles.TextInput}
-            placeholder="First Name"
-            placeholderTextColor="black"
-            onChangeText={(FirstName) => setFirstName(FirstName)}
-          ></TextInput>
-        </View>
-        <View style={styles.inputView}>
-          <TextInput
-            styles={styles.TextInput}
-            placeholder="Last Name"
-            placeholderTextColor="black"
-            onChangeText={(LastName) => setLastName(LastName)}
-          ></TextInput>
+         <View style={styles.NameStyle}>
+          <View style={styles.viewforInputName}>
+            <TextInput
+              styles={styles.TextInput}
+              placeholder="First Name"
+              placeholderTextColor="black"
+              onChangeText={(name) => setFirstName(name)}
+            ></TextInput>
+          </View>
+          <View style={styles.viewforInputName}>
+            <TextInput
+              styles={styles.TextInput}
+              placeholder="Last Name"
+              placeholderTextColor="black"
+              onChangeText={(name) => setLastName(name)}
+            ></TextInput>
+          </View>
         </View>
         <View style={styles.inputView}>
           <TextInput
@@ -132,41 +134,37 @@ export default function SignUpForm({ navigation }) {
         </View>
         <TouchableOpacity style={styles.loginBtn} onPress={register}
         onPressOut={()=>navigation.navigate('LoginFormDoctor')}>
-          <Text>Register</Text>
+          <Text style={styles.textButton}>Register</Text>
         </TouchableOpacity>
       </View>
       </ScrollView>
   );
 }
 const styles = StyleSheet.create({
-  out: {
-    justifyContent: "center",
-  },
   container: {
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
-  },
-  img: {
-    justifyContent: "center",
+
   },
   inputView: {
-    backgroundColor: "#B0E0E6",
+    backgroundColor: "#F6F6F6",
     borderRadius: 30,
-    width: "70%",
+    width: "90%",
     height: 45,
     marginBottom: 20,
     alignItems: "center",
-    paddingTop: 10,
+    borderColor: "#44b3cc",
+    borderWidth: 2,
   },
 
   TextInput: {
     height: 50,
     flex: 1,
-    padding: 10,
+    padding: 20,
     marginLeft: 20,
-    marginTop: 100,
+    marginTop: 10,
   },
   forgot_button: {
     height: 30,
@@ -174,23 +172,42 @@ const styles = StyleSheet.create({
   },
 
   loginBtn: {
-    width: "80%",
+    width: "90%",
     borderRadius: 25,
     height: 50,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 40,
+    marginTop: 10,
     backgroundColor: "#44b3cc",
-    marginTop: 100,
-  },
-  container1: {
-    flex: 1,
+    marginTop: 10,
   },
   logo: {
     width: 150,
     height: 200,
-    top: 10,
-    borderRadius: 0,
-   
+  },
+  loginText: {
+    color: "#ffffff",
+  },
+  containerScroll: {
+    flex: 1,
+    backgroundColor: "#ffffff",
+  },
+  NameStyle: {
+    display: "flex",
+    flexDirection: "row",
+  },
+  viewforInputName: {
+    backgroundColor: "#F6F6F6",
+    borderRadius: 30,
+    width: 150,
+    height: 45,
+    marginBottom: 20,
+    alignItems: "center",
+    borderColor: "#44b3cc",
+    borderWidth: 2,
+    marginHorizontal: 10,
+  },
+  textButton:{
+color:"#ffffff"
   },
 });

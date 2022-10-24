@@ -110,7 +110,8 @@ function Emergency({ navigation, route }) {
     console.log("aaaaaa", a);
     var Request = {
       email: route.params.email,
-      state: "HCE",
+      status: "HCE",
+      description:"alert"
     };
     console.log("hethi e request", Request);
     axios

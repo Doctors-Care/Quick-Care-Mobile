@@ -151,4 +151,7 @@ const styles = StyleSheet.create({
     top: 10,
     borderRadius: 0,
   },
+  loginText:{
+    color:"#ffffff"
+  }
 });
