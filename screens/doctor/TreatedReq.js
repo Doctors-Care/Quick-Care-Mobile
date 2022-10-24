@@ -4,19 +4,35 @@ import {
   View,
   SafeAreaView,
   FlatList,
-  Button,
-  Alert,
+ RefreshControl,
   TouchableOpacity,
 } from "react-native";
 import React, { useEffect } from "react";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import link from "../../Adress";
 
 const TreatedReq = ({ route, navigation }) => {
   const [data, setData] = useState([]);
-  useEffect(() => {
-    console.log(route.params);
+  const [refreshing, setRefreshing] = useState(false);
+  const onRefresh = React.useCallback(async () =>{
+        setRefreshing(true);
+    fetch(`${link}/request/getAllOKRequests`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setData(data);
+      })
+      .catch((err) => console.error(err));
+    setRefreshing(false);
+  }, [refreshing]);
 
+  useEffect(() => {
     fetch(`${link}/request/getAllOKRequests`, {
       method: "GET",
       headers: {
@@ -32,20 +48,16 @@ const TreatedReq = ({ route, navigation }) => {
       .catch((err) => console.error(err));
   }, []);
 
-
-
-
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
         data={data}
-        renderItem={({ item , index }) => (
+        renderItem={({ item, index }) => (
           <View style={styles.item}>
             <TouchableOpacity style={styles.touch}>
-              <Text style={styles.data}>Request :{index+1}</Text>
+              <Text style={styles.data}>Request :{index + 1}</Text>
               <Text style={styles.data}>{item.description}</Text>
               <Text>{item.createdAt}</Text>
-
 
               <View style={styles.buttonContainer}>
                 <TouchableOpacity
@@ -66,6 +78,9 @@ const TreatedReq = ({ route, navigation }) => {
           </View>
         )}
         keyExtractor={(item) => item.id}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
       />
     </SafeAreaView>
   );
@@ -111,14 +126,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  status : {
-    fontSize : 28,
+  status: {
+    fontSize: 28,
 
-    fontWeight : "bold",
-  
+    fontWeight: "bold",
   },
-  data : {
-    fontSize : 18,
-    color : "black",
-  }
+  data: {
+    fontSize: 18,
+    color: "black",
+  },
 });
