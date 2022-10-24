@@ -17,50 +17,7 @@ import { CommonActions } from "@react-navigation/native";
 import link from "../../Adress";
 
 function EditPageDoc({ navigation, route }) {
-  // const [firstname, setFirstName] = useState(route.params.patient.firstName);
-  // const [lastName, setLastName] = useState(route.params.patient.lastName);
-  // const [email, setEmail] = useState(route.params.patient.email);
-  // const [password, setPassword] = useState(route.params.patient.password);
-  // const [phoneNumber, setPhoneNumber] = useState(route.params.patient.phoneNumber);
-  // const [age, setAge] = useState(route.params.patient.age);
-  // const [gender, setGender] = useState(route.params.patient.gender);
-  // const [Chronical, setChronical] = useState(route.params.patient.chronicDiseases)
-  // const data = [
-  //     { label: 'male', value: 'male' },
-  //     { label: 'female', value: 'female' },
-  //     { label: "Other", value: "don't want to tell" },
-
-  // ];
-
-  // useEffect(() => { })
-
-  // const changerFirstName = () => {
-  //     axios.put("http://192.168.101.9:3000/user/updateAll", { id: route.params.patient.id, firstName: firstname }).then((a) => setFirstName(a.data.firstName)).catch((err) => console.log(err))
-  // }
-
-  // const changeLastName = () => {
-  //     axios.put("http://192.168.101.9:3000/user/updateAll", { id: route.params.patient.id, lastName: lastName }).then((a) => setLastName(a.data.lastName)).catch((err) => console.log(err))
-  // }
-
-  // const changeEmail = () => {
-  //     axios.put("http://192.168.101.9:3000/user/updateAll", { id: route.params.patient.id, email: email }).then((a) => setEmail(a.data.email)).catch((err) => console.log(err))
-  // }
-
-  // const changePhonenumber = () => {
-  //     axios.put("http://192.168.101.9:3000/user/updateAll", { id: route.params.patient.id, phoneNumber: phoneNumber }).then((a) => setPhoneNumber(a.data.phoneNumber)).catch((err) => console.log(err))
-  // }
-
-  // const changeAge = () => {
-  //     axios.put("http://192.168.101.9:3000/user/updateAll", { id: route.params.patient.id, age: age }).then((a) => setAge(a.data.age)).catch((err) => console.log(err))
-  // }
-
-  // const changegender = () => {
-  //     axios.put("http://192.168.101.9:3000/user/updateAll", { id: route.params.patient.id, gender: gender }).then((a) => setGender(a.data.gender)).catch((err) => console.log(err))
-  // }
-
-  // const changechronicals = () => {
-  //     axios.put("http://192.168.101.9:3000/user/updateAll", { id: route.params.patient.id, chronicDiseases: Chronical }).then((a) => setChronical(a.data.chronicDiseases)).catch((err) => console.log(err))
-  // }
+ 
 
   const [data, setData] = useState({
     id:"",
