@@ -19,7 +19,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
 
-function Emergency({ navigation,route }) {
+function Emergency({ navigation, route }) {
   const [idrequest, setidrequest] = useState("");
   const [patient, setPatient] = useState({});
   const [expoPushToken, setExpoPushToken] = useState("");
@@ -28,7 +28,7 @@ function Emergency({ navigation,route }) {
   const responseListener = useRef();
 
   useEffect(() => {
-    console.log(route)
+    console.log(route);
     registerForPushNotificationsAsync()
       .then((token) => console.log("this", token))
       .catch((err) => console.log(err));
@@ -85,15 +85,13 @@ function Emergency({ navigation,route }) {
       email: route.params.email,
       NotifToken: token,
     };
-    console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhh",tokenForUser)
+    console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhh", tokenForUser);
     await axios
       .put(`${link}/user/addTokenNotif`, tokenForUser)
       .then((result) => console.log(result))
       .catch((err) => console.log(err));
-    return (token)
+    return token;
   }
-
-
 
   const getData = async () => {
     try {
@@ -141,19 +139,18 @@ function Emergency({ navigation,route }) {
   );
 }
 
-
-
 const Tab = createMaterialBottomTabNavigator();
 
-export default function MyTabs({ navigation, route }) {
+export default function MyTabs({ route }) {
   return (
     <Tab.Navigator
-      style={styles.navigationBar}
-      initialRouteName="Emergency"
-      activeColor="#ffffff"
-      barStyle={{ backgroundColor: "#077871" }}
-      labelStyle={{ fontSize: 15 }}
+    style={styles.navigationBar}
+    initialRouteName="Emergency"
+    activeColor="#ffffff"
+    barStyle={{ backgroundColor: "#077871" }}
+    labelStyle={{ fontSize: 15 }}
     >
+      {console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",route)}
       <Tab.Screen
         name="Emergency"
         component={Emergency}

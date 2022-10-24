@@ -17,20 +17,30 @@ import io from "socket.io-client";
 function Chat() {
   const [chat, setChat] = useState("");
   const [messages, setMessages] = useState([]);
+  const [room, setRoom]=useState("")
 
-  const socket = io.connect("http://192.168.11.82:3001");
+  const socket = io.connect("http://192.168.1.5:3001");
   
-  // useEffect(() => {
-    
-  // }, []);
+  useEffect(() => {
+    const characters =
+        "123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+      let RoomNumber = "";
+      for (let i = 0; i <= 14; i++) {
+        RoomNumber +=
+          characters[Math.floor(Math.random() * characters.length)];
+      }
+    setRoom(RoomNumber)
+  }, []);
+  socket.emit("join_room", room);
   socket.on("Patient_message", (message) => {
-    console.log(message);
-    setMessages([...messages, message]);
+    // console.log(message);
+    setMessages([...messages, {message}]);
   });
   console.log(messages);
 
   const sendMessage = () => {
-    socket.emit("patient_send_message", { chat });
+    socket.emit("patient_send_message", { Patient:chat , room});
+    setMessages([...messages, {chat}]);
     setChat("");
   };
 
@@ -39,20 +49,30 @@ function Chat() {
    
       <View style={styles.container}>
         <View>
+           
           <View style={styles.container1}>
-            <Text>Chat</Text>
+            <View style={styles.containerForMessage}>
             <FlatList
               data={messages}
               keyExtractor={(item) => item.id}
               renderItem={({ item }) => {
+                console.log("Patient log el item",item);
                 return (
-                  <View>
-                    <Text> message: {item.chat} </Text>
+                  item.chat?
+                  <View style={styles.messages}>
+                    <Text style={styles.messagetext}> {item.chat} </Text>
                   </View>
-                );
+                  :
+                  <View style={styles.DoctorMessages}>
+                    <Text style={styles.messagetext}> {item.message.Doctor} </Text>
+                  </View>
+                )
+                
+              
               }}
             />
-            <View>
+            </View>
+            <View style={styles.inputView}>
               <TextInput
                 styles={styles.TextInput}
                 onChangeText={(e) => {
@@ -63,13 +83,13 @@ function Chat() {
                 placeholderTextColor="black"
               ></TextInput>
             </View>
-
             <TouchableOpacity
               style={styles.loginBtn}
               onPress={() => sendMessage()}
             >
               <Text style={styles.loginText}>Send</Text>
             </TouchableOpacity>
+
           </View>
         </View>
       </View>
@@ -82,8 +102,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   container1: {
-    alignItems: "center",
+    alignItems: "flex-start",
     justifyContent: "center",
+    left:13,
+    right:13
   },
   loginBtn: {
     width: "90%",
@@ -97,6 +119,7 @@ const styles = StyleSheet.create({
   },
   loginText: {
     color: "white",
+    fontSize:18
   },
   areaView: {
     backgroundColor: "#F6F6F6",
@@ -118,5 +141,47 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     marginTop: 10,
   },
+  Title1: {
+    fontSize: 50,
+    padding: 10,
+    color: "#077871",
+  },
+  inputView:{
+    borderWidth:2,
+    borderColor:"#077871",
+    width:"90%",
+    height:70,
+    borderRadius:50,
+    textAlign:"center",
+    alignItems:"center"
+  },
+  messages:{
+    borderWidth:3,
+    borderColor:"#077871",
+    borderRadius:20,
+    margin:7,
+    backgroundColor:"#6CA86B",
+    marginRight:22
+
+  },
+  messagetext:{
+    padding:10,
+    color:"#ffffff",
+    fontSize:18
+  },
+  DoctorMessages:{
+    borderWidth:3,
+    borderColor:"#077871",
+    borderRadius:20,
+    margin:7,
+    backgroundColor:"#44b3cc",
+    marginRight:22
+
+  },
+  
+  containerForMessage:{
+    width:350,
+    height:400
+  }
 });
 export default Chat;
