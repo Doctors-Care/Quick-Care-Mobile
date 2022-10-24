@@ -20,11 +20,9 @@ function EditPageDoc({ navigation, route }) {
  
 
   const [data, setData] = useState({
-    id:"",
     firstName: "",
     lastName: "",
     email: "",
-    password:"",
     phoneNumber: "",
     adress: "",
     disponibility: "",
@@ -36,7 +34,6 @@ function EditPageDoc({ navigation, route }) {
         id: route.params.doctor.id,
       })
       .then((a) => {
-        console.log(a.config);
         setData(a.data);
       })
       .catch((err) => console.log(err));
@@ -96,7 +93,7 @@ function EditPageDoc({ navigation, route }) {
           <View style={styles.containerForEdit}>
             <TextInput
               style={styles.description}
-              onChangeText={(last) => console.log("haha")}
+              onChangeText={(phoneNumber) => setData({ ...data, phoneNumber: phoneNumber })}
               keyboardType="numeric"
               placeholder={data.phoneNumber}
               defaultValue={data.phoneNumber}
