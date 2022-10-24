@@ -27,6 +27,8 @@ function EditPageDoc({ navigation, route }) {
     adress: "",
     disponibility: "",
   });
+
+
   useEffect(() => {
     console.log (route.params)
     axios
