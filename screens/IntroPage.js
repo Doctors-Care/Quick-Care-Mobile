@@ -17,7 +17,7 @@ function Welcome({ navigation }) {
       <View style={styles.container}>
         <LottieView
           style={styles.logo}
-          source={require("../assets/64216-super-nurse-animation.json")}
+          source={require("../assets/lf30_editor_jtjspivo.json")}
           autoPlay
         />
               <Text style={styles.TextTuto}>
@@ -77,8 +77,7 @@ const styles = StyleSheet.create({
   },
   logo: {
     width: 150,
-    height: 200,
-    top: 10,
+    height: 220,
     borderRadius: 0,
   },
   buttonBottom: {

@@ -53,7 +53,7 @@ export default function LoginForm({ navigation }) {
       <View style={styles.container}>
         <LottieView
           style={styles.logo}
-          source={require("../../../assets/64216-super-nurse-animation.json")}
+          source={require("../../../assets/lf30_editor_ny61x23y.json")}
           autoPlay
         />
         <View style={styles.inputView}>
