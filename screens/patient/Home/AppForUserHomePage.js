@@ -29,72 +29,71 @@ Notifications.setNotificationHandler({
 });
 
 function Emergency({ navigation, route }) {
-  const [expoPushToken, setExpoPushToken] = useState('');
+  const [expoPushToken, setExpoPushToken] = useState("");
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
   const responseListener = useRef();
 
   useEffect(() => {
-    registerForPushNotificationsAsync().then(token =>{ setExpoPushToken(token);console.log('this',expoPushToken)});
-
-    notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
-      setNotification(notification);
+    registerForPushNotificationsAsync().then((token) => {
+      setExpoPushToken(token);
     });
 
-    responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
-      console.log(response);
-    });
+    notificationListener.current =
+      Notifications.addNotificationReceivedListener((notification) => {
+        setNotification(notification);
+      });
+
+    responseListener.current =
+      Notifications.addNotificationResponseReceivedListener((response) => {
+      });
 
     return () => {
-      Notifications.removeNotificationSubscription(notificationListener.current);
+      Notifications.removeNotificationSubscription(
+        notificationListener.current
+      );
       Notifications.removeNotificationSubscription(responseListener.current);
     };
   }, []);
 
   async function registerForPushNotificationsAsync() {
     let token;
-  
-    if (Platform.OS === 'android') {
-      await Notifications.setNotificationChannelAsync('default', {
-        name: 'default',
+
+    if (Platform.OS === "android") {
+      await Notifications.setNotificationChannelAsync("default", {
+        name: "default",
         importance: Notifications.AndroidImportance.MAX,
         vibrationPattern: [0, 250, 250, 250],
-        lightColor: '#FF231F7C',
+        lightColor: "#FF231F7C",
       });
     }
-  
+
     if (Device.isDevice) {
-      const { status: existingStatus } = await Notifications.getPermissionsAsync();
+      const { status: existingStatus } =
+        await Notifications.getPermissionsAsync();
       let finalStatus = existingStatus;
-      if (existingStatus !== 'granted') {
+      if (existingStatus !== "granted") {
         const { status } = await Notifications.requestPermissionsAsync();
         finalStatus = status;
       }
-      if (finalStatus !== 'granted') {
-        alert('Failed to get push token for push notification!');
+      if (finalStatus !== "granted") {
+        alert("Failed to get push token for push notification!");
         return;
       }
       token = (await Notifications.getExpoPushTokenAsync()).data;
-      console.log(token);
     } else {
-      alert('Must use physical device for Push Notifications');
-    }
-  console.log("fel fonction ",token)
-  console.log("route ",route)
-   
-  
-  
-      let deviceToken = {
-        email: route.params.email,
-        NotifToken: token,
-      };
-      axios
-        .put(`${link}/user/addTokenNotif`, deviceToken)
-        .then((aa) => console.log(aa.data))
-        .catch((err) => console.log(err));
+      alert("Must use physical device for Push Notifications");
     }
 
-  
+    let deviceToken = {
+      email: route.params.email,
+      NotifToken: token,
+    };
+    axios
+      .put(`${link}/user/addTokenNotif`, deviceToken)
+      .then((aa) => console.log(aa.data))
+      .catch((err) => console.log(err));
+  }
 
   const createEmergency = async () => {
     var Request = {
@@ -102,7 +101,6 @@ function Emergency({ navigation, route }) {
       status: "HCE",
       description: "alert",
     };
-    console.log("hethi e request", Request);
     axios
       .post(`${link}/request/addingRequest`, Request)
       .then((result) => {
@@ -160,10 +158,6 @@ export default function MyTabs({ route }) {
       barStyle={{ backgroundColor: "#077871" }}
       labelStyle={{ fontSize: 15 }}
     >
-      {console.log(
-        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-        route
-      )}
       <Tab.Screen
         name="Emergency"
         component={Emergency}

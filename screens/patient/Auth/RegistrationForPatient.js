@@ -49,7 +49,7 @@ function RegistrationForUser({ navigation }) {
     <ScrollView style={styles.containerScroll}>
       <LottieView
         style={styles.logo}
-        source={require("../../../assets/64216-super-nurse-animation.json")}
+        source={require("../../../assets/lf30_editor_jtjspivo.json")}
         autoPlay
       />
       <View style={styles.container}>
