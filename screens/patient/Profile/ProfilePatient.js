@@ -27,7 +27,7 @@ function ProfilePatient({navigation,route}){
     axios.post(`${link}/user/One`,Request).then((result)=>{
       setPatient(result.data);
       
-    console.log(result.data)
+    console.log("data",result.data)
   }
     ).catch((err)=>console.log(err))
    

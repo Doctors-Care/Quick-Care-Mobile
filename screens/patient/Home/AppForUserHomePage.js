@@ -160,10 +160,6 @@ export default function MyTabs({ route }) {
       barStyle={{ backgroundColor: "#077871" }}
       labelStyle={{ fontSize: 15 }}
     >
-      {console.log(
-        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-        route
-      )}
       <Tab.Screen
         name="Emergency"
         component={Emergency}
