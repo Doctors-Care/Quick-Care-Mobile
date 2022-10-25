@@ -19,7 +19,9 @@ function DoctorChat() {
   const [chat, setChat] = useState("");
   const [messages, setMessages] = useState([]);
 
-  const socket = io.connect(link);
+
+  const socket = io.connect("http://192.168.1.5:3001");
+
 
   //   useEffect(() => {
   socket.on("Doctor_message", (message) => {
