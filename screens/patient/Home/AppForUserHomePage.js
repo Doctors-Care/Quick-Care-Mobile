@@ -80,6 +80,7 @@ function Emergency({ navigation, route }) {
       alert('Must use physical device for Push Notifications');
     }
   console.log("fel fonction ",token)
+  console.log("route ",route)
    
   
   

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {StyleSheet,Text,View,Image,TouchableOpacity, Alert, ScrollView} from 'react-native';
+import {StyleSheet,Text,View,Image,TouchableOpacity, RefreshControl, ScrollView} from 'react-native';
 import { useState,useEffect } from "react";
 import axios from 'axios';
 import link from '../../../Adress';
@@ -8,6 +8,17 @@ import link from '../../../Adress';
 
 function ProfilePatient({navigation,route}){
   const [Patient, setPatient] = useState("");
+  const [refreshing, setRefreshing] = useState(false);
+  const onRefresh = React.useCallback(async () => {
+    setRefreshing(true);
+    const res = await axios.post(`${link}/user/One`,{id:route.params.id}).then((result)=>{
+      setPatient(result.data);
+      
+    console.log(result.data)
+  }
+    ).catch((err)=>console.log(err))
+   setRefreshing(false);
+  },[refreshing])
   useEffect(()=>{
     const Request ={
       id:route.params.id
@@ -23,7 +34,11 @@ function ProfilePatient({navigation,route}){
   },[navigation])
  
     return (
-      <ScrollView>
+      <ScrollView
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }
+      >
       <View style={styles.container}>
           <View style={styles.header}></View>
           <Image style={styles.avatar} source={{uri: Patient.image}}/>
@@ -43,7 +58,10 @@ function ProfilePatient({navigation,route}){
           <Text style={styles.loginText}>Edit</Text>
         </TouchableOpacity>
            <TouchableOpacity  style={styles.loginBtn1}
-          onPress={()=>navigation.navigate("LoginForUser")}><Text style={styles.loginText}>Logout</Text></TouchableOpacity>
+          onPress={()=>{
+            const res = axios.get(`${link}/user/logout`);
+               console.log(res); 
+            navigation.navigate("LoginForUser")}}><Text style={styles.loginText}>Logout</Text></TouchableOpacity>
             </View>
            
         </View>

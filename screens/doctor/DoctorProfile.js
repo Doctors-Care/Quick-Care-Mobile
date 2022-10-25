@@ -88,13 +88,17 @@ const DoctorProfile = ({ navigation, route }) => {
           <TouchableOpacity
             style={styles.buttonContainer}
             onPress={() =>
+              
               navigation.navigate("EditPageDoc", { doctor: doctor })
             }
           >
             <Text>Edit Profile</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.buttonContainer}
-          onPress={()=> navigation.navigate('LoginFormDoctor')}>
+          onPress={()=>
+               {const res = axios.get(`${link}/doctor/logout`);
+               console.log(res);          
+          navigation.navigate('LoginFormDoctor')}}>
               <Text>Logout</Text> 
             </TouchableOpacity>
         </View>
