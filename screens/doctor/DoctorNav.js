@@ -4,9 +4,8 @@ import {
   View,
   SafeAreaView,
   FlatList,
-  Button,
-  Alert,
   TouchableOpacity,
+  RefreshControl,
 } from "react-native";
 import React, { useEffect } from "react";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
@@ -18,9 +17,28 @@ import { useState } from "react";
 import link from "../../Adress";
 import DoctorChat from "../patient/SecondaryMenu/doctorChat";
 import TreatedReq from "./TreatedReq";
+import Done from "./Done";
 
 const GetAllRequests = ({ navigation, route }) => {
   const [data, setData] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
+  const onRefresh = React.useCallback(async () =>{
+    setRefreshing(true);
+fetch(`${link}/request/getAllRequests`, {
+  method: "GET",
+  headers: {
+    Accept: "application/json",
+    "Content-Type": "application/json",
+  },
+})
+  .then((response) => response.json())
+  .then((data) => {
+    console.log(data);
+    setData(data);
+  })
+  .catch((err) => console.error(err));
+setRefreshing(false);
+}, [refreshing]);
 
   useEffect(() => {
     console.log(route.params.id);
@@ -44,10 +62,10 @@ const GetAllRequests = ({ navigation, route }) => {
     <SafeAreaView style={styles.container}>
       <FlatList
         data={data}
-        renderItem={({ item }) => (
+        renderItem={({ item ,index }) => (
           <View style={styles.item}>
             <TouchableOpacity style={styles.touch}>
-              <Text>request :{item.id}</Text>
+              <Text>request :{index +1}</Text>
               <Text>{item.description}</Text>
               <View style={styles.buttonContainer}>
                 <TouchableOpacity
@@ -68,13 +86,34 @@ const GetAllRequests = ({ navigation, route }) => {
           </View>
         )}
         keyExtractor={(item) => item.id}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
       />
     </SafeAreaView>
   );
 };
 
-function Profile({ navigation, route }) {
+function History({ navigation, route }) {
   const [data, setData] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
+  const onRefresh = React.useCallback(async () =>{
+    setRefreshing(true);
+    fetch(`${link}/request/getAllOKDoneRequests`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setData(data);
+      })
+      .catch((err) => console.error(err));
+    setRefreshing(false);
+    }, [refreshing]);
 
   useEffect(() => {
     console.log(route.params.id);
@@ -110,6 +149,9 @@ function Profile({ navigation, route }) {
           </View>
         )}
         keyExtractor={(item) => item.id}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
       />
     </SafeAreaView>
   );
@@ -120,13 +162,14 @@ function Notifications({ route }) {
   return (
     <Tabt.Navigator>
       <Tabt.Screen
-        name="TreatedReq"
+        name="In progress
+        "
         component={TreatedReq}
         initialParams={{ id: route.params.id }}
       />
       <Tabt.Screen
-        name="profile"
-        component={Profile}
+        name="History"
+        component={History}
         initialParams={{ id: route.params.id }}
       />
     </Tabt.Navigator>

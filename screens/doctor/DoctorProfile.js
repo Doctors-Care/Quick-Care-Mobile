@@ -6,6 +6,8 @@ import {
   Image,
   TouchableOpacity,
   Switch,
+  ScrollView,
+  RefreshControl
 } from "react-native";
 import axios from "axios";
 import link from "../../Adress";
@@ -20,26 +22,23 @@ const DoctorProfile = ({ navigation, route }) => {
     address: "",
     speciality: "",
     status: "",
+    image: ""
   });
+  const [refreshing, setRefreshing] = useState(false);
+  const onRefresh = React.useCallback(async () => {
+    setRefreshing(true);
+    const res = await axios
+
+      .post(`${link}/doctor/getOne`, { id: route.params.id }) 
+      .then((res) => {
+        console.log(res.data);
+        setDoctor(res.data);
+      })
+      .catch((err) => console.error(err));
+    setRefreshing(false);
+  }, [refreshing]);
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
-  //   fetch("http://192.168.101.3:3000/doctor/getOne", {
-  //     method: "POST",
-  //     headers: {
-  //       Accept: "application/json",
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       id: route.params.id,
-  //     }),
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       console.log(data);
-  //       setDoctor(data);
-  //     })
-  //     .catch((err) => console.error(err));
-  //
-  // const getdoctor = async () => {
+ 
   useEffect(() => {
     const res = axios
       .post(`${link}/doctor/getOne`, { id: route.params.id })
@@ -54,36 +53,22 @@ const DoctorProfile = ({ navigation, route }) => {
           address: res.data.address,
           speciality: res.data.speciality,
           status: res.data.status,
+          image: res.data.image
         });
       })
       .catch((err) => console.error(err));
-    //   console.log(res);
-    //   setDoctor({
-    //     firstName: res.data.firstName,
-    //     lastName: res.data.lastName,
-    //     email: res.data.email,
-    //     phoneNumber: res.data.phoneNumber,
-    //     address: res.data.address,
-    //     speciality: res.data.speciality,
-    //     status: res.data.status,
-    //   });
-    // } catch (err) {
-    //   console.log(err);
-    //   setDoctor({
-    //     firstName: "loading",
-    //     lastName: "loading...",
-    //     email: "loading...",
-    //     phone: "loading...",
-    //   });
-    // }
+  
   }, [navigation]);
 
   return (
     <View style={styles.container}>
+      <ScrollView  refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        } >
       <View style={styles.header}></View>
       <Image
         style={styles.avatar}
-        source={{ uri: "https://bootdey.com/img/Content/avatar/avatar6.png" }}
+        source={{ uri: doctor.image }}
       />
       <View style={styles.body}>
         <View style={styles.bodyContent}>
@@ -114,6 +99,7 @@ const DoctorProfile = ({ navigation, route }) => {
             </TouchableOpacity>
         </View>
       </View>
+      </ScrollView>
     </View>
   );
 };

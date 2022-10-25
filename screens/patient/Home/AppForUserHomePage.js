@@ -8,6 +8,7 @@ import {
   Image,
 } from "react-native";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import ProfilePatient from "../Profile/ProfilePatient";
 import SecondaryMenu from "../SecondaryMenu/SecondaryMenu";
@@ -128,6 +129,26 @@ function Emergency({ navigation, route }) {
 
 const Tab = createMaterialBottomTabNavigator();
 
+
+const Tabt = createMaterialTopTabNavigator();
+
+function Requests({ route }) {
+  return (
+    <Tabt.Navigator>
+      <Tabt.Screen
+        name="TreatedReq"
+        component={History}
+        initialParams={{ id: route.params.id }}
+      />
+      <Tabt.Screen
+        name="profile"
+        component={History}
+        initialParams={{ id: route.params.id }}
+      />
+    </Tabt.Navigator>
+  );
+}
+
 export default function MyTabs({ route }) {
   return (
     <Tab.Navigator
@@ -154,7 +175,7 @@ export default function MyTabs({ route }) {
       />
       <Tab.Screen
         name="History"
-        component={History}
+        component={Requests}
         initialParams={{ id: route.params.id }}
         options={{
           tabBarLabel: "History",

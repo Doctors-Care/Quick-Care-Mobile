@@ -6,9 +6,6 @@ import {
   View,
   TextInput,
   Image,
-  Button,
-  Alert,
-  Pressable,
   TouchableOpacity,
 } from "react-native";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
@@ -34,7 +31,6 @@ function Done({ route }) {
     var PatientId = {
       id: route.params.id,
     };
-    console.log("dffdfdf", PatientId);
     axios
       .post(`${link}/user/One`, PatientId)
       .then((result) => {
@@ -122,6 +118,7 @@ function Done({ route }) {
       .catch((err) => {
         console.log(err);
       });
+      alert("request avaible on history tab")
       }}      
       ><Text>Mark as done</Text></TouchableOpacity>
       
