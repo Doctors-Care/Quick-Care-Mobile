@@ -50,8 +50,8 @@ export default function LoginPageForUser({ navigation }) {
         patientStore(ok.data);
         console.log(ok.data);
         navigation.navigate("EmergencyHome", {
-          id: ok.data.id,
-          email: ok.data.email,
+          id: ok.data.Patient.id,
+          email: ok.data.Patient.email,
         });
       })
       .catch((err) => {
@@ -64,7 +64,7 @@ export default function LoginPageForUser({ navigation }) {
     <ScrollView style={styles.containerScroll}>
       <LottieView
         style={styles.logo}
-        source={require("../../../assets/64216-super-nurse-animation.json")}
+        source={require("../../../assets/lf30_editor_jtjspivo.json")}
         autoPlay
       />
       <View style={styles.container}>
