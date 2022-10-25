@@ -20,6 +20,7 @@ const DoctorProfile = ({ navigation, route }) => {
     address: "",
     speciality: "",
     status: "",
+    image: ""
   });
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
   //   fetch("http://192.168.101.3:3000/doctor/getOne", {
@@ -54,6 +55,7 @@ const DoctorProfile = ({ navigation, route }) => {
           address: res.data.address,
           speciality: res.data.speciality,
           status: res.data.status,
+          image: res.data.image
         });
       })
       .catch((err) => console.error(err));
@@ -83,7 +85,7 @@ const DoctorProfile = ({ navigation, route }) => {
       <View style={styles.header}></View>
       <Image
         style={styles.avatar}
-        source={{ uri: "https://bootdey.com/img/Content/avatar/avatar6.png" }}
+        source={{ uri: doctor.image }}
       />
       <View style={styles.body}>
         <View style={styles.bodyContent}>
