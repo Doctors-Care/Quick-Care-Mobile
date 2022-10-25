@@ -50,8 +50,8 @@ export default function LoginPageForUser({ navigation }) {
         patientStore(ok.data);
         console.log(ok.data);
         navigation.navigate("EmergencyHome", {
-          id: ok.data.id,
-          email: ok.data.email,
+          id: ok.data.Patient.id,
+          email: ok.data.Patient.email,
         });
       })
       .catch((err) => {
