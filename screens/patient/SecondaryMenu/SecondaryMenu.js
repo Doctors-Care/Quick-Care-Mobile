@@ -16,26 +16,9 @@ function SecondaryMenu({ navigation, route }) {
                        autoPlay />
                     <Text style={styles.TextForMenu}>Doctor at home</Text>
                 </TouchableOpacity>
-                <TouchableOpacity
-                    style={styles.emergencyButton}
-                    onPress={() => navigation.navigate('pharmacies')}>
-                  <LottieView
-                       style={styles.imageForMenu}
-                       source={require("../../../assets/22477-pharmacy-store-drug-home-building-maison-mocca-animation.json")}
-                       autoPlay />
-                    <Text style={styles.TextForMenu}>Pharmacies</Text>
-                </TouchableOpacity>
             </View>
             <View style={styles.container2}>
-                <TouchableOpacity
-                    style={styles.emergencyButton}
-                    onPress={() => navigation.navigate('DoctorRequest')}>
-                    <LottieView
-                       style={styles.imageForMenu}
-                       source={require("../../../assets/94815-calendar-booking-by-josh-wood.json")}
-                       autoPlay />
-                    <Text style={styles.TextForMenu}>Appointtement</Text>
-                </TouchableOpacity>
+            
                 <TouchableOpacity
                     style={styles.emergencyButton}
                     onPress={() => navigation.navigate('Chat')}>
@@ -46,7 +29,17 @@ function SecondaryMenu({ navigation, route }) {
                     <Text style={styles.TextForMenu}>Chat with Doctor</Text>
                 </TouchableOpacity>
             </View>
-
+            <View style={styles.container2}>
+            <TouchableOpacity
+                    style={styles.emergencyButton}
+                    onPress={() => navigation.navigate('pharmacies')}>
+                  <LottieView
+                       style={styles.imageForMenu}
+                       source={require("../../../assets/22477-pharmacy-store-drug-home-building-maison-mocca-animation.json")}
+                       autoPlay />
+                    <Text style={styles.TextForMenu}>Pharmacies</Text>
+                </TouchableOpacity>
+                </View>
         </View>
     );
 }
@@ -77,13 +70,14 @@ const styles = StyleSheet.create({
         backgroundColor: "#ffffff",
     },
     imageForMenu: {
-        width: 200,
-        height:140
+        width: 220,
+        height:160
 
     },
     TextForMenu: {
         fontSize: 20,
-        paddingTop:10
+        paddingTop:10,
+        color:"#077871",
     }
 
 });
