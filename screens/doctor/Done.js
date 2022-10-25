@@ -111,7 +111,7 @@ function Done({ route }) {
       <TouchableOpacity
       onPress={async()=>{
        await  axios
-      .put(`${link}/request/markasdone`, {id :route.params.requestId,state:true})
+      .put(`${link}/request/markasdone`, {id :route.params.requestId})
       .then((result) => {
         console.log(result.data);
       })
