@@ -202,7 +202,7 @@ const DoctorNav = ({ route }) => {
         component={Notifications}
         initialParams={{ id: route.params.id }}
         options={{
-          tabBarLabel: "Updates",
+          tabBarLabel: "Treated",
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="archive" color={color} size={26} />
           ),
