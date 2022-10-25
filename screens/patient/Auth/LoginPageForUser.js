@@ -48,6 +48,7 @@ export default function LoginPageForUser({ navigation }) {
       .then((ok) => {
         setMessage("Welcome");
         patientStore(ok.data);
+        console.log(ok.data);
         navigation.navigate("EmergencyHome", {
           id: ok.data.Patient.id,
           email: ok.data.Patient.email,

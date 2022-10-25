@@ -26,6 +26,7 @@ function EditPageDoc({ navigation, route }) {
     phoneNumber: "",
     adress: "",
     disponibility: "",
+    image: ""
   });
 
 
@@ -49,6 +50,46 @@ function EditPageDoc({ navigation, route }) {
       })
       .catch((err) => console.log(err,data));
   };
+  let pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      allowsEditing: true,
+      aspect: [4, 3],
+      base64: true
+    });
+
+   
+  //   //   setFile(result.uri)
+  if (!result.cancelled) {
+    setImage( result.uri )
+    
+    let base64Img = `data:image/jpg;base64,${result.base64}`
+    
+    let apiUrl = 'https://api.cloudinary.com/v1_1/dtwuychif/image/upload';
+
+    let data = {
+      "file": base64Img,
+      "upload_preset": 'gaoi5z2y',
+    }
+
+    fetch(apiUrl, {
+      body: JSON.stringify(data),
+      headers: {
+        'content-type': 'application/json'
+      },
+      method: 'POST',
+    }).then(async r => {
+        let info = await r.json()
+        console.log(info.secure_url)
+        setData({...data, image: info.secure_url})
+        axios
+      .put(`${link}/doctor/update`, data)
+      .then((a) => console.log("done"))
+      .catch((err) => console.log(err));
+        setImage( data.secure_url ) 
+    }).catch(err=>console.log(err))
+}
+  }
+
 
   return (
     <ScrollView>
