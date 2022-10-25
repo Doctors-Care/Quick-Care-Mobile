@@ -24,6 +24,8 @@ import DetailsForDoctor from "./screens/doctor/detailsforDoctor";
 import Chat from "./screens/patient/SecondaryMenu/Patientchat";
 import AcceptedreaDetail from "./screens/doctor/AcceptedReaDetail";
 import VerificationScreen from "./screens/patient/Auth/VerificationPage";
+import Pharmacies from "./screens/patient/SecondaryMenu/Pharmacies";
+import Done from "./screens/doctor/Done";
 
 export default function App() {
   //creating the Stack navigation
@@ -82,7 +84,19 @@ export default function App() {
           }}
           component={LoginFormDoctor}
         />
-        <Stack.Screen name="SignUpFormDoctor" component={SignUpFormDoctor} />
+        <Stack.Screen name="SignUpFormDoctor"
+              options={{
+                title: "Registration ",
+                headerStyle: {
+                  backgroundColor: "#44b3cc",
+                },
+                headerTintColor: "#fff",
+                headerTitleAlign: "center",
+                headerTitleStyle: {
+                  fontWeight: "bold",
+                },
+              }}
+         component={SignUpFormDoctor} />
         <Stack.Screen
           name="DoctorNav"
           component={DoctorNav}
@@ -104,7 +118,18 @@ export default function App() {
           options={{ headerShown: false }}
         />
         <Stack.Screen name="secondaryMenu" component={SecondaryMenu} />
-        <Stack.Screen name="DoctorRequest" component={DoctorRequest} />
+        <Stack.Screen name="DoctorRequest"
+               options={{
+                title: "Doctor at Home",
+                headerStyle: {
+                  backgroundColor: "#077871",
+                },
+                headerTintColor: "#fff",
+                headerTitleAlign: "center",
+                headerTitleStyle: {
+                  fontWeight: "bold",
+                },
+              }} component={DoctorRequest} />
         <Stack.Screen name="Chat"
              options={{
               title: "Chat with Doctor",
@@ -127,6 +152,9 @@ export default function App() {
         <Stack.Screen name="DetailsForDoctor" component={DetailsForDoctor} />
         <Stack.Screen name="AcceptedreaDetail" component={AcceptedreaDetail}/>
         <Stack.Screen name="VerificationScreen" component={VerificationScreen}/>
+        <Stack.Screen name="pharmacies" component={Pharmacies}/>
+        <Stack.Screen name="Done" component={Done}/>
+
       </Stack.Navigator>
     </NavigationContainer>
   );

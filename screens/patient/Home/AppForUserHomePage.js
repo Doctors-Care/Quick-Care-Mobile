@@ -15,102 +15,90 @@ import axios from "axios";
 import { useState, useRef, useEffect } from "react";
 import link from "../../../Adress";
 import History from "./historyOfRequests";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import Permissions from "expo-permissions";
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
 
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: false,
+  }),
+});
+
 function Emergency({ navigation, route }) {
-  const [idrequest, setidrequest] = useState("");
-  const [patient, setPatient] = useState({});
-  const [expoPushToken, setExpoPushToken] = useState("");
+  const [expoPushToken, setExpoPushToken] = useState('');
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
   const responseListener = useRef();
 
   useEffect(() => {
-    console.log(route);
-    registerForPushNotificationsAsync()
-      .then((token) => console.log("this", token))
-      .catch((err) => console.log(err));
-    notificationListener.current =
-      Notifications.addNotificationReceivedListener((notification) => {
-        setNotification(notification);
-      });
-    responseListener.current =
-      Notifications.addNotificationResponseReceivedListener((response) => {
-        console.log(response);
-      });
+    registerForPushNotificationsAsync().then(token =>{ setExpoPushToken(token);console.log('this',expoPushToken)});
+
+    notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+      setNotification(notification);
+    });
+
+    responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+      console.log(response);
+    });
 
     return () => {
-      Notifications.removeNotificationSubscription(
-        notificationListener.current
-      );
+      Notifications.removeNotificationSubscription(notificationListener.current);
       Notifications.removeNotificationSubscription(responseListener.current);
     };
   }, []);
 
   async function registerForPushNotificationsAsync() {
     let token;
-
-    if (Platform.OS === "android") {
-      await Notifications.setNotificationChannelAsync("default", {
-        name: "default",
+  
+    if (Platform.OS === 'android') {
+      await Notifications.setNotificationChannelAsync('default', {
+        name: 'default',
         importance: Notifications.AndroidImportance.MAX,
         vibrationPattern: [0, 250, 250, 250],
-        lightColor: "#FF231F7C",
+        lightColor: '#FF231F7C',
       });
     }
-
+  
     if (Device.isDevice) {
-      const { status: existingStatus } =
-        await Notifications.getPermissionsAsync();
+      const { status: existingStatus } = await Notifications.getPermissionsAsync();
       let finalStatus = existingStatus;
-      if (existingStatus !== "granted") {
+      if (existingStatus !== 'granted') {
         const { status } = await Notifications.requestPermissionsAsync();
         finalStatus = status;
       }
-      if (finalStatus !== "granted") {
-        alert("Failed to get push token for push notification!");
+      if (finalStatus !== 'granted') {
+        alert('Failed to get push token for push notification!');
         return;
       }
       token = (await Notifications.getExpoPushTokenAsync()).data;
       console.log(token);
     } else {
-      alert("Must use physical device for Push Notifications");
+      alert('Must use physical device for Push Notifications');
     }
-    console.log("fel fonction ", token);
-    setExpoPushToken(token);
-    console.log("this is ", expoPushToken);
-    let tokenForUser = {
-      email: route.params.email,
-      NotifToken: token,
-    };
-    console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhh", tokenForUser);
-    await axios
-      .put(`${link}/user/addTokenNotif`, tokenForUser)
-      .then((result) => console.log(result))
-      .catch((err) => console.log(err));
-    return token;
-  }
+  console.log("fel fonction ",token)
+   
+  
+  
+      let deviceToken = {
+        email: route.params.email,
+        NotifToken: token,
+      };
+      axios
+        .put(`${link}/user/addTokenNotif`, deviceToken)
+        .then((aa) => console.log(aa.data))
+        .catch((err) => console.log(err));
+    }
 
-  const getData = async () => {
-    try {
-      const jsonValue = await AsyncStorage.getItem("Patient");
-      const Patient = JSON.parse(jsonValue);
-      console.log("hethi e reponse", jsonValue);
-      setPatient(Patient);
-      return patient;
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  
+
   const createEmergency = async () => {
-    await getData();
-    const a = patient;
-    console.log("aaaaaa", a);
     var Request = {
       email: route.params.email,
-      state: "HCE",
+      status: "HCE",
+      description: "alert",
     };
     console.log("hethi e request", Request);
     axios
@@ -119,7 +107,7 @@ function Emergency({ navigation, route }) {
         setidrequest(result.data.id);
         navigation.navigate("LoadingScreen", { id: result.data.id });
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.log(error.response));
   };
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
@@ -144,13 +132,16 @@ const Tab = createMaterialBottomTabNavigator();
 export default function MyTabs({ route }) {
   return (
     <Tab.Navigator
-    style={styles.navigationBar}
-    initialRouteName="Emergency"
-    activeColor="#ffffff"
-    barStyle={{ backgroundColor: "#077871" }}
-    labelStyle={{ fontSize: 15 }}
+      style={styles.navigationBar}
+      initialRouteName="Emergency"
+      activeColor="#ffffff"
+      barStyle={{ backgroundColor: "#077871" }}
+      labelStyle={{ fontSize: 15 }}
     >
-      {console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",route)}
+      {console.log(
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        route
+      )}
       <Tab.Screen
         name="Emergency"
         component={Emergency}

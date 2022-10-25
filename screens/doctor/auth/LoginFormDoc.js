@@ -29,9 +29,12 @@ export default function LoginForm({ navigation }) {
       const res = await axios.post(`${link}/doctor/loginDoc`, doctor, {
         withCredentials: true,
       });
+      console.log(res);
+
       //alert the doctor to check his credentials
-      if (res.data.message === "verify your credentials") {
+      if (res.data.message !== "welcome Back") {
         alert(res.data.message);
+        console.log(res.data.message);
       } 
       //accept the emal and password and navigate to doc home screen 
       else {
@@ -151,4 +154,7 @@ const styles = StyleSheet.create({
     top: 10,
     borderRadius: 0,
   },
+  loginText:{
+    color:"#ffffff"
+  }
 });

@@ -28,20 +28,7 @@ function AcceptedreaDetail({ route }) {
   //     }
   // }
 
-  const acceptDoctorCall = () => {
-    let request = {
-      id: route.params.requestId,
-      doctorId: route.params.doctorId
-    };
-    axios
-      .put(`${link}/request/putDoctorId`, request)
-      .then((result) => {
-        console.log(result.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+ 
 
   const getOne = () => {
     var PatientId = {
@@ -125,7 +112,6 @@ function AcceptedreaDetail({ route }) {
       <Text style={styles.text}>{patient.age}</Text>
       <Text style={styles.text}>{patient.chronicDiseases}</Text>
       <Text style={styles.text}>{patient.gender}</Text>
-      
     </View>
   );
 }

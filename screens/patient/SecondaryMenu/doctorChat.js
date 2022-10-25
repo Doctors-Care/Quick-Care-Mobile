@@ -13,22 +13,26 @@ import {
   SafeAreaView,
 } from "react-native";
 import io from "socket.io-client";
+import link from "../../../Adress"
 
 function DoctorChat() {
   const [chat, setChat] = useState("");
   const [messages, setMessages] = useState([]);
 
-  const socket = io.connect("http://192.168.11.82:3001");
+
+  const socket = io.connect("http://192.168.1.5:3001");
+
 
   //   useEffect(() => {
   socket.on("Doctor_message", (message) => {
     setMessages([...messages, message]);
   });
-  console.log(messages);
+  // console.log(messages);
   //   }, [socket]);
 
   const sendMessage = () => {
-    socket.emit("doctor_send_message", { chat });
+    socket.emit("doctor_send_message", { Doctor:chat });
+    setMessages([...messages, {chat}]);
     setChat("");
   };
 
@@ -38,18 +42,26 @@ function DoctorChat() {
         <View>
           <View style={styles.container1}>
             <Text style={styles.Title1}>Chat</Text>
+            <View style={styles.containerForMessage}>
             <FlatList
               data={messages}
-              keyExtractor={(item) => item.id}
               renderItem={({ item }) => {
+                console.log("Doctor log el item",item);
                 return (
-                  <View>
-                    <Text> message: {item.chat} </Text>
+                  item.chat?
+                  <View style={styles.messages}>
+                    <Text style={styles.messagetext}> {item.chat} </Text>
+                  </View>
+                  :
+                  <View style={styles.PatientMessages}>
+                    <Text style={styles.messagetext}> {item.Patient} </Text>
                   </View>
                 );
               }}
+
             />
-            <View>
+            </View>
+            <View style={styles.inputView}>
               <TextInput
                 styles={styles.TextInput}
                 onChangeText={(e) => {
@@ -81,6 +93,7 @@ const styles = StyleSheet.create({
   container1: {
     alignItems: "center",
     justifyContent: "center",
+    alignItems:"center"
   },
   loginBtn: {
     width: "90%",
@@ -89,7 +102,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginTop: 40,
-    backgroundColor: "#077871",
+    backgroundColor: "#44b3cc",
     marginTop: 20,
   },
   loginText: {
@@ -107,7 +120,12 @@ const styles = StyleSheet.create({
     marginTop: 50,
     multiline: true,
   },
-
+  container1: {
+    alignItems: "flex-start",
+    justifyContent: "center",
+    left:13,
+    right:13
+  },
   TextInput: {
     height: 200,
     flex: 1,
@@ -117,8 +135,44 @@ const styles = StyleSheet.create({
   },
   Title1: {
     fontSize: 50,
-    padding: "10%",
-    color: "#077871",
+    padding: 10,
+    color: "#44b3cc",
+  },
+  containerForMessage:{
+    width:350,
+    height:400
+  },
+  messages:{
+    borderWidth:3,
+    borderColor:"#00BFFF",
+    borderRadius:20,
+    margin:7,
+    backgroundColor:"#44b3cc",
+    marginRight:22
+
+  },
+  inputView:{
+    borderWidth:2,
+    borderColor:"#00BFFF",
+    width:"90%",
+    height:70,
+    borderRadius:50,
+    textAlign:"center",
+    alignItems:"center"
+  },
+  PatientMessages:{
+    borderWidth:3,
+    borderColor:"#077871",
+    borderRadius:20,
+    margin:7,
+    backgroundColor:"#6CA86B",
+    marginRight:22
+
+  },
+  messagetext:{
+    padding:10,
+    color:"#ffffff",
+    fontSize:18
   },
 });
 export default DoctorChat;
