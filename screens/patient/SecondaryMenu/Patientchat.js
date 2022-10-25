@@ -17,20 +17,30 @@ import io from "socket.io-client";
 function Chat() {
   const [chat, setChat] = useState("");
   const [messages, setMessages] = useState([]);
+  const [room, setRoom]=useState("")
 
-  const socket = io.connect("http://192.168.11.85:3001");
+  const socket = io.connect("http://192.168.1.5:3001");
   
-  // useEffect(() => {
-    
-  // }, []);
+  useEffect(() => {
+    const characters =
+        "123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+      let RoomNumber = "";
+      for (let i = 0; i <= 14; i++) {
+        RoomNumber +=
+          characters[Math.floor(Math.random() * characters.length)];
+      }
+    setRoom(RoomNumber)
+  }, []);
+  socket.emit("join_room", room);
   socket.on("Patient_message", (message) => {
-    console.log(message);
-    setMessages([...messages, message]);
+    // console.log(message);
+    setMessages([...messages, {message}]);
   });
   console.log(messages);
 
   const sendMessage = () => {
-    socket.emit("patient_send_message", { chat });
+    socket.emit("patient_send_message", { Patient:chat , room});
+    setMessages([...messages, {chat}]);
     setChat("");
   };
 
@@ -46,11 +56,19 @@ function Chat() {
               data={messages}
               keyExtractor={(item) => item.id}
               renderItem={({ item }) => {
+                console.log("Patient log el item",item);
                 return (
+                  item.chat?
                   <View style={styles.messages}>
                     <Text style={styles.messagetext}> {item.chat} </Text>
                   </View>
-                );
+                  :
+                  <View style={styles.DoctorMessages}>
+                    <Text style={styles.messagetext}> {item.message.Doctor} </Text>
+                  </View>
+                )
+                
+              
               }}
             />
             </View>
@@ -151,6 +169,16 @@ const styles = StyleSheet.create({
     color:"#ffffff",
     fontSize:18
   },
+  DoctorMessages:{
+    borderWidth:3,
+    borderColor:"#077871",
+    borderRadius:20,
+    margin:7,
+    backgroundColor:"#44b3cc",
+    marginRight:22
+
+  },
+  
   containerForMessage:{
     width:350,
     height:400

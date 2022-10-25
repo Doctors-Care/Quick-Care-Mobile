@@ -25,6 +25,7 @@ import Chat from "./screens/patient/SecondaryMenu/Patientchat";
 import AcceptedreaDetail from "./screens/doctor/AcceptedReaDetail";
 import VerificationScreen from "./screens/patient/Auth/VerificationPage";
 import Pharmacies from "./screens/patient/SecondaryMenu/Pharmacies";
+import Done from "./screens/doctor/Done";
 
 export default function App() {
   //creating the Stack navigation
@@ -152,6 +153,8 @@ export default function App() {
         <Stack.Screen name="AcceptedreaDetail" component={AcceptedreaDetail}/>
         <Stack.Screen name="VerificationScreen" component={VerificationScreen}/>
         <Stack.Screen name="pharmacies" component={Pharmacies}/>
+        <Stack.Screen name="Done" component={Done}/>
+
       </Stack.Navigator>
     </NavigationContainer>
   );
