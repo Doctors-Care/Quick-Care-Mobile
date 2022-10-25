@@ -18,7 +18,7 @@ function SecondaryMenu({ navigation, route }) {
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.emergencyButton}
-                    onPress={() => navigation.navigate('DoctorRequest')}>
+                    onPress={() => navigation.navigate('pharmacies')}>
                   <LottieView
                        style={styles.imageForMenu}
                        source={require("../../../assets/22477-pharmacy-store-drug-home-building-maison-mocca-animation.json")}
