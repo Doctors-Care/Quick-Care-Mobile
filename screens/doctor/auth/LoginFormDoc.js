@@ -30,11 +30,9 @@ export default function LoginForm({ navigation }) {
         withCredentials: true,
       });
       console.log(res);
-
       //alert the doctor to check his credentials
       if (res.data.message !== "welcome Back") {
-        alert(res.data.message);
-        console.log(res.data.message);
+        alert("Please check your credentials"); 
       } 
       //accept the emal and password and navigate to doc home screen 
       else {
@@ -44,7 +42,8 @@ export default function LoginForm({ navigation }) {
         navigation.navigate("DoctorNav", { id: res.data.doctorAuth.id });
       }
     } catch (err) {
-      console.log(err);
+      alert(err.response.data.message);
+      console.log(err.response.data.message);
     }
   };
 
