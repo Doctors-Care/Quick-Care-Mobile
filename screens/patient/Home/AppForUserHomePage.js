@@ -30,6 +30,7 @@ Notifications.setNotificationHandler({
 
 function Emergency({ navigation, route }) {
   const [expoPushToken, setExpoPushToken] = useState("");
+  const [idrequest,setidrequest]=useState("")
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
   const responseListener = useRef();
@@ -107,7 +108,7 @@ function Emergency({ navigation, route }) {
         setidrequest(result.data.id);
         navigation.navigate("LoadingScreen", { id: result.data.id });
       })
-      .catch((error) => console.log(error.response));
+      .catch((error) => console.log(error));
   };
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
