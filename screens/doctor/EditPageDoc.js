@@ -17,7 +17,6 @@ import { CommonActions } from "@react-navigation/native";
 import link from "../../Adress";
 
 function EditPageDoc({ navigation, route }) {
- 
 
   const [data, setData] = useState({
     firstName: "",
@@ -96,7 +95,7 @@ function EditPageDoc({ navigation, route }) {
       <View style={styles.header}></View>
       <Image
         style={styles.avatar}
-        source={{ uri: "https://bootdey.com/img/Content/avatar/avatar6.png" }}
+        source={{ uri: data.image }}
       />
       <View style={styles.body}>
         <View
