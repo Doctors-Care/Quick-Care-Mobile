@@ -15,7 +15,8 @@ import SecondaryMenu from "../SecondaryMenu/SecondaryMenu";
 import axios from "axios";
 import { useState, useRef, useEffect } from "react";
 import link from "../../../Adress";
-import History from "./historyOfRequests";
+import HCERequests from "./HCERequests";
+import DocRequests from "./DoctorRequests";
 import Permissions from "expo-permissions";
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
@@ -136,13 +137,13 @@ function Requests({ route }) {
   return (
     <Tabt.Navigator>
       <Tabt.Screen
-        name="TreatedReq"
-        component={History}
+        name="HCE Requests"
+        component={HCERequests}
         initialParams={{ id: route.params.id }}
       />
       <Tabt.Screen
-        name="profile"
-        component={History}
+        name="Doctor Requests"
+        component={DocRequests}
         initialParams={{ id: route.params.id }}
       />
     </Tabt.Navigator>

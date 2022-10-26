@@ -18,7 +18,7 @@ import SecondaryMenu from "./screens/patient/SecondaryMenu/SecondaryMenu";
 import DoctorRequest from "./screens/patient/SecondaryMenu/DoctorRequest";
 import DoctorLoadingScreen from "./screens/patient/SecondaryMenu/DoctrLoadingScreen";
 import AcceptedDoctor from "./screens/patient/SecondaryMenu/AcceptedDoctorCall";
-import History from "./screens/patient/Home/historyOfRequests";
+import History from "./screens/patient/Home/HCERequests";
 import EditPageDoc from "./screens/doctor/EditPageDoc";
 import DetailsForDoctor from "./screens/doctor/detailsforDoctor";
 import Chat from "./screens/patient/SecondaryMenu/Patientchat";
