@@ -22,7 +22,8 @@ const DoctorProfile = ({ navigation, route }) => {
     address: "",
     speciality: "",
     status: "",
-    image: ""
+    image: "",
+    id:""
   });
   const [refreshing, setRefreshing] = useState(false);
   const onRefresh = React.useCallback(async () => {
@@ -31,7 +32,7 @@ const DoctorProfile = ({ navigation, route }) => {
 
       .post(`${link}/doctor/getOne`, { id: route.params.id }) 
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setDoctor(res.data);
       })
       .catch((err) => console.error(err));
@@ -43,17 +44,18 @@ const DoctorProfile = ({ navigation, route }) => {
     const res = axios
       .post(`${link}/doctor/getOne`, { id: route.params.id })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         setDoctor({
           id: res.data.id,
           firstName: res.data.firstName,
           lastName: res.data.lastName,
           email: res.data.email,
           phoneNumber: res.data.phoneNumber,
-          address: res.data.address,
+          adress: res.data.adress,
           speciality: res.data.speciality,
           status: res.data.status,
-          image: res.data.image
+          image: res.data.image,
+          id:res.data.id
         });
       })
       .catch((err) => console.error(err));
@@ -97,7 +99,7 @@ const DoctorProfile = ({ navigation, route }) => {
           <TouchableOpacity style={styles.buttonContainer}
           onPress={()=>
                {const res = axios.get(`${link}/doctor/logout`);
-               console.log(res);          
+              //  console.log(res);          
           navigation.navigate('LoginFormDoctor')}}>
               <Text>Logout</Text> 
             </TouchableOpacity>
