@@ -126,39 +126,39 @@ const HCERequests = ({ route, navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <FlatList
-        data={data}
-        renderItem={({ item, index }) => (
-          <View style={styles.item}>
-            <TouchableOpacity style={styles.touch}>
-              <Text style={styles.data}>Request :{index + 1}</Text>
-              <Text style={styles.data}>{item.description}</Text>
-              <Text>{moment(item.createdAt).format('LL')}</Text>
+    <FlatList
+      data={data}
+      renderItem={({ item, index }) => (
+        <View style={styles.item}>
+          <TouchableOpacity style={styles.touch}>
+            <Text style={styles.data}>Request :{index + 1}</Text>
+            <Text style={styles.data}>{item.description}</Text>
+            <Text>{moment(item.createdAt).format('LL')}</Text>
 
-              <View style={styles.buttonContainer}>
-                <TouchableOpacity
-                  style={styles.button}
-                  title="Accept"
-                  onPress={() =>
-                    navigation.navigate("Done", {
-                      id: item.patientId,
-                      requestId: item.id,
-                      doctorId: route.params.id,
-                    })
-                  }
-                >
-                  <Text style={styles.fontStyle}>details</Text>
-                </TouchableOpacity>
-              </View>
-            </TouchableOpacity>
-          </View>
-        )}
-        keyExtractor={(item) => item.id}
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }
-      />
-    </SafeAreaView>
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity
+                style={styles.button}
+                title="Accept"
+                onPress={() =>
+                  navigation.navigate("Done", {
+                    id: item.patientId,
+                    requestId: item.id,
+                    doctorId: route.params.id,
+                  })
+                }
+              >
+                <Text style={styles.fontStyle}>details</Text>
+              </TouchableOpacity>
+            </View>
+          </TouchableOpacity>
+        </View>
+      )}
+      keyExtractor={(item) => item.id}
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }
+    />
+  </SafeAreaView>
   );
 };
 
@@ -167,6 +167,7 @@ export default HCERequests;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginTop: 50,
   },
   item: {
     backgroundColor: "#ffffff",
@@ -175,7 +176,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
     borderRadius: 5,
     borderColor: "#077871",
-    borderWidth: 150,
+    borderWidth: 1,
     borderRadius: 40,
     justifyContent: "center",
     alignItems: "center",
@@ -195,10 +196,10 @@ const styles = StyleSheet.create({
     width: 120,
     margin: 20,
     justifyContent: "center",
-    alignItems: "center",
+    alignItems: "center", 
   },
-  fontStyle: {
-    color: "#ffffff",
+  fontStyle:{
+    color: "#ffffff"
   },
   touch: {
     justifyContent: "center",
