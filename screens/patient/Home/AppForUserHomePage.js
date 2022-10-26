@@ -31,6 +31,7 @@ Notifications.setNotificationHandler({
 
 function Emergency({ navigation, route }) {
   const [expoPushToken, setExpoPushToken] = useState("");
+  const [idrequest,setidrequest]=useState("")
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
   const responseListener = useRef();
@@ -108,11 +109,13 @@ function Emergency({ navigation, route }) {
         setidrequest(result.data.id);
         navigation.navigate("LoadingScreen", { id: result.data.id });
       })
-      .catch((error) => console.log(error.response));
+      .catch((error) => console.log(error));
   };
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+    <View style={{ flex: 1, alignItems: "center" }}>
+      <Text style={styles.Title1}>Quick Care</Text>
       <Text style={styles.Title1}>Emergency</Text>
+      <View style={{ flex: 1,justifyContent:"center", alignItems: "center" }}>
       <TouchableOpacity
         style={styles.emergencyButton}
         onPress={() => {
@@ -124,6 +127,7 @@ function Emergency({ navigation, route }) {
           source={require("../../../assets/urgence.png")}
         />
       </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -135,7 +139,8 @@ const Tabt = createMaterialTopTabNavigator();
 
 function Requests({ route }) {
   return (
-    <Tabt.Navigator>
+    <Tabt.Navigator
+    style={styles.navigationBar1}>
       <Tabt.Screen
         name="HCE Requests"
         component={HCERequests}
@@ -219,10 +224,15 @@ const styles = StyleSheet.create({
     borderColor: "red",
     borderRadius: 300,
     backgroundColor: "red",
+    
   },
   Title1: {
+    top:50,
     fontSize: 50,
-    padding: "10%",
+ 
     color: "#077871",
   },
+  navigationBar1:{
+    paddingTop:50
+  }
 });

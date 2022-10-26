@@ -58,7 +58,7 @@
 //           </Table>
 //         </View>
 //       </SafeAreaView>
-    
+
 //     </>
 //   );
 // }
@@ -75,7 +75,7 @@ import {
   View,
   SafeAreaView,
   FlatList,
- RefreshControl,
+  RefreshControl,
   TouchableOpacity,
 } from "react-native";
 import React, { useEffect } from "react";
@@ -126,39 +126,39 @@ const HCERequests = ({ route, navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <FlatList
-        data={data}
-        renderItem={({ item, index }) => (
-          <View style={styles.item}>
-            <TouchableOpacity style={styles.touch}>
-              <Text style={styles.data}>Request :{index + 1}</Text>
-              <Text style={styles.data}>{item.description}</Text>
-              <Text>{moment(item.createdAt).format('LL')}</Text>
+    <FlatList
+      data={data}
+      renderItem={({ item, index }) => (
+        <View style={styles.item}>
+          <TouchableOpacity style={styles.touch}>
+            <Text style={styles.data}>Request :{index + 1}</Text>
+            <Text style={styles.data}>{item.description}</Text>
+            <Text>{moment(item.createdAt).format('LL')}</Text>
 
-              <View style={styles.buttonContainer}>
-                <TouchableOpacity
-                  style={styles.button}
-                  title="Accept"
-                  onPress={() =>
-                    navigation.navigate("Done", {
-                      id: item.patientId,
-                      requestId: item.id,
-                      doctorId: route.params.id,
-                    })
-                  }
-                >
-                  <Text style={styles.fontStyle}>details</Text>
-                </TouchableOpacity>
-              </View>
-            </TouchableOpacity>
-          </View>
-        )}
-        keyExtractor={(item) => item.id}
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }
-      />
-    </SafeAreaView>
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity
+                style={styles.button}
+                title="Accept"
+                onPress={() =>
+                  navigation.navigate("Done", {
+                    id: item.patientId,
+                    requestId: item.id,
+                    doctorId: route.params.id,
+                  })
+                }
+              >
+                <Text style={styles.fontStyle}>details</Text>
+              </TouchableOpacity>
+            </View>
+          </TouchableOpacity>
+        </View>
+      )}
+      keyExtractor={(item) => item.id}
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }
+    />
+  </SafeAreaView>
   );
 };
 
