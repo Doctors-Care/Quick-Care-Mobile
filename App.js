@@ -149,7 +149,19 @@ export default function App() {
         <Stack.Screen name="AcceptedDoctor" component={AcceptedDoctor} />
         <Stack.Screen name="History" component={History} />
         <Stack.Screen name="EditPageDoc" component={EditPageDoc} />
-        <Stack.Screen name="DetailsForDoctor" component={DetailsForDoctor} />
+        <Stack.Screen name="DetailsForDoctor"
+             options={{
+              title: "Details ",
+              headerStyle: {
+                backgroundColor: "#44b3cc",
+              },
+              headerTintColor: "#fff",
+              headerTitleAlign: "center",
+              headerTitleStyle: {
+                fontWeight: "bold",
+              },
+            }}
+             component={DetailsForDoctor} />
         <Stack.Screen name="AcceptedreaDetail" component={AcceptedreaDetail}/>
         <Stack.Screen name="VerificationScreen" component={VerificationScreen}/>
         <Stack.Screen name="pharmacies" component={Pharmacies}/>

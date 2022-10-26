@@ -87,8 +87,7 @@ function DetailsForDoctor({ route, navigation }) {
   return (
     <ScrollView>
     <View style={styles.container}>
-      <Text style={styles.text}>First name :{patient.firstName}</Text>
-      <Text style={styles.text}>Last name :{patient.lastName}</Text>
+      <Text style={styles.text}>{patient.firstName}  {patient.lastName}</Text>
 
       <View style={styles.mapcontainer}>
         <MapView
@@ -119,11 +118,12 @@ function DetailsForDoctor({ route, navigation }) {
           ></Marker>
         </MapView>
       </View>
-      <Text style={styles.text}>{patient.email}</Text>
-      <Text style={styles.text}>{patient.phoneNumber}</Text>
-      <Text style={styles.text}>{patient.age}</Text>
-      <Text style={styles.text}>{patient.chronicDiseases}</Text>
-      <Text style={styles.text}>{patient.gender}</Text>
+      <View style={styles.BoxForText}>
+      <Text style={styles.text}>Diseases : {patient.chronicDiseases}</Text>
+      <Text style={styles.text}>Phone Number: {patient.phoneNumber}</Text>
+      <Text style={styles.text}>Gender : {patient.gender}</Text>
+      <Text style={styles.text}>Age :{patient.age}</Text>
+      </View>
       <TouchableOpacity style={styles.button}
       onPress={()=>{acceptDoctorCall();
       navigation.navigate("AcceptedreaDetail", {id:route.params.id})
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
   mapcontainer: {
     width: 300,
     height: 300,
-    borderRadius: 120,
+    borderRadius: 20,
     borderWidth: 2,
     borderColor: "#44b3bb",
     alignItems: "center",
@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
     height: "100%",
   },
   text: {
-    color: "#44b3cc",
+    color: "#046B82",
     fontSize: 20,
     padding: 10,
   },
@@ -173,5 +173,8 @@ const styles = StyleSheet.create({
     color: "#ffffff",
     fontSize: 20,
   },
+  BoxForText:{
+
+  }
 });
 export default DetailsForDoctor;
