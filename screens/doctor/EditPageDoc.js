@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import * as ImagePicker from "expo-image-picker"
 import {
   StyleSheet,
   Text,
@@ -17,33 +18,33 @@ import { CommonActions } from "@react-navigation/native";
 import link from "../../Adress";
 
 function EditPageDoc({ navigation, route }) {
-  const [data, setData] = useState({
+  const [doctor, setDoctor] = useState({
     firstName: "",
     lastName: "",
     email: "",
     phoneNumber: "",
     adress: "",
     disponibility: "",
-    image: "",
+    image: "https://bootdey.com/img/Content/avatar/avatar6.png",
+    id:""
   });
 
   useEffect(() => {
-    console.log(route.params);
     axios
       .post(`${link}/doctor/getOne`, {
         id: route.params.doctor.id,
       })
       .then((a) => {
-        setData(a.data);
+        setDoctor(a.data);
       })
       .catch((err) => console.log(err));
   }, []);
   const update = () => {
     axios
-      .put(`${link}/doctor/update`, data)
+      .put(`${link}/doctor/update`, doctor)
       .then((result) => {
-        console.log(result);
-        setData(result.data);
+        console.log("result",result.data);
+        setDoctor(result.data);
       })
       .catch((err) => console.log(err, data));
   };
@@ -54,21 +55,20 @@ function EditPageDoc({ navigation, route }) {
       base64: true,
     });
 
-    //   //   setFile(result.uri)
     if (!result.cancelled) {
-      setImage(result.uri);
+      // setData({...data,image:result.uri});
 
       let base64Img = `data:image/jpg;base64,${result.base64}`;
 
       let apiUrl = "https://api.cloudinary.com/v1_1/dtwuychif/image/upload";
 
-      let data = {
+      let picture = {
         file: base64Img,
         upload_preset: "gaoi5z2y",
       };
 
       fetch(apiUrl, {
-        body: JSON.stringify(data),
+        body: JSON.stringify(picture),
         headers: {
           "content-type": "application/json",
         },
@@ -76,13 +76,14 @@ function EditPageDoc({ navigation, route }) {
       })
         .then(async (r) => {
           let info = await r.json();
-          console.log(info.secure_url);
-          setData({ ...data, image: info.secure_url });
+          console.log("info",info.secure_url);
+          setDoctor({ ...doctor, image: info.secure_url });
+          console.log("data",data);
           axios
             .put(`${link}/doctor/update`, data)
-            .then((a) => console.log("done"))
+            .then((a) => {console.log(a.data);setDoctor({...doctor, image:a.secure_url})})
             .catch((err) => console.log(err));
-          setImage(data.secure_url);
+          
         })
         .catch((err) => console.log(err));
     }
@@ -93,9 +94,9 @@ function EditPageDoc({ navigation, route }) {
       <View style={styles.header}></View>
       <Image
         style={styles.avatar}
-        source={{ uri: "https://bootdey.com/img/Content/avatar/avatar6.png" }}
+        source={{ uri: doctor.image }}
       />
-      <TouchableOpacity style={styles.logout1} onPress={() => {}}>
+      <TouchableOpacity style={styles.logout1} onPress={() => {pickImage()}}>
         <MaterialCommunityIcons
           name="account-edit-outline"
           size={40}
@@ -112,23 +113,23 @@ function EditPageDoc({ navigation, route }) {
             style={styles.name}
             placeholder="First Name"
             key="firstName"
-            value={data.firstName}
+            value={doctor.firstName}
             name="firstName"
-            onChangeText={(text) => setData({ ...data, firstName: text })}
+            onChangeText={(text) => setDoctor({ ...doctor, firstName: text })}
           ></TextInput>
           <TextInput
             style={styles.name}
             placeholder="last Name"
             key="last Name"
-            value={data.lastName}
+            value={doctor.lastName}
             name="lastname"
-            onChangeText={(text) => setData({ ...data, lastName: text })}
+            onChangeText={(text) => setDoctor({ ...doctor, lastName: text })}
           ></TextInput>
           <TextInput
             style={styles.info}
-            onChangeText={(email) => setData({ ...data, email: email })}
+            onChangeText={(email) => setDoctor({ ...doctor, email: email })}
           >
-            {data.email}
+            {doctor.email}
           </TextInput>
 
           <Text>password :</Text>
@@ -145,11 +146,11 @@ function EditPageDoc({ navigation, route }) {
             <TextInput
               style={styles.description}
               onChangeText={(phoneNumber) =>
-                setData({ ...data, phoneNumber: phoneNumber })
+                setDoctor({ ...doctor, phoneNumber: phoneNumber })
               }
               keyboardType="numeric"
-              placeholder={data.phoneNumber}
-              defaultValue={data.phoneNumber}
+              placeholder={doctor.phoneNumber}
+              defaultValue={doctor.phoneNumber}
             ></TextInput>
           </View>
           <Text>Adress :</Text>
@@ -157,7 +158,7 @@ function EditPageDoc({ navigation, route }) {
             <TextInput
               style={styles.description}
               onChangeText={(last) => console.log("haha")}
-              defaultValue={data.age}
+              defaultValue={doctor.age}
             ></TextInput>
           </View>
 
