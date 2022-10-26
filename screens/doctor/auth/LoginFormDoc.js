@@ -5,8 +5,11 @@ import {
   TouchableOpacity,
   Text,
   ScrollView,
+  Pressable,
 } from "react-native";
 import React, { useState } from "react";
+import { useTogglePasswordVisibility } from "../../../hooks/TogglePassword";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import axios from "axios";
 import LottieView from "lottie-react-native";
 import link from "../../../Adress";
@@ -15,6 +18,8 @@ import link from "../../../Adress";
 export default function LoginForm({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { passwordVisibility, rightIcon, handlePasswordVisibility } =
+    useTogglePasswordVisibility();
   const [id, setid] = useState("");
 
   //login function (get doctor by email and check the password)
@@ -32,9 +37,9 @@ export default function LoginForm({ navigation }) {
       console.log(res);
       //alert the doctor to check his credentials
       if (res.data.message !== "welcome Back") {
-        alert("Please check your credentials"); 
-      } 
-      //accept the emal and password and navigate to doc home screen 
+        alert("Please check your credentials");
+      }
+      //accept the emal and password and navigate to doc home screen
       else {
         console.log(res.data);
         alert("welcome back");
@@ -50,12 +55,13 @@ export default function LoginForm({ navigation }) {
   //login screen
   return (
     <ScrollView style={styles.container1}>
+      <LottieView
+        style={styles.logo}
+        source={require("../../../assets/lf30_editor_ny61x23y.json")}
+        autoPlay
+      />
       <View style={styles.container}>
-        <LottieView
-          style={styles.logo}
-          source={require("../../../assets/lf30_editor_ny61x23y.json")}
-          autoPlay
-        />
+      <Text  style={styles.titleofApp}>Quick Care</Text>
         <View style={styles.inputView}>
           <TextInput
             styles={styles.TextInput}
@@ -65,15 +71,23 @@ export default function LoginForm({ navigation }) {
           ></TextInput>
         </View>
         <View style={styles.inputView}>
-          <TextInput
-            styles={styles.TextInput}
-            placeholder="Password"
-            secureTextEntry={true}
-            placeholderTextColor="black"
-            onChangeText={(password) => setPassword(password)}
-          ></TextInput>
+          <View style={styles.inputViewPassword}>
+            <TextInput
+              styles={styles.TextInput}
+              placeholder="Password"
+              secureTextEntry={passwordVisibility}
+              placeholderTextColor="black"
+              onChangeText={(password) => setPassword(password)}
+            ></TextInput>
+            <Pressable style={styles.eye} onPress={handlePasswordVisibility}>
+              <MaterialCommunityIcons
+                name={rightIcon}
+                size={22}
+                color="#44b3cc"
+              />
+            </Pressable>
+          </View>
         </View>
-
         <TouchableOpacity>
           <Text style={styles.forgot_button}>Forgot Password?</Text>
         </TouchableOpacity>
@@ -107,9 +121,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   //styling
-  img: {
-    justifyContent: "center",
-  },
+
   inputView: {
     backgroundColor: "#F6F6F6",
     borderRadius: 30,
@@ -131,6 +143,8 @@ const styles = StyleSheet.create({
   forgot_button: {
     height: 30,
     marginBottom: 30,
+    fontSize: 18,
+    color: "#44b3cc",
   },
 
   loginBtn: {
@@ -139,21 +153,36 @@ const styles = StyleSheet.create({
     height: 50,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 40,
+    marginTop: 20,
     backgroundColor: "#44b3cc",
-    marginTop: 80,
+    marginTop: 10,
   },
   container1: {
     flex: 1,
     backgroundColor: "#ffffff",
   },
   logo: {
-    width: 150,
-    height: 200,
+    width: 200,
+    height: 250,
     top: 10,
     borderRadius: 0,
+    left: 28,
   },
-  loginText:{
-    color:"#ffffff"
+  loginText: {
+    color: "#ffffff",
+  },
+  eye: {
+    left: 40,
+    top: 5,
+ 
+  },
+  inputViewPassword: {
+    display: "flex",
+    flexDirection: "row",
+  },
+    titleofApp:{
+    fontSize:50,
+    paddingBottom:20,
+    color:"#046B82"
   }
 });

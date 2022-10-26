@@ -58,7 +58,7 @@
 //           </Table>
 //         </View>
 //       </SafeAreaView>
-    
+
 //     </>
 //   );
 // }
@@ -75,7 +75,7 @@ import {
   View,
   SafeAreaView,
   FlatList,
- RefreshControl,
+  RefreshControl,
   TouchableOpacity,
 } from "react-native";
 import React, { useEffect } from "react";
@@ -167,7 +167,6 @@ export default HCERequests;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 50,
   },
   item: {
     backgroundColor: "#ffffff",
@@ -176,7 +175,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
     borderRadius: 5,
     borderColor: "#077871",
-    borderWidth: 1,
+    borderWidth: 150,
     borderRadius: 40,
     justifyContent: "center",
     alignItems: "center",
@@ -196,10 +195,10 @@ const styles = StyleSheet.create({
     width: 120,
     margin: 20,
     justifyContent: "center",
-    alignItems: "center", 
+    alignItems: "center",
   },
-  fontStyle:{
-    color: "#ffffff"
+  fontStyle: {
+    color: "#ffffff",
   },
   touch: {
     justifyContent: "center",
