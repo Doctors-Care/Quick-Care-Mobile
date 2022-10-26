@@ -160,10 +160,10 @@ const Tabt = createMaterialTopTabNavigator();
 
 function Notifications({ route }) {
   return (
-    <Tabt.Navigator>
+    <Tabt.Navigator
+      style={styles.topNavBar}>
       <Tabt.Screen
-        name="In progress
-        "
+        name="In progress"
         component={TreatedReq}
         initialParams={{ id: route.params.id }}
       />
@@ -274,4 +274,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  topNavBar:{
+    paddingTop:50
+  }
 });
