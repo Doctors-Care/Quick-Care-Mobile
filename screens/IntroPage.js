@@ -20,6 +20,7 @@ function Welcome({ navigation }) {
           source={require("../assets/lf30_editor_jtjspivo.json")}
           autoPlay
         />
+        <Text  style={styles.titleofApp}>Quick Care</Text>
               <Text style={styles.TextTuto}>
                 Make emergency call with one click
               </Text>
@@ -126,10 +127,8 @@ const styles = StyleSheet.create({
     paddingLeft: 50,
   },
   tuto: {
-    width: 162
-    
-    ,
-    height: 360,
+    width: 130,
+    height: 250,
     top: 10,
     Button: 300,
     marginRight: 50,
@@ -138,6 +137,9 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color:"#077871",
   },
+  titleofApp:{
+    fontSize:50
+  }
 });
 
 export default Welcome;

@@ -111,8 +111,10 @@ function Emergency({ navigation, route }) {
       .catch((error) => console.log(error));
   };
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+    <View style={{ flex: 1, alignItems: "center" }}>
+      <Text style={styles.Title1}>Quick Care</Text>
       <Text style={styles.Title1}>Emergency</Text>
+      <View style={{ flex: 1,justifyContent:"center", alignItems: "center" }}>
       <TouchableOpacity
         style={styles.emergencyButton}
         onPress={() => {
@@ -124,6 +126,7 @@ function Emergency({ navigation, route }) {
           source={require("../../../assets/urgence.png")}
         />
       </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -219,10 +222,12 @@ const styles = StyleSheet.create({
     borderColor: "red",
     borderRadius: 300,
     backgroundColor: "red",
+    
   },
   Title1: {
+    top:50,
     fontSize: 50,
-    padding: "10%",
+ 
     color: "#077871",
   },
 });

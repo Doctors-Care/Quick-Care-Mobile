@@ -2,7 +2,6 @@ import {
   StyleSheet,
   TextInput,
   View,
-  Image,
   TouchableOpacity,
   Text,
   Pressable,
@@ -68,6 +67,7 @@ export default function LoginPageForUser({ navigation }) {
         autoPlay
       />
       <View style={styles.container}>
+      <Text  style={styles.titleofApp}>Quick Care</Text>
         <View style={styles.inputView}>
           <TextInput
             styles={styles.TextInput}
@@ -85,11 +85,11 @@ export default function LoginPageForUser({ navigation }) {
               placeholderTextColor="black"
               onChangeText={(password) => setPassword(password)}
             ></TextInput>
-            <Pressable onPress={handlePasswordVisibility}>
+            <Pressable style={styles.eye} onPress={handlePasswordVisibility}>
               <MaterialCommunityIcons
                 name={rightIcon}
                 size={22}
-                color="#232323"
+                color="#077871"
               />
             </Pressable>
           </View>
@@ -98,7 +98,7 @@ export default function LoginPageForUser({ navigation }) {
           <Text style={styles.forgot_button}>Forgot Password?</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate("Registration")}>
-          <Text style={styles.forgot_button}>Register ?</Text>
+          <Text style={styles.forgot_button}>Signup here</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.loginBtn} onPress={() => login()}>
           <Text style={styles.loginText}>Login</Text>
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 150,
+
   },
   inputView: {
     backgroundColor: "#F6F6F6",
@@ -137,6 +137,8 @@ const styles = StyleSheet.create({
   forgot_button: {
     height: 30,
     marginBottom: 30,
+    fontSize: 18,
+    color: "#077871",
   },
 
   loginBtn: {
@@ -150,11 +152,11 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   logo: {
-    width: 150,
-    height: 200,
+    width: 200,
+    height: 250,
     top: 10,
     borderRadius: 0,
-    left: 40,
+    left: 28,
   },
   inputViewPassword: {
     display: "flex",
@@ -167,4 +169,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#ffffff",
   },
+  eye: {
+    left: 40,
+    top: 5,
+  },
+  titleofApp:{
+    fontSize:50,
+    paddingBottom:20
+  }
 });
