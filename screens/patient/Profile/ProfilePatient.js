@@ -51,6 +51,7 @@ function ProfilePatient({navigation,route}){
               <Text style={styles.description}>{Patient.adress}</Text>
               <Text style={styles.description}>{Patient.age}</Text>
               <Text style={styles.description}>{Patient.gender}</Text>
+              <Text style={styles.description}>{Patient.chronicDiseases}</Text>
               <TouchableOpacity
           style={styles.loginBtn}
           onPress={() =>{navigation.navigate("EditProfilePatient",{patient:Patient})}}
@@ -108,12 +109,12 @@ const styles = StyleSheet.create({
     borderColor:"#077871"
   },
   info:{
-    fontSize:16,
+    fontSize:20,
     color: "#00BFFF",
     marginTop:10
   },
   description:{
-    fontSize:16,
+    fontSize:23,
     color: "#696969",
     marginTop:10,
     textAlign: 'center'
