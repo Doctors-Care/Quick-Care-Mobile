@@ -68,19 +68,15 @@ function DoctorChat() {
                 placeholder="    Write your message here              "
                 placeholderTextColor="black"
               ></TextInput>
-            <TouchableOpacity
-              onPress={() => sendMessage()}
-              
-              >
-              <MaterialCommunityIcons
-           
-           name="send-outline"
-           size={40}
-           color={"#44b3cc"}
-           marginTop={20}
-           />
-            </TouchableOpacity>
-           </View>
+              <TouchableOpacity onPress={() => sendMessage()}>
+                <MaterialCommunityIcons
+                  name="send-outline"
+                  size={20}
+                  color={"#44b3cc"}
+                  marginTop={20}
+                />
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </View>
@@ -178,9 +174,9 @@ const styles = StyleSheet.create({
     color: "#ffffff",
     fontSize: 18,
   },
-  sendArea:{
-    flexDirection:"row",
-    width:360,
-  }
+  sendArea: {
+    flexDirection: "row",
+    width: 360,
+  },
 });
 export default DoctorChat;
