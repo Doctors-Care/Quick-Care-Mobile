@@ -180,7 +180,7 @@ function EditPageDoc({ navigation, route }) {
               update();
               navigation.dispatch(
                 CommonActions.navigate({
-                  name: "DoctorProfile",
+                  name: "DoctorNav",
                   params: { id: route.params.doctor.id },
                 })
               );
@@ -200,7 +200,7 @@ const styles = StyleSheet.create({
   },
   header: {
     backgroundColor: "#44b3cc",
-    height: 120,
+    height: 200,
   },
   avatar: {
     width: 130,
@@ -211,7 +211,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     alignSelf: "center",
     position: "absolute",
-    marginTop: 60,
+    marginTop: 130,
   },
   name: {
     fontSize: 22,

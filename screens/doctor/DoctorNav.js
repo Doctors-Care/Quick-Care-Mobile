@@ -283,6 +283,7 @@ const styles = StyleSheet.create({
   },
   boxText:{
     padding:4,
-    fontSize:20
+    fontSize:20,
+    color: "#046B82",
   }
 });

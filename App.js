@@ -148,7 +148,7 @@ export default function App() {
         />
         <Stack.Screen name="AcceptedDoctor" component={AcceptedDoctor} />
         <Stack.Screen name="History" component={History} />
-        <Stack.Screen name="EditPageDoc" component={EditPageDoc} />
+        <Stack.Screen name="EditPageDoc"  options={{ headerShown: false }} component={EditPageDoc} />
         <Stack.Screen name="DetailsForDoctor"
              options={{
               title: "Details ",
