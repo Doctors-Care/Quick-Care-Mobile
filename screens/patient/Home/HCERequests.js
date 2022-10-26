@@ -58,7 +58,7 @@
 //           </Table>
 //         </View>
 //       </SafeAreaView>
-    
+
 //     </>
 //   );
 // }
@@ -75,25 +75,26 @@ import {
   View,
   SafeAreaView,
   FlatList,
- RefreshControl,
+  RefreshControl,
   TouchableOpacity,
 } from "react-native";
 import React, { useEffect } from "react";
 import { useState, useCallback } from "react";
 import link from "../../../Adress";
-
-const TreatedReq = ({ route, navigation }) => {
+import moment from "moment";
+const HCERequests = ({ route, navigation }) => {
   const [data, setData] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
   const onRefresh = React.useCallback(async () =>{
         setRefreshing(true);
-    fetch(`${link}/request/getAllofOnePatient`, {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    })
+        fetch(`${link}/request/getAllHceOfOnePatient`, {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(Request),
+        })
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -104,12 +105,16 @@ const TreatedReq = ({ route, navigation }) => {
   }, [refreshing]);
 
   useEffect(() => {
-    fetch(`${link}/request/getAllOKRequests`, {
-      method: "GET",
+    const Request = {
+      id: route.params.id,
+    };
+    fetch(`${link}/request/getAllHceOfOnePatient`, {
+      method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
+      body: JSON.stringify(Request),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -121,43 +126,43 @@ const TreatedReq = ({ route, navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <FlatList
-        data={data}
-        renderItem={({ item, index }) => (
-          <View style={styles.item}>
-            <TouchableOpacity style={styles.touch}>
-              <Text style={styles.data}>Request :{index + 1}</Text>
-              <Text style={styles.data}>{item.description}</Text>
-              <Text>{item.createdAt}</Text>
+    <FlatList
+      data={data}
+      renderItem={({ item, index }) => (
+        <View style={styles.item}>
+          <TouchableOpacity style={styles.touch}>
+            <Text style={styles.data}>Request :{index + 1}</Text>
+            <Text style={styles.data}>{item.description}</Text>
+            <Text>{moment(item.createdAt).format('LL')}</Text>
 
-              <View style={styles.buttonContainer}>
-                <TouchableOpacity
-                  style={styles.button}
-                  title="Accept"
-                  onPress={() =>
-                    navigation.navigate("Done", {
-                      id: item.patientId,
-                      requestId: item.id,
-                      doctorId: route.params.id,
-                    })
-                  }
-                >
-                  <Text style={styles.fontStyle}>details</Text>
-                </TouchableOpacity>
-              </View>
-            </TouchableOpacity>
-          </View>
-        )}
-        keyExtractor={(item) => item.id}
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }
-      />
-    </SafeAreaView>
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity
+                style={styles.button}
+                title="Accept"
+                onPress={() =>
+                  navigation.navigate("Done", {
+                    id: item.patientId,
+                    requestId: item.id,
+                    doctorId: route.params.id,
+                  })
+                }
+              >
+                <Text style={styles.fontStyle}>details</Text>
+              </TouchableOpacity>
+            </View>
+          </TouchableOpacity>
+        </View>
+      )}
+      keyExtractor={(item) => item.id}
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }
+    />
+  </SafeAreaView>
   );
 };
 
-export default TreatedReq;
+export default HCERequests;
 
 const styles = StyleSheet.create({
   container: {
