@@ -139,7 +139,8 @@ const Tabt = createMaterialTopTabNavigator();
 
 function Requests({ route }) {
   return (
-    <Tabt.Navigator>
+    <Tabt.Navigator
+    style={styles.navigationBar1}>
       <Tabt.Screen
         name="HCE Requests"
         component={HCERequests}
@@ -231,4 +232,7 @@ const styles = StyleSheet.create({
  
     color: "#077871",
   },
+  navigationBar1:{
+    paddingTop:50
+  }
 });

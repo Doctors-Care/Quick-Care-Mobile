@@ -17,8 +17,6 @@ import { CommonActions } from "@react-navigation/native";
 import link from "../../Adress";
 
 function EditPageDoc({ navigation, route }) {
- 
-
   const [data, setData] = useState({
     firstName: "",
     lastName: "",
@@ -26,12 +24,11 @@ function EditPageDoc({ navigation, route }) {
     phoneNumber: "",
     adress: "",
     disponibility: "",
-    image: ""
+    image: "",
   });
 
-
   useEffect(() => {
-    console.log (route.params)
+    console.log(route.params);
     axios
       .post(`${link}/doctor/getOne`, {
         id: route.params.doctor.id,
@@ -45,51 +42,51 @@ function EditPageDoc({ navigation, route }) {
     axios
       .put(`${link}/doctor/update`, data)
       .then((result) => {
-        console.log(result)
+        console.log(result);
         setData(result.data);
       })
-      .catch((err) => console.log(err,data));
+      .catch((err) => console.log(err, data));
   };
   let pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
       aspect: [4, 3],
-      base64: true
+      base64: true,
     });
 
-   
-  //   //   setFile(result.uri)
-  if (!result.cancelled) {
-    setImage( result.uri )
-    
-    let base64Img = `data:image/jpg;base64,${result.base64}`
-    
-    let apiUrl = 'https://api.cloudinary.com/v1_1/dtwuychif/image/upload';
+    //   //   setFile(result.uri)
+    if (!result.cancelled) {
+      setImage(result.uri);
 
-    let data = {
-      "file": base64Img,
-      "upload_preset": 'gaoi5z2y',
+      let base64Img = `data:image/jpg;base64,${result.base64}`;
+
+      let apiUrl = "https://api.cloudinary.com/v1_1/dtwuychif/image/upload";
+
+      let data = {
+        file: base64Img,
+        upload_preset: "gaoi5z2y",
+      };
+
+      fetch(apiUrl, {
+        body: JSON.stringify(data),
+        headers: {
+          "content-type": "application/json",
+        },
+        method: "POST",
+      })
+        .then(async (r) => {
+          let info = await r.json();
+          console.log(info.secure_url);
+          setData({ ...data, image: info.secure_url });
+          axios
+            .put(`${link}/doctor/update`, data)
+            .then((a) => console.log("done"))
+            .catch((err) => console.log(err));
+          setImage(data.secure_url);
+        })
+        .catch((err) => console.log(err));
     }
-
-    fetch(apiUrl, {
-      body: JSON.stringify(data),
-      headers: {
-        'content-type': 'application/json'
-      },
-      method: 'POST',
-    }).then(async r => {
-        let info = await r.json()
-        console.log(info.secure_url)
-        setData({...data, image: info.secure_url})
-        axios
-      .put(`${link}/doctor/update`, data)
-      .then((a) => console.log("done"))
-      .catch((err) => console.log(err));
-        setImage( data.secure_url ) 
-    }).catch(err=>console.log(err))
-}
-  }
-
+  };
 
   return (
     <ScrollView>
@@ -98,6 +95,14 @@ function EditPageDoc({ navigation, route }) {
         style={styles.avatar}
         source={{ uri: "https://bootdey.com/img/Content/avatar/avatar6.png" }}
       />
+      <TouchableOpacity style={styles.logout1} onPress={() => {}}>
+        <MaterialCommunityIcons
+          name="account-edit-outline"
+          size={40}
+          color={"#000000"}
+        />
+        <Text style={styles.loginText}>Edit</Text>
+      </TouchableOpacity>
       <View style={styles.body}>
         <View
           style={styles.bodyContent}
@@ -119,10 +124,13 @@ function EditPageDoc({ navigation, route }) {
             name="lastname"
             onChangeText={(text) => setData({ ...data, lastName: text })}
           ></TextInput>
-          <TextInput style={styles.info}
-           onChangeText={(email) => setData({ ...data, email: email })}
-          >{data.email}</TextInput>
-     
+          <TextInput
+            style={styles.info}
+            onChangeText={(email) => setData({ ...data, email: email })}
+          >
+            {data.email}
+          </TextInput>
+
           <Text>password :</Text>
           {/* <View style={styles.containerForEdit}>
             <TextInput
@@ -136,7 +144,9 @@ function EditPageDoc({ navigation, route }) {
           <View style={styles.containerForEdit}>
             <TextInput
               style={styles.description}
-              onChangeText={(phoneNumber) => setData({ ...data, phoneNumber: phoneNumber })}
+              onChangeText={(phoneNumber) =>
+                setData({ ...data, phoneNumber: phoneNumber })
+              }
               keyboardType="numeric"
               placeholder={data.phoneNumber}
               defaultValue={data.phoneNumber}
@@ -150,7 +160,7 @@ function EditPageDoc({ navigation, route }) {
               defaultValue={data.age}
             ></TextInput>
           </View>
-        
+
           <View style={styles.containerForEdit}>
             {/* <Dropdown
               style={styles.dropdown}
@@ -164,14 +174,17 @@ function EditPageDoc({ navigation, route }) {
               }}
             /> */}
           </View>
-          <TouchableOpacity style={styles.confirm}
-          onPress={()=>{update();
-            navigation.dispatch(
-              CommonActions.navigate({
-                  name: 'DoctorProfile',
-                  params: {id: route.params.doctor.id},
+          <TouchableOpacity
+            style={styles.confirm}
+            onPress={() => {
+              update();
+              navigation.dispatch(
+                CommonActions.navigate({
+                  name: "DoctorProfile",
+                  params: { id: route.params.doctor.id },
                 })
-          )}}
+              );
+            }}
           >
             <MaterialCommunityIcons name="check" size={50} color={"#44b3cc"} />
           </TouchableOpacity>
