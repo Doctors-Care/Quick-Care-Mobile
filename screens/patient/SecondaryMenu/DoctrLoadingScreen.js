@@ -21,7 +21,7 @@ function DoctorLoadingScreen({ navigation, route }) {
       .then((result) => {
         console.log(result);
         if (result.data === "waiting") {
-          requestAccepted(),
+         setTimeout( requestAccepted(),5000),
             console.log("--*-------------------------------->", "waiting");
         } else navigation.navigate("AcceptedDoctor", { Doctor: result.data });
       })

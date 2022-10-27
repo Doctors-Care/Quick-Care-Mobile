@@ -33,23 +33,24 @@ console.log("hetha l mrith ",route);
     const ActifRequest = { id: route.params.id };
     axios.post(`${link}/request/checkRequest`, ActifRequest).then((result) => {
       console.log(result);
-      if (result.data === 'waiting') { requestAccepted(),console.log('--*-------------------------------->',"waiting") }
+      if (result.data === 'waiting') {setTimeout(requestAccepted(),5000),console.log('--*-------------------------------->',"waiting") }
       else navigation.navigate("EmergencyAccepted", { Hce: result.data }).catch((err) =>
         console.log(err))
     }).catch((err)=>console.log(err))
   }
   return (
     <View style={styles.container}>
-      <Text>Loading</Text>
       <LottieView
         style={styles.lottie}
         source={require("../../../assets/4096-heal.json")}
         autoPlay
       />
-      <Text>Your emergency will be treated as soon as possible</Text>
-      <TouchableOpacity
-        onPress={() => requestAccepted()}
-      ><Text>kbngf</Text></TouchableOpacity>
+      <Text style={styles.Text}>Your emergency </Text>
+      <Text style={styles.Text}>will be treated </Text>
+      <Pressable 
+      onPress={()=>{navigation.navigate("EmergencyAccepted")}}>
+      <Text style={styles.Text}>as soon as possible </Text>
+      </Pressable>
     </View>
   );
 }
@@ -68,6 +69,11 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: "#ffffff"
+  },
+  Text:{
+    fontSize:20,
+    justifyContent:"center",
+    alignItems:"center"
   }
 
 });

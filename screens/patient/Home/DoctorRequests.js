@@ -88,27 +88,31 @@ import {
     const [refreshing, setRefreshing] = useState(false);
     const onRefresh = React.useCallback(async () =>{
           setRefreshing(true);
+          const Request = {
+            id: route.params.id,
+          };
           fetch(`${link}/request/getAllDocOfOnePatient`, {
-            method: "POST",
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(Request),
-          })
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(Request),
+      })
         .then((response) => response.json())
         .then((data) => {
           console.log(data);
           setData(data);
         })
         .catch((err) => console.error(err));
-      setRefreshing(false);
+        setRefreshing(false);
     }, [refreshing]);
   
     useEffect(() => {
         const Request = {
                   id: route.params.id,
                 };
+                console.log(route);
       fetch(`${link}/request/getAllDocOfOnePatient`, {
         method: "POST",
         headers: {
