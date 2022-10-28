@@ -20,7 +20,6 @@ import link from "../../../Adress";
 
 function EditProfilePatient({ navigation, route }) {
   const [firstname, setFirstName] = useState(route.params.patient.firstName);
-  const [file, setFile] = useState(null);
   const [image, setImage] = useState(route.params.patient.image);
   const [lastName, setLastName] = useState(route.params.patient.lastName);
   const [email, setEmail] = useState(route.params.patient.email);
@@ -235,7 +234,7 @@ function EditProfilePatient({ navigation, route }) {
         source={{ uri: image }}
       /> 
       <TouchableOpacity style={styles.editPicture} onPress={()=>pickImage()}>
-        <MaterialCommunityIcons name="image-edit" size={30} color={"#077871"} />
+        <MaterialCommunityIcons name="camera-outline" size={30} color={"#077871"} />
       </TouchableOpacity>
       <View style={styles.body}>
         <View
@@ -254,7 +253,6 @@ function EditProfilePatient({ navigation, route }) {
           >
             {lastName}
           </TextInput>
-          <TextInput style={styles.info}>{email}</TextInput>
           <Text>Email :</Text>
           <View style={styles.containerForEdit}>
             <TextInput
@@ -370,16 +368,10 @@ const styles = StyleSheet.create({
     color: "#696969",
     fontWeight: "600",
   },
-  info: {
-    fontSize: 16,
-    color: "#00BFFF",
-    marginTop: 10,
-    marginBottom: 10,
-  },
   description: {
     fontSize: 15,
     color: "#696969",
-    marginTop: 20,
+    marginTop: 10,
     marginBottom: 10,
     textAlign: "center",
     width: 300,
@@ -444,8 +436,8 @@ const styles = StyleSheet.create({
     borderRadius: 50,
   },
   editPicture:{
-paddingLeft:230,
-paddingTop:30
+paddingLeft:225,
+paddingTop:33
   }
 });
 

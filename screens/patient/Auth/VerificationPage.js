@@ -24,7 +24,7 @@ let verificatioBody ={
 }
 axios.post(`${link}/user/verify`,verificatioBody).then((result)=>{
 navigation.navigate("LoginForUser")
-alert('verified account')
+alert('thank you for joining Quick Care')
 })
 }
 

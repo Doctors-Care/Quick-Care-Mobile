@@ -32,15 +32,15 @@ export default function App() {
   const Stack = createNativeStackNavigator();
   return (
     <NavigationContainer>
-      <Stack.Navigator  initialRouteName="Welcome">       
-        <Stack.Screen 
-        //the welcome page
+      <Stack.Navigator initialRouteName="Welcome">
+        <Stack.Screen
+          //the welcome page
           name="Welcome"
           component={Welcome}
           options={{ headerShown: false }}
         />
         <Stack.Screen
-        //login for user screen
+          //login for user screen
           name="LoginForUser"
           options={{
             title: "Welcome",
@@ -55,20 +55,22 @@ export default function App() {
           }}
           component={LoginPageForUser}
         />
-        <Stack.Screen name="Registration" 
-              options={{
-                title: "Registration",
-                headerStyle: {
-                  backgroundColor: "#077871",
-                },
-                headerTintColor: "#fff",
-                headerTitleAlign: "center",
-                headerTitleStyle: {
-                  fontWeight: "bold",
-                },}}
-        //login for doctor screen
-        component={RegistrationForUser}
-         />
+        <Stack.Screen
+          name="Registration"
+          options={{
+            title: "Registration",
+            headerStyle: {
+              backgroundColor: "#077871",
+            },
+            headerTintColor: "#fff",
+            headerTitleAlign: "center",
+            headerTitleStyle: {
+              fontWeight: "bold",
+            },
+          }}
+          //login for doctor screen
+          component={RegistrationForUser}
+        />
         <Stack.Screen
           name="LoginFormDoctor"
           options={{
@@ -84,19 +86,21 @@ export default function App() {
           }}
           component={LoginFormDoctor}
         />
-        <Stack.Screen name="SignUpFormDoctor"
-              options={{
-                title: "Registration ",
-                headerStyle: {
-                  backgroundColor: "#44b3cc",
-                },
-                headerTintColor: "#fff",
-                headerTitleAlign: "center",
-                headerTitleStyle: {
-                  fontWeight: "bold",
-                },
-              }}
-         component={SignUpFormDoctor} />
+        <Stack.Screen
+          name="SignUpFormDoctor"
+          options={{
+            title: "Registration ",
+            headerStyle: {
+              backgroundColor: "#44b3cc",
+            },
+            headerTintColor: "#fff",
+            headerTitleAlign: "center",
+            headerTitleStyle: {
+              fontWeight: "bold",
+            },
+          }}
+          component={SignUpFormDoctor}
+        />
         <Stack.Screen
           name="DoctorNav"
           component={DoctorNav}
@@ -108,7 +112,7 @@ export default function App() {
           component={MyTabs}
           options={{ headerShown: false }}
         />
-        <Stack.Screen name="LoadingScreen" component={LoadingScreenEmergency} />
+        <Stack.Screen name="LoadingScreen" options={{ headerShown: false }} component={LoadingScreenEmergency} />
         <Stack.Screen name="EmergencyAccepted" component={EmergencyAccepted} />
         <Stack.Screen name="TrackAmbulance" component={TrackAmbulance} />
         <Stack.Screen name="ProfilePatient" component={ProfilePatient} />
@@ -118,21 +122,81 @@ export default function App() {
           options={{ headerShown: false }}
         />
         <Stack.Screen name="secondaryMenu" component={SecondaryMenu} />
-        <Stack.Screen name="DoctorRequest"
-               options={{
-                title: "Doctor at Home",
-                headerStyle: {
-                  backgroundColor: "#077871",
-                },
-                headerTintColor: "#fff",
-                headerTitleAlign: "center",
-                headerTitleStyle: {
-                  fontWeight: "bold",
-                },
-              }} component={DoctorRequest} />
-        <Stack.Screen name="Chat"
+        <Stack.Screen
+          name="DoctorRequest"
+          options={{
+            title: "Doctor at Home",
+            headerStyle: {
+              backgroundColor: "#077871",
+            },
+            headerTintColor: "#fff",
+            headerTitleAlign: "center",
+            headerTitleStyle: {
+              fontWeight: "bold",
+            },
+          }}
+          component={DoctorRequest}
+        />
+        <Stack.Screen
+          name="Chat"
+          options={{
+            title: "Chat with Doctor",
+            headerStyle: {
+              backgroundColor: "#077871",
+            },
+            headerTintColor: "#fff",
+            headerTitleAlign: "center",
+            headerTitleStyle: {
+              fontWeight: "bold",
+            },
+          }}
+          component={Chat}
+        />
+        <Stack.Screen
+          name="DoctorLoadingScreen"
+          options={{
+            title: "Accepted",
+            headerStyle: {
+              backgroundColor: "#077871",
+            },
+            headerTintColor: "#fff",
+            headerTitleAlign: "center",
+            headerTitleStyle: {
+              fontWeight: "bold",
+            },
+          }}
+          component={DoctorLoadingScreen}
+        />
+        <Stack.Screen name="AcceptedDoctor" component={AcceptedDoctor} />
+        <Stack.Screen name="History" component={History} />
+        <Stack.Screen
+          name="EditPageDoc"
+          options={{ headerShown: false }}
+          component={EditPageDoc}
+        />
+        <Stack.Screen
+          name="DetailsForDoctor"
+          options={{
+            title: "Details ",
+            headerStyle: {
+              backgroundColor: "#44b3cc",
+            },
+            headerTintColor: "#fff",
+            headerTitleAlign: "center",
+            headerTitleStyle: {
+              fontWeight: "bold",
+            },
+          }}
+          component={DetailsForDoctor}
+        />
+        <Stack.Screen name="AcceptedreaDetail" component={AcceptedreaDetail} />
+        <Stack.Screen
+          name="VerificationScreen"
+          component={VerificationScreen}
+        />
+        <Stack.Screen name="pharmacies" 
              options={{
-              title: "Chat with Doctor",
+              title: "Pharmacies",
               headerStyle: {
                 backgroundColor: "#077871",
               },
@@ -140,21 +204,9 @@ export default function App() {
               headerTitleAlign: "center",
               headerTitleStyle: {
                 fontWeight: "bold",
-              },}}
-         component={Chat} />
-        <Stack.Screen
-          name="DoctorLoadingScreen"
-          component={DoctorLoadingScreen}
-        />
-        <Stack.Screen name="AcceptedDoctor" component={AcceptedDoctor} />
-        <Stack.Screen name="History" component={History} />
-        <Stack.Screen name="EditPageDoc" component={EditPageDoc} />
-        <Stack.Screen name="DetailsForDoctor" component={DetailsForDoctor} />
-        <Stack.Screen name="AcceptedreaDetail" component={AcceptedreaDetail}/>
-        <Stack.Screen name="VerificationScreen" component={VerificationScreen}/>
-        <Stack.Screen name="pharmacies" component={Pharmacies}/>
-        <Stack.Screen name="Done" component={Done}/>
-
+              },
+            }}component={Pharmacies} />
+        <Stack.Screen name="Done" component={Done} />
       </Stack.Navigator>
     </NavigationContainer>
   );
