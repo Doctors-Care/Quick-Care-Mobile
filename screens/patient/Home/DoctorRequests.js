@@ -141,19 +141,6 @@ import {
                 <Text>{moment(item.createdAt).format('LL')}</Text>
   
                 <View style={styles.buttonContainer}>
-                  <TouchableOpacity
-                    style={styles.button}
-                    title="Accept"
-                    onPress={() =>
-                      navigation.navigate("Done", {
-                        id: item.patientId,
-                        requestId: item.id,
-                        doctorId: route.params.id,
-                      })
-                    }
-                  >
-                    <Text style={styles.fontStyle}>details</Text>
-                  </TouchableOpacity>
                 </View>
               </TouchableOpacity>
             </View>

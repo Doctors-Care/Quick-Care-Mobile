@@ -37,8 +37,7 @@ function Emergency({ navigation, route }) {
   const notificationListener = useRef();
   const responseListener = useRef();
    const [errorMsg, setErrorMsg] = useState(null);
-  const [latitude, setLatitude] = useState(0);
-  const [longitude, setLongitude] = useState(0);
+
 
   useEffect(() => {
     registerForPushNotificationsAsync().then((token) => {
@@ -104,17 +103,19 @@ function Emergency({ navigation, route }) {
   const createEmergency = async () => {
     let { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== "granted") {
-      setErrorMsg("Permission to access location was denied");
+      alert("Permission to access location was denied");
       return;
     }
 
     let location = await Location.getCurrentPositionAsync({});
+    let latitude = location.coords.latitude;
+    let longitude = location.coords.longitude;
     var Request = {
       email: route.params.email,
       status: "HCE",
       description: "alert",
-      latitude:location.coords.latitude,
-      longitude:location.coords.longitude,
+      latitude: latitude,
+      longitude: longitude,
     };
     axios
       .post(`${link}/request/addingRequest`, Request)

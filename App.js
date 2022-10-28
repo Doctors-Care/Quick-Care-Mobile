@@ -154,6 +154,17 @@ export default function App() {
         />
         <Stack.Screen
           name="DoctorLoadingScreen"
+          options={{
+            title: "Accepted",
+            headerStyle: {
+              backgroundColor: "#077871",
+            },
+            headerTintColor: "#fff",
+            headerTitleAlign: "center",
+            headerTitleStyle: {
+              fontWeight: "bold",
+            },
+          }}
           component={DoctorLoadingScreen}
         />
         <Stack.Screen name="AcceptedDoctor" component={AcceptedDoctor} />

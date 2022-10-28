@@ -76,6 +76,8 @@ setRefreshing(false);
                       id: item.patientId,
                       requestId: item.id,
                       doctorId: route.params.id,
+                      longitude:item.longitude,
+                      latitude:item.latitude
                     })
                   }
                 >

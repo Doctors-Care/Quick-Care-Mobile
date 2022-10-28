@@ -37,19 +37,10 @@ function DoctorLoadingScreen({ navigation, route }) {
         source={require("../../../assets/47137-doctor-and-health-symbols.json")}
         autoPlay
       />
-      <Text>Your Doctor Call will be treated as soon as possible</Text>
-      <TouchableOpacity
-        style={styles.CancelButton}
-        onPress={() => requestAccepted()}
-      >
-        <Text style={styles.buttonText}>Cancel</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => requestAccepted()}
-        style={styles.CancelButton}
-      >
-        <Text style={styles.buttonText}>Loading end</Text>
-      </TouchableOpacity>
+      <Text style={styles.Text}>Your Doctor Call will be treated </Text>
+      <Text style={styles.Text}>as soon as possible</Text>
+      <Text style={styles.Text}>you will receive a notification</Text>
+  
     </View>
   );
 }
@@ -71,5 +62,12 @@ const styles = StyleSheet.create({
     padding: "10%",
     color: "#077871",
   },
+    Text:{
+    fontSize:20,
+    justifyContent:"center",
+    alignItems:"center",
+    margin:20
+  }
+
 });
 export default DoctorLoadingScreen;

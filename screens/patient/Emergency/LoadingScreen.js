@@ -47,10 +47,8 @@ console.log("hetha l mrith ",route);
       />
       <Text style={styles.Text}>Your emergency </Text>
       <Text style={styles.Text}>will be treated </Text>
-      <Pressable 
-      onPress={()=>{navigation.navigate("EmergencyAccepted")}}>
       <Text style={styles.Text}>as soon as possible </Text>
-      </Pressable>
+
     </View>
   );
 }
