@@ -59,13 +59,14 @@ function ProfilePatient({ navigation, route }) {
             <Text style={styles.name}>
               {Patient.firstName} {Patient.lastName}
             </Text>
+            <View style={styles.box}>
             <Text style={styles.info}>{Patient.email}</Text>
-            <Text style={styles.description}>{Patient.phoneNumber}</Text>
-            <Text style={styles.description}>{Patient.createdAt}</Text>
-            <Text style={styles.description}>{Patient.adress}</Text>
-            <Text style={styles.description}>{Patient.age}</Text>
-            <Text style={styles.description}>{Patient.gender}</Text>
-            <Text style={styles.description}>{Patient.chronicDiseases}</Text>
+            <Text style={styles.description}>Phone Number : {Patient.phoneNumber}</Text>
+            <Text style={styles.description}>Address : {Patient.adress}</Text>
+            <Text style={styles.description}>Age : {Patient.age}</Text>
+            <Text style={styles.description}>Gender : {Patient.gender}</Text>
+            <Text style={styles.description}>Medical Records : {Patient.chronicDiseases}</Text>
+            </View>
           </View>
         </View>
         <View 
@@ -81,7 +82,7 @@ function ProfilePatient({ navigation, route }) {
               size={40}
               color={"#000000"}
               />
-            <Text style={styles.loginText}>Edit</Text>
+            <Text style={styles.loginText}> Edit</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.logout}
@@ -91,8 +92,8 @@ function ProfilePatient({ navigation, route }) {
               navigation.navigate("LoginForUser");
             }}
           >
-            <MaterialCommunityIcons name="logout" size={40} color={"#000000"} />
-            <Text style={styles.loginText}>log out</Text>
+            <MaterialCommunityIcons style={styles.logouticon} name="logout" size={40} color={"#000000"} />
+            <Text style={styles.loginText}>Log out</Text>
           </TouchableOpacity>
       </View>
       </View>
@@ -137,11 +138,11 @@ const styles = StyleSheet.create({
   },
   info: {
     fontSize: 20,
-    color: "#00BFFF",
+    color: "#077871",
     marginTop: 10,
   },
   description: {
-    fontSize: 23,
+    fontSize: 20,
     color: "#696969",
     marginTop: 10,
     textAlign: "center",
@@ -178,6 +179,20 @@ left:225
   },
   logout1:{
 left:50
+  },
+  logouticon:{
+    left:7
+  },
+  box:{
+    justifyContent:"flex-start",
+    borderWidth:2,
+    borderColor:"#077871",
+    alignItems:"baseline",
+    width:330,
+    height:350,
+    margin:20,
+    padding:20,
+    borderRadius:20
   }
 });
 

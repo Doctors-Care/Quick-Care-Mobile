@@ -7,6 +7,7 @@ import {
   TextInput,
   Image,
   TouchableOpacity,
+  ScrollView,
 } from "react-native";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import * as Location from "expo-location";
@@ -70,6 +71,7 @@ function Done({ route }) {
   
 
   return (
+    <ScrollView>
     <View style={styles.container}>
       <Text style={styles.text}>First name :{patient.firstName}</Text>
       <Text style={styles.text}>Last name :{patient.lastName}</Text>
@@ -123,6 +125,7 @@ function Done({ route }) {
       ><Text>Mark as done</Text></TouchableOpacity>
       
     </View>
+    </ScrollView>
   );
 }
 const styles = StyleSheet.create({
