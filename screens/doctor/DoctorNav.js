@@ -65,8 +65,8 @@ setRefreshing(false);
         renderItem={({ item ,index }) => (
           <View style={styles.item}>
             <TouchableOpacity style={styles.touch}>
-              <Text>request :{index +1}</Text>
-              <Text>{item.description}</Text>
+              <Text style={styles.boxText}>request  : {index +1}</Text>
+              <Text style={styles.boxText}>{item.description}</Text>
               <View style={styles.buttonContainer}>
                 <TouchableOpacity
                   style={styles.button}
@@ -76,10 +76,12 @@ setRefreshing(false);
                       id: item.patientId,
                       requestId: item.id,
                       doctorId: route.params.id,
+                      longitude:item.longitude,
+                      latitude:item.latitude
                     })
                   }
                 >
-                  <Text>details</Text>
+                  <Text style={styles.buttonText}>Details</Text>
                 </TouchableOpacity>
               </View>
             </TouchableOpacity>
@@ -182,9 +184,10 @@ const DoctorNav = ({ route }) => {
     <Tab.Navigator
       initialRouteName="GetAllRequests"
       activeColor="#4169E1"
+      inactiveColor="#AFEEEE"
       labelStyle={{ fontSize: 12 }}
       barStyle={{ backgroundColor: "#44b3cc" }}
-      style={{ backgroundColor: "#4169E1" }}
+      style={{ backgroundColor: "#ffffff" }}
     >
       <Tab.Screen
         name="GetAllRequests"
@@ -193,7 +196,7 @@ const DoctorNav = ({ route }) => {
         options={{
           tabBarLabel: "Incoming ",
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="bell" color={color} size={26} />
+            <MaterialCommunityIcons name="bell-outline" color={color} size={26} />
           ),
         }}
       />
@@ -204,7 +207,7 @@ const DoctorNav = ({ route }) => {
         options={{
           tabBarLabel: "Treated",
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="archive" color={color} size={26} />
+            <MaterialCommunityIcons name="archive-outline" color={color} size={26} />
           ),
         }}
       />
@@ -215,7 +218,7 @@ const DoctorNav = ({ route }) => {
         options={{
           tabBarLabel: "Chat",
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="wechat" color={color} size={26} />
+            <MaterialCommunityIcons name="chat-outline" color={color} size={26} />
           ),
         }}
       />
@@ -226,7 +229,7 @@ const DoctorNav = ({ route }) => {
         options={{
           tabBarLabel: "Profile",
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="account" color={color} size={26} />
+            <MaterialCommunityIcons name="face-man-outline" color={color} size={26} />
           ),
         }}
       />
@@ -243,13 +246,13 @@ const styles = StyleSheet.create({
   },
   item: {
     backgroundColor: "#ffffff",
-    padding: 20,
-    marginVertical: 8,
+    padding: 10,
+    marginVertical: 5,
     marginHorizontal: 16,
     borderRadius: 5,
     borderColor: "#44b3cc",
     borderWidth: 1,
-    borderRadius: 40,
+    borderRadius: 20,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -265,8 +268,8 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: "#44b3cc",
     borderRadius: 20,
-    width: 120,
-    margin: 20,
+    width: 100,
+    margin: 10,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -276,5 +279,13 @@ const styles = StyleSheet.create({
   },
   topNavBar:{
     paddingTop:50
+  },
+  buttonText:{
+    color:"#ffffff"
+  },
+  boxText:{
+    padding:4,
+    fontSize:20,
+    color: "#046B82",
   }
 });

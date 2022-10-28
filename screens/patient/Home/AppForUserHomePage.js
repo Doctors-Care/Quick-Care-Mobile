@@ -20,6 +20,7 @@ import DocRequests from "./DoctorRequests";
 import Permissions from "expo-permissions";
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
+import * as Location from "expo-location";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -35,6 +36,8 @@ function Emergency({ navigation, route }) {
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
   const responseListener = useRef();
+   const [errorMsg, setErrorMsg] = useState(null);
+
 
   useEffect(() => {
     registerForPushNotificationsAsync().then((token) => {
@@ -98,10 +101,21 @@ function Emergency({ navigation, route }) {
   }
 
   const createEmergency = async () => {
+    let { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== "granted") {
+      alert("Permission to access location was denied");
+      return;
+    }
+
+    let location = await Location.getCurrentPositionAsync({});
+    let latitude = location.coords.latitude;
+    let longitude = location.coords.longitude;
     var Request = {
       email: route.params.email,
       status: "HCE",
       description: "alert",
+      latitude: latitude,
+      longitude: longitude,
     };
     axios
       .post(`${link}/request/addingRequest`, Request)
