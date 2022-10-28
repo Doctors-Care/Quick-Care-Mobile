@@ -121,7 +121,7 @@ import {
         },
         body: JSON.stringify(Request),
       })
-        .then((response) => response.json())
+        .then((response) =>{ response.json()})
         .then((data) => {
           console.log(data);
           setData(data);
@@ -133,18 +133,20 @@ import {
       <SafeAreaView style={styles.container}>
         <FlatList
           data={data}
-          renderItem={({ item, index }) => (
-            <View style={styles.item}>
+          renderItem={({ item, index }) => {
+           return (<View style={styles.item}>
               <TouchableOpacity style={styles.touch}>
                 <Text style={styles.data}>Request :{index + 1}</Text>
+                <Text style={styles.data}>Doctor: {item.Doctor.firstName} {item.Doctor.lastName}</Text>
                 <Text style={styles.data}>{item.description}</Text>
                 <Text>{moment(item.createdAt).format('LL')}</Text>
+                
   
                 <View style={styles.buttonContainer}>
                 </View>
               </TouchableOpacity>
             </View>
-          )}
+          )} }
           keyExtractor={(item) => item.id}
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
