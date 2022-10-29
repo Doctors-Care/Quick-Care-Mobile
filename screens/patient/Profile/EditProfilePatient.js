@@ -33,8 +33,8 @@ function EditProfilePatient({ navigation, route }) {
     route.params.patient.chronicDiseases
   );
   const data = [
-    { label: "male", value: "male" },
-    { label: "female", value: "female" },
+    { label: "Male", value: "male" },
+    { label: "Female", value: "female" },
     { label: "Other", value: "don't want to tell" },
   ];
 

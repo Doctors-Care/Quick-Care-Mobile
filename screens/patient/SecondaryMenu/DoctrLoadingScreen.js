@@ -20,10 +20,9 @@ function DoctorLoadingScreen({ navigation, route }) {
       .post(`${link}/request/checkDocRequest`, ActifRequest)
       .then((result) => {
         console.log(result);
-        if (result.data === "waiting") {
-         setTimeout( requestAccepted(),5000),
-            console.log("--*-------------------------------->", "waiting");
-        } else navigation.navigate("AcceptedDoctor", { Doctor: result.data });
+        if (result.data === "waiting") {setTimeout(() => {
+          requestAccepted()
+        }, 10000) } else navigation.navigate("AcceptedDoctor", { Doctor: result.data });
       })
       .catch((err) => {
         console.log(err);

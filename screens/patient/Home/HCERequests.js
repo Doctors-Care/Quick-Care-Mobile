@@ -127,15 +127,18 @@ const HCERequests = ({ route, navigation }) => {
       .catch((err) => console.error(err));
   }, []);
 
+
+
   return (
     <SafeAreaView style={styles.container}>
     <FlatList
       data={data}
-      renderItem={({ item, index }) => (
+      renderItem={({ item, index }) =>{console.log("item",item)
+      return (
         <View style={styles.item}>
           <TouchableOpacity style={styles.touch}>
             <Text style={styles.data}>Request :{index + 1}</Text>
-            <Text style={styles.data}>{item.description}</Text>
+            {item.hce !== null? <Text>{item.hce.name}</Text>: null }
             <Text>{moment(item.createdAt).format('LL')}</Text>
 
             <View style={styles.buttonContainer}>
@@ -143,7 +146,7 @@ const HCERequests = ({ route, navigation }) => {
             </View>
           </TouchableOpacity>
         </View>
-      )}
+      )}}
       keyExtractor={(item) => item.id}
       refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
