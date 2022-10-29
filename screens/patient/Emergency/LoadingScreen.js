@@ -34,7 +34,9 @@ console.log("hetha l mrith ",route);
     const ActifRequest = { id: route.params.id };
     axios.post(`${link}/request/checkRequest`, ActifRequest).then((result) => {
       console.log(result);
-      if (result.data === 'waiting') {setTimeout(requestAccepted,10000) }
+      if (result.data === 'waiting') {setTimeout(() => {
+        requestAccepted()
+      }, 10000) }
       else navigation.navigate("EmergencyAccepted", { Hce: result.data }).catch((err) =>
         console.log(err))
     }).catch((err)=>console.log(err))
