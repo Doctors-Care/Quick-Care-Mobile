@@ -21,6 +21,8 @@ function DetailsForDoctor({ route, navigation }) {
   const [latitude, setLatitude] = useState(0);
   const [longitude, setLongitude] = useState(0);
   const [patient, setPatient] = useState({});
+  const [Patientlatitude, setPatientLatitude] = useState(Number(route.params.latitude));
+  const [Patientlongitude, setPatientLongitude] = useState(Number(route.params.longitude));
 
   // const Locationget = () => {
   //     return {
@@ -32,7 +34,7 @@ function DetailsForDoctor({ route, navigation }) {
   const acceptDoctorCall = () => {
     let request = {
       id: route.params.requestId,
-      doctorId: route.params.doctorId
+      doctorId: route.params.doctorId,
     };
     axios
       .put(`${link}/request/putDoctorId`, request)
@@ -56,6 +58,7 @@ function DetailsForDoctor({ route, navigation }) {
       .catch((err) => console.log(err));
   };
   useEffect(() => {
+
     console.log(route);
     (async () => {
       getOne();
@@ -69,68 +72,67 @@ function DetailsForDoctor({ route, navigation }) {
       let location = await Location.getCurrentPositionAsync({});
       setLatitude(location.coords.latitude);
       setLongitude(location.coords.longitude);
-      console.log(location);
+      console.log(Patientlatitude,Patientlongitude);
       // setLocation({
       //     latitude: location.coords.latitude,
       //     longitude: location.coords.longitude,
       // });
     })();
-  }, []);
-
-
-  
-
-
-
-  
+  }, [Patientlatitude]);
 
   return (
     <ScrollView>
-    <View style={styles.container}>
-      <Text style={styles.text}>First name :{patient.firstName}</Text>
-      <Text style={styles.text}>Last name :{patient.lastName}</Text>
+      <View style={styles.container}>
+        <Text style={styles.text}>
+          {patient.firstName} {patient.lastName}
+        </Text>
 
-      <View style={styles.mapcontainer}>
-        <MapView
-          style={styles.map}
-          initialRegion={{
-            latitude: 36.894674,
-            longitude: 10.186805,
-            latitudeDelta: 0.02,
-            longitudeDelta: 0.03,
-          }}
-          provider={PROVIDER_GOOGLE}
-        >
-          <Marker
-            coordinate={{ latitude: latitude, longitude: longitude }}
-            title="i m here"
-            description="emergency"
-          >
-            <Image
-              source={require("../../assets/urgence.png")}
-              style={{ height: 35, width: 35 }}
-            />
-          </Marker>
-          <Marker
-            coordinate={{
-              latitude: 36.898674,
-              longitude: 10.186805,
+        <View style={styles.mapcontainer}>
+          <MapView
+            style={styles.map}
+            initialRegion={{
+              latitude: Patientlatitude,
+              longitude: Patientlongitude,
+              latitudeDelta: 0.02,
+              longitudeDelta: 0.03,
             }}
-          ></Marker>
-        </MapView>
+            provider={PROVIDER_GOOGLE}
+          >
+            <Marker
+              coordinate={{ latitude: latitude, longitude: longitude }}
+              title="i m here"
+              description="emergency"
+            >
+              <Image
+                source={require("../../assets/urgence.png")}
+                style={{ height: 35, width: 35 }}
+              />
+            </Marker>
+            <Marker
+              coordinate={{
+                latitude:Patientlatitude,
+                longitude: Patientlongitude,
+              }}
+            ></Marker>
+          </MapView>
+        </View>
+        <View style={styles.BoxForText}>
+          <Text style={styles.text}>Diseases : {patient.chronicDiseases}</Text>
+          <Text style={styles.text}>Phone Number: {patient.phoneNumber}</Text>
+          <Text style={styles.text}>Gender : {patient.gender}</Text>
+          <Text style={styles.text}>Age :{patient.age}</Text>
+        </View>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+            acceptDoctorCall();
+            navigation.navigate("AcceptedreaDetail", { id: route.params.id });
+          }}
+        >
+          <Text style={styles.textinButton}>Take in charge</Text>
+        </TouchableOpacity>
       </View>
-      <Text style={styles.text}>{patient.email}</Text>
-      <Text style={styles.text}>{patient.phoneNumber}</Text>
-      <Text style={styles.text}>{patient.age}</Text>
-      <Text style={styles.text}>{patient.chronicDiseases}</Text>
-      <Text style={styles.text}>{patient.gender}</Text>
-      <TouchableOpacity style={styles.button}
-      onPress={()=>{acceptDoctorCall();
-      navigation.navigate("AcceptedreaDetail", {id:route.params.id})
-      }}>
-        <Text style={styles.textinButton}>Take in charge</Text>
-      </TouchableOpacity>
-    </View></ScrollView>
+    </ScrollView>
   );
 }
 const styles = StyleSheet.create({
@@ -143,7 +145,7 @@ const styles = StyleSheet.create({
   mapcontainer: {
     width: 300,
     height: 300,
-    borderRadius: 120,
+    borderRadius: 20,
     borderWidth: 2,
     borderColor: "#44b3bb",
     alignItems: "center",
@@ -155,7 +157,7 @@ const styles = StyleSheet.create({
     height: "100%",
   },
   text: {
-    color: "#44b3cc",
+    color: "#046B82",
     fontSize: 20,
     padding: 10,
   },
@@ -173,5 +175,6 @@ const styles = StyleSheet.create({
     color: "#ffffff",
     fontSize: 20,
   },
+  BoxForText: {},
 });
 export default DetailsForDoctor;

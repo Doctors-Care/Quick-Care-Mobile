@@ -46,7 +46,7 @@ function EditPageDoc({ navigation, route }) {
         console.log("result",result.data);
         setDoctor(result.data);
       })
-      .catch((err) => console.log(err, data));
+      .catch((err) => console.log(err));
   };
   let pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -78,10 +78,10 @@ function EditPageDoc({ navigation, route }) {
           let info = await r.json();
           console.log("info",info.secure_url);
           setDoctor({ ...doctor, image: info.secure_url });
-          console.log("data",data);
+          console.log("data");
           axios
-            .put(`${link}/doctor/update`, data)
-            .then((a) => {console.log(a.data);setDoctor({...doctor, image:a.secure_url})})
+            .put(`${link}/doctor/update`, doctor)
+            .then((a) => {console.log("a",a.data);setDoctor({...doctor, image:a.secure_url})})
             .catch((err) => console.log(err));
           
         })
@@ -181,7 +181,7 @@ function EditPageDoc({ navigation, route }) {
               update();
               navigation.dispatch(
                 CommonActions.navigate({
-                  name: "DoctorProfile",
+                  name: "DoctorNav",
                   params: { id: route.params.doctor.id },
                 })
               );
@@ -201,7 +201,7 @@ const styles = StyleSheet.create({
   },
   header: {
     backgroundColor: "#44b3cc",
-    height: 120,
+    height: 200,
   },
   avatar: {
     width: 130,
@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     alignSelf: "center",
     position: "absolute",
-    marginTop: 60,
+    marginTop: 130,
   },
   name: {
     fontSize: 22,

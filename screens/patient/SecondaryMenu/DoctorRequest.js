@@ -9,18 +9,27 @@ import {
   ScrollView,
 } from "react-native";
 import link from "../../../Adress";
+import * as Location from "expo-location";
 
 function DoctorRequest({ navigation, route }) {
   const [idrequest, setidrequest] = useState("");
   const [description, setDescription] = useState("");
-  const createDoctorrequest = () => {
-    console.log(route);
+  const createDoctorrequest = async () => {
+    let { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== "granted") {
+      alert("Permission to access location was denied");
+      return;
+    }
+    let location = await Location.getCurrentPositionAsync({});
+    let latitude = location.coords.latitude;
+    let longitude = location.coords.longitude;
     const Request = {
       email: route.params.email,
       status: "Doctor",
       description: description,
+      latitude: latitude,
+      longitude: longitude,
     };
-    console.log(Request);
     axios
       .post(`${link}/request/addingRequest`, Request)
       .then((result) => {
