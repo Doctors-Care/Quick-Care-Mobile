@@ -137,7 +137,7 @@ import {
            return (<View style={styles.item}>
               <TouchableOpacity style={styles.touch}>
                 <Text style={styles.data}>Request :{index + 1}</Text>
-                <Text style={styles.data}>Doctor: {item.Doctor.firstName} {item.Doctor.lastName}</Text>
+               {item.Doctor !== null? <Text style={styles.data}>Doctor: {item.Doctor.firstName} {item.Doctor.lastName}</Text>: null }
                 <Text style={styles.data}>{item.description}</Text>
                 <Text>{moment(item.createdAt).format('LL')}</Text>
                 

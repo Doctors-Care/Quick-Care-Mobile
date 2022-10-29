@@ -113,7 +113,18 @@ export default function App() {
           options={{ headerShown: false }}
         />
         <Stack.Screen name="LoadingScreen" options={{ headerShown: false }} component={LoadingScreenEmergency} />
-        <Stack.Screen name="EmergencyAccepted" component={EmergencyAccepted} />
+        <Stack.Screen name="EmergencyAccepted" 
+                  options={{
+                    title: "Accepted",
+                    headerStyle: {
+                      backgroundColor: "#077871",
+                    },
+                    headerTintColor: "#fff",
+                    headerTitleAlign: "center",
+                    headerTitleStyle: {
+                      fontWeight: "bold",
+                    },
+                  }}component={EmergencyAccepted} />
         <Stack.Screen name="TrackAmbulance" component={TrackAmbulance} />
         <Stack.Screen name="ProfilePatient" component={ProfilePatient} />
         <Stack.Screen

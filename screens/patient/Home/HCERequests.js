@@ -127,6 +127,8 @@ const HCERequests = ({ route, navigation }) => {
       .catch((err) => console.error(err));
   }, []);
 
+
+
   return (
     <SafeAreaView style={styles.container}>
     <FlatList
@@ -136,7 +138,7 @@ const HCERequests = ({ route, navigation }) => {
         <View style={styles.item}>
           <TouchableOpacity style={styles.touch}>
             <Text style={styles.data}>Request :{index + 1}</Text>
-            <Text style={styles.data}>{item.hce.name}</Text>
+            {item.hce !== null? <Text>{item.hce.name}</Text>: null }
             <Text>{moment(item.createdAt).format('LL')}</Text>
 
             <View style={styles.buttonContainer}>
