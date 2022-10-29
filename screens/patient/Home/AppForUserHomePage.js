@@ -3,7 +3,6 @@ import {
   Text,
   View,
   StyleSheet,
-  Pressable,
   TouchableOpacity,
   Image,
 } from "react-native";
@@ -17,10 +16,10 @@ import { useState, useRef, useEffect } from "react";
 import link from "../../../Adress";
 import HCERequests from "./HCERequests";
 import DocRequests from "./DoctorRequests";
-import Permissions from "expo-permissions";
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
 import * as Location from "expo-location";
+import LottieView from "lottie-react-native";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -37,9 +36,12 @@ function Emergency({ navigation, route }) {
   const notificationListener = useRef();
   const responseListener = useRef();
    const [errorMsg, setErrorMsg] = useState(null);
+   const [latitude,setLatitude]=useState(0);
+   const [longitude,setLongitude]=useState(0)
 
 
   useEffect(() => {
+    localisation()
     registerForPushNotificationsAsync().then((token) => {
       setExpoPushToken(token);
     });
@@ -60,6 +62,17 @@ function Emergency({ navigation, route }) {
       Notifications.removeNotificationSubscription(responseListener.current);
     };
   }, []);
+async function localisation(){
+  let { status } = await Location.requestForegroundPermissionsAsync();
+  if (status !== "granted") {
+    alert("Permission to access location was denied");
+    return;
+  }
+
+  let location = await Location.getCurrentPositionAsync({});
+  setLatitude( location.coords.latitude);
+  setLongitude( location.coords.longitude);
+}
 
   async function registerForPushNotificationsAsync() {
     let token;
@@ -101,15 +114,7 @@ function Emergency({ navigation, route }) {
   }
 
   const createEmergency = async () => {
-    let { status } = await Location.requestForegroundPermissionsAsync();
-    if (status !== "granted") {
-      alert("Permission to access location was denied");
-      return;
-    }
 
-    let location = await Location.getCurrentPositionAsync({});
-    let latitude = location.coords.latitude;
-    let longitude = location.coords.longitude;
     var Request = {
       email: route.params.email,
       status: "HCE",
@@ -126,10 +131,15 @@ function Emergency({ navigation, route }) {
       .catch((error) => console.log(error));
   };
   return (
-    <View style={{ flex: 1, alignItems: "center" }}>
+    <View style={{ flex: 1, alignItems: "center",justifyContent:"center" }}>
       <Text style={styles.Title1}>Quick Care</Text>
       <Text style={styles.Title1}>Emergency</Text>
       <View style={{ flex: 1,justifyContent:"center", alignItems: "center" }}>
+        <LottieView
+     style={styles.Arrow}
+     source={require("../../../assets/RedArrow.json")}
+     autoPlay
+   />
       <TouchableOpacity
         style={styles.emergencyButton}
         onPress={() => {
@@ -248,5 +258,9 @@ const styles = StyleSheet.create({
   },
   navigationBar1:{
     paddingTop:50
+  },
+  Arrow:{
+    width:100,
+    height:100
   }
 });

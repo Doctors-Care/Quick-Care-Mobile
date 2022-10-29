@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -14,15 +14,25 @@ import * as Location from "expo-location";
 function DoctorRequest({ navigation, route }) {
   const [idrequest, setidrequest] = useState("");
   const [description, setDescription] = useState("");
-  const createDoctorrequest = async () => {
+  const [latitude,setLatitude]=useState(0);
+  const [longitude,setLongitude]=useState(0)
+
+  useEffect(() => {
+    localisation()
+  })
+  async function localisation(){
     let { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== "granted") {
       alert("Permission to access location was denied");
       return;
     }
+  
     let location = await Location.getCurrentPositionAsync({});
-    let latitude = location.coords.latitude;
-    let longitude = location.coords.longitude;
+    setLatitude( location.coords.latitude);
+    setLongitude( location.coords.longitude);
+  }
+
+  const createDoctorrequest = async () => {
     const Request = {
       email: route.params.email,
       status: "Doctor",
@@ -57,7 +67,7 @@ function DoctorRequest({ navigation, route }) {
 
             <TouchableOpacity
               style={styles.loginBtn}
-              onPress={() => createDoctorrequest()}
+              onPress={createDoctorrequest}
             >
               <Text style={styles.loginText}>confirm</Text>
             </TouchableOpacity>

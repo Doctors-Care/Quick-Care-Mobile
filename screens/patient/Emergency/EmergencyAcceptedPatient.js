@@ -14,9 +14,9 @@ function EmergencyAccepted({ navigation, route }) {
         } />
       <TouchableOpacity
         style={styles.CancelButton}
-        onPress={() => navigation.navigate('TrackAmbulance')}
+        onPress={() => navigation.navigate('Emergency')}
       >
-        <Text style={styles.buttonText}>Track Your Ambulance</Text>
+        <Text style={styles.buttonText}>Cancel</Text>
       </TouchableOpacity>
     </View>
   );
