@@ -47,6 +47,7 @@ const TreatedReq = ({ route, navigation }) => {
       })
       .catch((err) => console.error(err));
   }, []);
+  //
 
   return (
     <SafeAreaView style={styles.container}>
