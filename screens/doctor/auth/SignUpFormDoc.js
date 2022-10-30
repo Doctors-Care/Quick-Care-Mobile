@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   Text,
   Pressable,
-  ScrollView
+  ScrollView,
 } from "react-native";
 import React, { useState } from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -28,8 +28,6 @@ export default function SignUpForm({ navigation }) {
   const { passwordVisibility, rightIcon, handlePasswordVisibility } =
     useTogglePasswordVisibility();
 
-
-
   const register = async () => {
     try {
       const NewDoctor = {
@@ -40,15 +38,18 @@ export default function SignUpForm({ navigation }) {
         phoneNumber: PhoneNumber,
         licenseNumber: LicenseNumber,
         adress: address,
-        disponibility:true
+        disponibility: true,
       };
-      await axios.post(
-      `${link}/doctor/addDoctor`,
-        NewDoctor,
-        {
+   axios
+        .post(`${link}/doctor/addDoctor`, NewDoctor, {
           withCredentials: true,
-        }
-      );
+        })
+        .then((doctor) => {
+          navigation.navigate("VerificationForDoctor", { id: doctor.data.Doctors.id });console.log(doctor)
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     } catch (err) {
       alert("user already exist");
       console.log(err);
@@ -58,12 +59,12 @@ export default function SignUpForm({ navigation }) {
   return (
     <ScrollView style={styles.container1}>
       <View style={styles.container}>
-      <LottieView
+        <LottieView
           style={styles.logo}
           source={require("../../../assets/lf30_editor_ny61x23y.json")}
           autoPlay
         />
-         <View style={styles.NameStyle}>
+        <View style={styles.NameStyle}>
           <View style={styles.viewforInputName}>
             <TextInput
               styles={styles.TextInput}
@@ -132,12 +133,11 @@ export default function SignUpForm({ navigation }) {
             onChangeText={(address) => setaddress(address)}
           ></TextInput>
         </View>
-        <TouchableOpacity style={styles.loginBtn} onPress={register}
-        onPressOut={()=>navigation.navigate('LoginFormDoctor')}>
+        <TouchableOpacity style={styles.loginBtn} onPress={register}>
           <Text style={styles.textButton}>Register</Text>
         </TouchableOpacity>
       </View>
-      </ScrollView>
+    </ScrollView>
   );
 }
 const styles = StyleSheet.create({
@@ -146,7 +146,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
-
   },
   inputView: {
     backgroundColor: "#F6F6F6",
@@ -207,7 +206,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     marginHorizontal: 10,
   },
-  textButton:{
-color:"#ffffff"
+  textButton: {
+    color: "#ffffff",
   },
 });

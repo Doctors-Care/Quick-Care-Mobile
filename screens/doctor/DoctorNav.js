@@ -18,6 +18,7 @@ import link from "../../Adress";
 import DoctorChat from "../patient/SecondaryMenu/doctorChat";
 import TreatedReq from "./TreatedReq";
 import Done from "./Done";
+import moment from "moment/moment";
 
 const GetAllRequests = ({ navigation, route }) => {
   const [data, setData] = useState([]);
@@ -60,6 +61,8 @@ setRefreshing(false);
 
   return (
     <SafeAreaView style={styles.container}>
+      <View style={styles.container1}>
+      <Text style={styles.title1}>Actif request</Text></View>
       <FlatList
         data={data}
         renderItem={({ item ,index }) => (
@@ -137,6 +140,7 @@ function History({ navigation, route }) {
 
   return (
     <SafeAreaView style={styles.container}>
+  
       <FlatList
         data={data}
         renderItem={({ item, index }) => (
@@ -144,7 +148,7 @@ function History({ navigation, route }) {
             <TouchableOpacity style={styles.touch}>
               <Text style={styles.data}>Request :{index + 1}</Text>
               <Text style={styles.data}>{item.description}</Text>
-              <Text>{item.createdAt}</Text>
+              <Text>{moment(item.createdAt).format('MMMM Do YYYY, h:mm:ss a')}</Text>
 
               <View style={styles.buttonContainer}></View>
             </TouchableOpacity>
@@ -243,6 +247,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: 50,
+    justifyContent:"center",
+   
   },
   item: {
     backgroundColor: "#ffffff",
@@ -257,7 +263,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   title: {
-    justifyContent: "center",
     fontSize: 32,
   },
   buttonContainer: {
@@ -287,5 +292,14 @@ const styles = StyleSheet.create({
     padding:4,
     fontSize:20,
     color: "#046B82",
+  },
+  title1: {
+    fontSize: 35,
+    color:"#44b3cc"
+  },
+  container1:{
+    alignItems:"center",
+    justifyContent:"center",
+    padding:10
   }
 });

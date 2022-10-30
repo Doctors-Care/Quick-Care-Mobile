@@ -94,16 +94,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  loginBtn: {
-    width: "90%",
-    borderRadius: 25,
-    height: 50,
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 40,
-    backgroundColor: "#44b3cc",
-    marginTop: 20,
-  },
   loginText: {
     color: "white",
   },
@@ -126,7 +116,7 @@ const styles = StyleSheet.create({
     right: 13,
   },
   TextInput: {
-    height: 200,
+    height: "100%",
     flex: 1,
     padding: 20,
     marginLeft: 20,
@@ -140,7 +130,7 @@ const styles = StyleSheet.create({
   },
   containerForMessage: {
     width: 350,
-    height: 400,
+    height: 290,
   },
   messages: {
     borderWidth: 3,
@@ -153,7 +143,7 @@ const styles = StyleSheet.create({
   inputView: {
     borderWidth: 2,
     borderColor: "#00BFFF",
-    width: "90%",
+    width: "100%",
     height: 70,
     borderRadius: 50,
     textAlign: "center",

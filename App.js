@@ -26,6 +26,7 @@ import AcceptedreaDetail from "./screens/doctor/AcceptedReaDetail";
 import VerificationScreen from "./screens/patient/Auth/VerificationPage";
 import Pharmacies from "./screens/patient/SecondaryMenu/Pharmacies";
 import Done from "./screens/doctor/Done";
+import VerificationScreenForDoc from "./screens/doctor/auth/VerificationScreenForDoctor";
 
 export default function App() {
   //creating the Stack navigation
@@ -112,19 +113,26 @@ export default function App() {
           component={MyTabs}
           options={{ headerShown: false }}
         />
-        <Stack.Screen name="LoadingScreen" options={{ headerShown: false }} component={LoadingScreenEmergency} />
-        <Stack.Screen name="EmergencyAccepted" 
-                  options={{
-                    title: "Accepted",
-                    headerStyle: {
-                      backgroundColor: "#077871",
-                    },
-                    headerTintColor: "#fff",
-                    headerTitleAlign: "center",
-                    headerTitleStyle: {
-                      fontWeight: "bold",
-                    },
-                  }}component={EmergencyAccepted} />
+        <Stack.Screen
+          name="LoadingScreen"
+          options={{
+            title: "Loading",
+            headerStyle: {
+              backgroundColor: "#077871",
+            },
+            headerTintColor: "#fff",
+            headerTitleAlign: "center",
+            headerTitleStyle: {
+              fontWeight: "bold",
+            },
+          }}
+          component={LoadingScreenEmergency}
+        />
+        <Stack.Screen
+          name="EmergencyAccepted"
+          options={{ headerShown: false }}
+          component={EmergencyAccepted}
+        />
         <Stack.Screen name="TrackAmbulance" component={TrackAmbulance} />
         <Stack.Screen name="ProfilePatient" component={ProfilePatient} />
         <Stack.Screen
@@ -200,24 +208,61 @@ export default function App() {
           }}
           component={DetailsForDoctor}
         />
-        <Stack.Screen name="AcceptedreaDetail" component={AcceptedreaDetail} />
+        <Stack.Screen name="AcceptedreaDetail" 
+                 options={{
+                  title: "Patient details ",
+                  headerStyle: {
+                    backgroundColor: "#44b3cc",
+                  },
+                  headerTintColor: "#fff",
+                  headerTitleAlign: "center",
+                  headerTitleStyle: {
+                    fontWeight: "bold",
+                  },
+                }}component={AcceptedreaDetail} />
         <Stack.Screen
           name="VerificationScreen"
           component={VerificationScreen}
         />
-        <Stack.Screen name="pharmacies" 
-             options={{
-              title: "Pharmacies",
-              headerStyle: {
-                backgroundColor: "#077871",
-              },
-              headerTintColor: "#fff",
-              headerTitleAlign: "center",
-              headerTitleStyle: {
-                fontWeight: "bold",
-              },
-            }}component={Pharmacies} />
-        <Stack.Screen name="Done" component={Done} />
+        <Stack.Screen
+          name="pharmacies"
+          options={{
+            title: "Pharmacies",
+            headerStyle: {
+              backgroundColor: "#077871",
+            },
+            headerTintColor: "#fff",
+            headerTitleAlign: "center",
+            headerTitleStyle: {
+              fontWeight: "bold",
+            },
+          }}
+          component={Pharmacies}
+        />
+        <Stack.Screen name="Done"
+         options={{
+          title: "Request Done ",
+          headerStyle: {
+            backgroundColor: "#44b3cc",
+          },
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}  component={Done} />
+        <Stack.Screen name='VerificationForDoctor'
+                options={{
+                  title: "Verification ",
+                  headerStyle: {
+                    backgroundColor: "#44b3cc",
+                  },
+                  headerTintColor: "#fff",
+                  headerTitleAlign: "center",
+                  headerTitleStyle: {
+                    fontWeight: "bold",
+                  },
+                }} component={VerificationScreenForDoc}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

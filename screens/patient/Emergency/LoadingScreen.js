@@ -4,6 +4,7 @@ import axios from 'axios';
 import link from '../../../Adress';
 import { useEffect, useState } from 'react';
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 
 
@@ -43,6 +44,7 @@ console.log("hetha l mrith ",route);
   }
   return (
     <View style={styles.container}>
+      <TouchableOpacity><MaterialCommunityIcons></MaterialCommunityIcons></TouchableOpacity>
       <LottieView
         style={styles.lottie}
         source={require("../../../assets/4096-heal.json")}

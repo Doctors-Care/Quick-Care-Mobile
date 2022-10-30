@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import * as ImagePicker from "expo-image-picker"
+import * as ImagePicker from "expo-image-picker";
 import {
   StyleSheet,
   Text,
@@ -25,8 +25,8 @@ function EditPageDoc({ navigation, route }) {
     phoneNumber: "",
     adress: "",
     disponibility: "",
-    image: "https://bootdey.com/img/Content/avatar/avatar6.png",
-    id:""
+    image: "aaaaaaaaa",
+    id: "",
   });
 
   useEffect(() => {
@@ -43,7 +43,7 @@ function EditPageDoc({ navigation, route }) {
     axios
       .put(`${link}/doctor/update`, doctor)
       .then((result) => {
-        console.log("result",result.data);
+        console.log("result", result.data);
         setDoctor(result.data);
       })
       .catch((err) => console.log(err));
@@ -76,14 +76,17 @@ function EditPageDoc({ navigation, route }) {
       })
         .then(async (r) => {
           let info = await r.json();
-          console.log("info",info.secure_url);
-          setDoctor({ ...doctor, image: info.secure_url });
+          console.log("info", info.secure_url);
+          const x = { ...doctor, image: info.secure_url };
+          console.log(x);
           console.log("data");
           axios
             .put(`${link}/doctor/update`, doctor)
-            .then((a) => {console.log("a",a.data);setDoctor({...doctor, image:a.secure_url})})
+            .then((a) => {
+              console.log("a", a.data);
+              setDoctor(x);
+            })
             .catch((err) => console.log(err));
-          
         })
         .catch((err) => console.log(err));
     }
@@ -92,15 +95,17 @@ function EditPageDoc({ navigation, route }) {
   return (
     <ScrollView>
       <View style={styles.header}></View>
-      <Image
-        style={styles.avatar}
-        source={{ uri: doctor.image }}
-      />
-      <TouchableOpacity style={styles.logout1} onPress={() => {pickImage()}}>
+      <Image style={styles.avatar} source={{ uri: doctor.image }} />
+      <TouchableOpacity
+        style={styles.editPicture}
+        onPress={() => {
+          pickImage();
+        }}
+      >
         <MaterialCommunityIcons
-          name="account-edit-outline"
-          size={40}
-          color={"#000000"}
+          name="camera-outline"
+          size={30}
+          color={"#44b3cc"}
         />
         <Text style={styles.loginText}>Edit</Text>
       </TouchableOpacity>
@@ -132,16 +137,7 @@ function EditPageDoc({ navigation, route }) {
             {doctor.email}
           </TextInput>
 
-          <Text>password :</Text>
-          {/* <View style={styles.containerForEdit}>
-            <TextInput
-              style={styles.description}
-              secureTextEntry={true}
-              onChangeText={(text) => setData({ ...data, password: text })}
-              defaultValue={data.phoneNumber}
-            ></TextInput>
-          </View> */}
-          <Text>phoneNumber :</Text>
+          <Text>Phone Number :</Text>
           <View style={styles.containerForEdit}>
             <TextInput
               style={styles.description}
@@ -287,6 +283,10 @@ const styles = StyleSheet.create({
     borderColor: "#44b3cc",
     marginTop: 15,
     borderRadius: 50,
+  },
+  editPicture: {
+    paddingLeft: 225,
+    paddingTop: 33,
   },
 });
 
