@@ -112,6 +112,7 @@ function Done({ route }) {
       <Text style={styles.text}>{patient.chronicDiseases}</Text>
       <Text style={styles.text}>{patient.gender}</Text>
       <TouchableOpacity
+       style={styles.button}
       onPress={async()=>{
        await  axios
       .put(`${link}/request/markasdone`, {id :route.params.requestId})
@@ -123,7 +124,7 @@ function Done({ route }) {
       });
       alert("request avaible on history tab")
       }}      
-      ><Text>Mark as done</Text></TouchableOpacity>
+      ><Text style={styles.textinButton}>Mark as done</Text></TouchableOpacity>
       
     </View>
     </ScrollView>

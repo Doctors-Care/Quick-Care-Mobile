@@ -10,6 +10,7 @@ import {
 import React, { useEffect } from "react";
 import { useState, useCallback } from "react";
 import link from "../../Adress";
+import moment from "moment/moment";
 
 const TreatedReq = ({ route, navigation }) => {
   const [data, setData] = useState([]);
@@ -58,7 +59,7 @@ const TreatedReq = ({ route, navigation }) => {
             <TouchableOpacity style={styles.touch}>
               <Text style={styles.data}>Request :{index + 1}</Text>
               <Text style={styles.data}>{item.description}</Text>
-              <Text>{item.createdAt}</Text>
+              <Text>{moment(item.createdAt).format('MMMM Do YYYY, h:mm:ss a')}</Text>
 
               <View style={styles.buttonContainer}>
                 <TouchableOpacity

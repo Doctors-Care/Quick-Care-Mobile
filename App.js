@@ -208,7 +208,18 @@ export default function App() {
           }}
           component={DetailsForDoctor}
         />
-        <Stack.Screen name="AcceptedreaDetail" component={AcceptedreaDetail} />
+        <Stack.Screen name="AcceptedreaDetail" 
+                 options={{
+                  title: "Patient details ",
+                  headerStyle: {
+                    backgroundColor: "#44b3cc",
+                  },
+                  headerTintColor: "#fff",
+                  headerTitleAlign: "center",
+                  headerTitleStyle: {
+                    fontWeight: "bold",
+                  },
+                }}component={AcceptedreaDetail} />
         <Stack.Screen
           name="VerificationScreen"
           component={VerificationScreen}
@@ -228,7 +239,18 @@ export default function App() {
           }}
           component={Pharmacies}
         />
-        <Stack.Screen name="Done" component={Done} />
+        <Stack.Screen name="Done"
+         options={{
+          title: "Request Done ",
+          headerStyle: {
+            backgroundColor: "#44b3cc",
+          },
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}  component={Done} />
         <Stack.Screen name='VerificationForDoctor'
                 options={{
                   title: "Verification ",

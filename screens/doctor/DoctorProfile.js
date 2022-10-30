@@ -23,7 +23,7 @@ const DoctorProfile = ({ navigation, route }) => {
     address: "",
     speciality: "",
     status: "",
-    image: "",
+    image: "https://bootdey.com/img/Content/avatar/avatar6.png",
   });
   const [refreshing, setRefreshing] = useState(false);
   const onRefresh = React.useCallback(async () => {
@@ -86,6 +86,9 @@ const DoctorProfile = ({ navigation, route }) => {
             <Text style={styles.info}> Email : {doctor.email}</Text>
             <Text style={styles.description}>
               Phone Number : {doctor.phoneNumber}
+            </Text>
+            <Text style={styles.description}>
+              license Number : {doctor.licenseNumber}
             </Text>
           </View>
           <View style={styles.buttonContainer}>
